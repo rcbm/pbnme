@@ -71,8 +71,8 @@ input {
           //background: #FF5C33;
           //border: 5px solid #FF5C33;
           //background: #33CC33;
-          background: #009999;
-	  border: 30px solid #009999;
+          background: #304764;
+	  border: 30px solid #304764;
           font-family: helvetica;
           font-size: 20;
 	   
@@ -137,7 +137,8 @@ P.blocktext {
 	  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 	  font-size: 80;
 	  font-weight: bold;
-	  color: FF66CC;
+	  //color: FF66CC;
+	  color: FF0000;
 	  padding: 10px;
 	  margin-right: 0;
 }
