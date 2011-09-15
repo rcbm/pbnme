@@ -48,12 +48,28 @@
         position: fixed;
         left: 30px;
 }        
-input {
-          color: #FFFFFF;
-          background: #5cadff;
-          border: 5px solid #5cadff;
+.formElement {
+          color: #777777;
+          background: #DDDDDD;
+          border: 5px solid #DDDDDD;
           font-family: helvetica;
           font-size: 20;
+}
+.cancelButton {
+          color: #fffff;
+          background: #5CADFF;
+          border: 15px solid #5CADFF;
+          font-family: helvetica;
+          font-size: 20;
+	   
+}
+.createButton {
+          color: #fffff;
+          background: #33CC33;
+          border: 15px solid #33CC33;
+          font-family: helvetica;
+          font-size: 20;
+	   
 }
 .BodyText {
           font-family: helvetica;
@@ -64,7 +80,7 @@ input {
           margin-left: auto;
           margin-right: auto;
 }
-.save_query {
+.main_buttons {
           color: #fffff;
           //background: #3366CC;
           //border: 5px solid #3366CC;
@@ -133,23 +149,21 @@ P.blocktext {
           line-height: 150%;
 }
 .LogoText {
-          font-family: times, Times New Roman, times-roman, georgia, serif;
-	  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-	  font-size: 80;
+          font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	  font-size: 100;
 	  font-weight: bold;
-	  //color: FF66CC;
 	  color: FF0000;
 	  padding: 10px;
 	  margin-right: 0;
 }
 .HeaderText {
-          font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-	  font-size: 40;
-	  color: AAAAAA;
+          //font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	  font-family: helvetica;
+	  font-size: 45;
+	  color: 666666;
 	  padding: 10px;
 	  margin-right: 0;
-	  font-style: italic;
-
+	  //font-style: italic;
 }
 .Footer {
           font-family: times, Times New Roman, times-roman, georgia, serif;
@@ -159,14 +173,13 @@ P.blocktext {
 	  margin-right: 0;
           font-style: italic;
           font-style: italic;
-          margin-top: 100px;
+          margin-top: 200px;
           font-color: '#aaaaaa';
           text-align: center;
           margin-left: auto;
           margin-right: auto;
           width: 80%;
 }
-.footer-spacer { height:100px; }
 A:link {text-decoration: none;color: #AAAAAA;}
 A:visited {text-decoration: none;color: #AAAAAA;}
 A:active {text-decoration: none;color: #AAAAAA;}
