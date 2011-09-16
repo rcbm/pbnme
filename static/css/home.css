@@ -55,6 +55,14 @@
           font-family: helvetica;
           font-size: 20;
 }
+.joinButton {
+          color: #ffffff;
+          background: #5CADFF;
+          border: 10px solid #5CADFF;
+          font-family: helvetica;
+          font-size: 20;
+	   
+}
 .cancelButton {
           color: #fffff;
           background: #5CADFF;
@@ -80,15 +88,16 @@
           margin-left: auto;
           margin-right: auto;
 }
-.main_buttons {
+.mainButton {
           color: #fffff;
           //background: #3366CC;
           //border: 5px solid #3366CC;
           //background: #FF5C33;
           //border: 5px solid #FF5C33;
-          //background: #33CC33;
-          background: #304764;
-	  border: 30px solid #304764;
+          background: #33CC33;
+          border: 30px solid #33CC33;
+          //background: #304764;
+	  //border: 30px solid #304764;
           font-family: helvetica;
           font-size: 20;
 	   
@@ -152,9 +161,17 @@ P.blocktext {
           font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 	  font-size: 100;
 	  font-weight: bold;
-	  color: FF0000;
+	  //color: FF0000;
+	  color: 00bbcc;
 	  padding: 10px;
 	  margin-right: 0;
+}
+.eventHeader {
+          text-align: center;
+	  font-family: helvetica;
+	  font-size: 45;
+	  color: 666666;
+	  margin-bottom: 25px;
 }
 .HeaderText {
           //font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;

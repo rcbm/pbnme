@@ -1,3 +1,6 @@
+from google.appengine.dist import use_library
+use_library('django', '1.2')
+
 import os
 from main import *
 from google.appengine.ext import webapp
@@ -7,6 +10,7 @@ application = webapp.WSGIApplication([('/', MainPage),
                                       ('/event', EventPage),
                                       ('/home', MainPage),
                                       ('/user', UserPage),
+                                      ('/join', Join),
                                       ('/browse', Browse),
                                       ('/create', Create)],
                                      debug=True)

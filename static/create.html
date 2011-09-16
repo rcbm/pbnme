@@ -6,13 +6,14 @@
       </div>
       <div style='text-align: left;margin-left: auto;margin-right: auto;width:600'> 
 	<form action="/create" method="post" name="create" style="padding:20;"> 
-	  <input type="text" class='formElement' value="Enter the title of your event" onclick="value='';" name="title" style="width: 565px;" onKeyPress="checkEnter(event)"> 
-	  <textarea class='formElement' onclick="value='';" name="description" style="margin-top:20;width: 565px;height:200px;" onKeyPress="checkEnter(event)">Enter a brief description of your event
+	  <input type="text" class='formElement' value="Enter a funny title for your hangout" onfocus="value='';" onclick="value='';" name="title" style="width: 565px;" onKeyPress="checkEnter(event)"> 
+	  <input type="text" class='formElement' value="Where are you all going to hang?" onfocus="value='';" onclick="value='';" name="location" style="width: 565px;margin-top: 15" onKeyPress="checkEnter(event)"> 
+	  <textarea class='formElement' onfocus="value='';" onclick="value='';" name="description" style="margin-top:15;width: 565px;height:200px;" onKeyPress="checkEnter(event)">Enter a brief description of your event
 	  </textarea>
 	  <input class="createButton" style="margin-top: 20;margin-left: 0;margin-right:2px;color: ffffff;" onclick="window.location='document.form[0].submit()'" type="Submit" value="Create">
 	  <input class="cancelButton" style="margin-top: 20;margin-left: 0;margin-left:2px;color: ffffff;" onclick="window.location='/home'" type="Button" value="Cancel">
+	</form>
       </div> 
-      </form>
       <div class="Footer"><a href="/about">About</a>&nbsp;|&nbsp;<a href="/user">{{ linktext }}</a>&nbsp;|&nbsp;<a href="mailto:rogercosseboom@gmail.com">Email</a></div> 
     </body> 
 </html>

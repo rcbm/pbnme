@@ -14,4 +14,12 @@ class Event(db.Model):
     creator = db.UserProperty()
     title = db.StringProperty(default=None, required=True)
     description = db.StringProperty(default=None, required=True, multiline=True)
+    #members = db.ListProperty(str)
     members = db.ListProperty(users.User)
+    #members = db.ReferenceProperty(Members)
+
+'''
+class Members(db.Model):
+    members = db.ListProperty(db.Key)
+'''
+# need to make sure that members is a list of users (userids?)x
