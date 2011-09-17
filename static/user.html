@@ -2,13 +2,16 @@
   <head><title>guestlist</title>
     <link type="text/css" rel="stylesheet" href="/css/home.css"> 
     <body>  
-      <div class="HeaderText" style="text-align:right;margin-top:30px;position:relative;z-index:1;width:600;">List of Events:
-      </div>
       <div style='text-align: left;margin-left: auto;margin-right: auto;width:600'>
+	<div class="HeaderText" style="text-align:left;margin-top:30px;position:relative;z-index:1;width:600;">
+	You're logged in:<BR>
+      <a href="/">Home</a> | <a href="{{ logout }}">Logout</a> | <a href="/browse">Join</a> | <a href="/create">Create</a>
+      </div>
+      <b>Your events:</b>
 	<div class='ResultsText'>
 	  {% for event in events %}
-	  <a href="/event?key={{ event.key }}"><b>{{ event.title }}</b> started by {{ event.creator }}</a>
-	{% endfor %}
+	  <a href="/event?key={{ event.key }}"><b>{{ event.title }}</b> started by {{ event.creator }}</a><a href="/delete?key={{ event.key }}">[delete]</a>
+	  {% endfor %}
 	</div>
       </div>
       <div class="Footer"><a href="/about">About</a>&nbsp;|&nbsp;<a href="/user">{{ linktext }}</a>&nbsp;|&nbsp;<a href="mailto:rogercosseboom@gmail.com">Email</a></div> 

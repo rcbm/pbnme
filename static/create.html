@@ -1,14 +1,18 @@
 <html>
   <head><title>guestlist</title>
+    <script type="text/javascript" src="/javascript/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="/javascript/jquery-ui-1.7.3.custom.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/redmond/jquery-ui-1.7.3.custom.css"> 
     <link type="text/css" rel="stylesheet" href="/css/home.css"> 
     <body>  
       <div class="HeaderText" style="text-align:right;margin-top:30px;position:relative;z-index:1;width:600;">Create an Event:
       </div>
       <div style='text-align: left;margin-left: auto;margin-right: auto;width:600'> 
-	<form action="/create" method="post" name="create" style="padding:20;"> 
-	  <input type="text" class='formElement' value="Enter a funny title for your hangout" onfocus="value='';" onclick="value='';" name="title" style="width: 565px;" onKeyPress="checkEnter(event)"> 
-	  <input type="text" class='formElement' value="Where are you all going to hang?" onfocus="value='';" onclick="value='';" name="location" style="width: 565px;margin-top: 15" onKeyPress="checkEnter(event)"> 
-	  <textarea class='formElement' onfocus="value='';" onclick="value='';" name="description" style="margin-top:15;width: 565px;height:200px;" onKeyPress="checkEnter(event)">Enter a brief description of your event
+	<form action="/create" method="post" name="create" style="padding:20;">
+	  <input type="text" class='formElement' value="Enter a title for your hangout" onfocus="value='';" onclick="value='';" name="title" style="width: 565px;" onKeyPress="checkEnter(event)"> 
+	  <input type="text" class='formElement' value="Where are you all going to meet up?" onfocus="value='';" onclick="value='';" name="location" style="width: 565px;margin-top: 15" onKeyPress="checkEnter(event)"> 
+	  <textarea class='formElement' onfocus="value='';" onclick="value='';" name="description" style="margin-top:15;width: 565px;height:200px;" onKeyPress="checkEnter(event)">
+Is there anything else people need to know? (is there a cover or do people need tickets?)
 	  </textarea>
 	  <input class="createButton" style="margin-top: 20;margin-left: 0;margin-right:2px;color: ffffff;" onclick="window.location='document.form[0].submit()'" type="Submit" value="Create">
 	  <input class="cancelButton" style="margin-top: 20;margin-left: 0;margin-left:2px;color: ffffff;" onclick="window.location='/home'" type="Button" value="Cancel">
