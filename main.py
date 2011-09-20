@@ -4,13 +4,18 @@ THINGS TO-DO:
 * Break DeleteHandler into tasks
 * add hiding for non-owners, show a 'delete' group button on /user if zero-members in group
 
+[implement form validation]
 [Add Geolocation (http://diveintohtml5.org/geolocation.html)]
 [Add Facebook (http://developers.facebook.com/docs/reference/api/)]
 
-Fix datetime to drop instances of word 'next' and 'this' etc.
+Fix datetime
+  - change today to datetime.date.today()
+  - add datetime picker
+  - implement date/time ranges(i think they just subtract?)
+  
 Fix alignment issue w/ logo
 Add existing group checking for create()
-Add date conflict checking for create()
+Add date conflict check ing for create()
 Implement 'default-value' checking to create form in JS
 Make a safe-guard that if manually deleting an event (on the backend),
   the reference in the user-profiles is also deleted... maybe when a user loads their page?
@@ -154,13 +159,14 @@ class Create(webapp.RequestHandler):
             description = self.request.get('description')
             existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" % current_user.user_id()).get()
             now = datetime.datetime.now()
-            time = self.request.get('datetime')
+            time = self.request.get('time')
+            date = self.request.get('date')
             if existing_user:
                 event = Event(creator = current_user,
                               create_date = now,
                               title = title,
                               location = location,
-                              datetime = parser.parse(time),
+                              datetime = parser.parse('%s %s' %(date, time), fuzzy=True),
                               description = description,
                               members = [existing_user.key()])
                 event.put()
@@ -178,7 +184,7 @@ class Create(webapp.RequestHandler):
                               create_date = now,
                               title = title,
                               location = location,
-                              datetime = parser.parse(time),
+                              datetime = parser.parse('%s %s' %(date, time), fuzzy=True),
                               description = description,
                               members = [user_profile.key()])
                 event.put()
