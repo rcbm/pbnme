@@ -5,9 +5,10 @@
       <div class="HeaderText" style="text-align:right;margin-top:30px;position:relative;z-index:1;width:600;">List of Hangouts:
       </div>
       <div style='text-align: left;margin-left: auto;margin-right: auto;width:600'>
-	<div class='ResultsText'>
 	  {% for event in events %}
-	  <a href="/event?key={{ event.key }}"><b>{{ event.title }}</b> started by {{ event.creator }}</a>
+	<div class='ResultsText' style='background-color: {% cycle #EEE,#DDD %};'>
+	  <a href="/event?key={{ event.key }}"><b>{{ event.title }}</b> at <b>{{ event.location }}</b>, started by {{ event.creator }}</a>
+	</div>
 	{% endfor %}
 	</div>
       </div>

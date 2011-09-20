@@ -2,7 +2,9 @@
 THINGS TO-DO:
 -------------
 * Break DeleteHandler into tasks
+* Add date/time
 
+Add Facebook compatibility
 Fix alignment issue w/ logo
 Fix security hole for directly accessing *.html files
 Add existing group checking for create()
@@ -15,6 +17,7 @@ Show a 'delete' group button on /user if zero-members in group
 DONE
 -------------
 * Template out /browse
+* Add location to pages and db
 * Template out /user
 * Check to see if I don't already belong to an event, if so don't show 'join' button
 * Join button should be hidden when viewing a group you already belong to
@@ -48,16 +51,32 @@ class DeleteHandler(webapp.RequestHandler):
         
 class Join(webapp.RequestHandler):
     def get(self):
-        user = users.get_current_user()
-        if user:
+        current_user = users.get_current_user()
+        if current_user:
             key = self.request.get('key')
             event = db.get(key)
             user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" % users.get_current_user().user_id()).get()
-            user.events.append(db.Key(key))
-            user.put()
-            event.members.append(user.key())
-            event.put
-            self.redirect('/user')
+            # Make sure user isn't already part of the event
+            if user:
+                if user.key() not in event.members:
+                    user.events.append(db.Key(key))
+                    user.put()
+                    event.members.append(user.key())
+                    event.put()
+                    self.redirect('/user')
+            else:
+                now = datetime.datetime.now()
+                user_profile = User(user = current_user,
+                                    user_id = current_user.user_id(),
+                                    email = current_user.email(),
+                                    create_date = now,
+                                    last_date = now)
+                user_profile.put()
+                user_profile.events = [event.key()]
+                user_profile.put()
+                event.members.append(user.key())
+                event.put()
+                self.redirect('/user')
         else:
             self.redirect(users.create_login_url(self.request.uri))
 
@@ -130,7 +149,7 @@ class Create(webapp.RequestHandler):
                 event = Event(creator = current_user,
                               create_date = now,
                               title = title,
-                              locateion = location,
+                              location = location,
                               description = description,
                               members = [existing_user.key()])
                 event.put()
@@ -152,7 +171,7 @@ class Create(webapp.RequestHandler):
                               members = [user_profile.key()])
                 event.put()
                 # In order to have both the event and the user reference each other
-                # one has to be saved and then retrieved and saved again (so as to generate a key)
+                # one has to be saved and then retrieved and saved again (so as to generate a db.Key)
                 user_profile.events = [event.key()]
                 user_profile.put()
                 self.redirect("/event?key=%s" % event.key())
