@@ -88,16 +88,37 @@
           margin-left: auto;
           margin-right: auto;
 }
-.mainButton {
+.startButton {
           color: #fffff;
           //background: #3366CC;
           //border: 5px solid #3366CC;
           //background: #FF5C33;
           //border: 5px solid #FF5C33;
-          background: #33CC33;
-          border: 30px solid #33CC33;
           //background: #304764;
 	  //border: 30px solid #304764;
+          //background: #33CC33;
+          //border: 30px solid #33CC33;
+          #background: #BBBBBB;
+	  #border: 30px solid #BBBBBB;
+          background: #5CADFF;
+          border: 30px solid #5CADFF;
+          font-family: helvetica;
+          font-size: 20;
+}	      
+.browseButton {
+          color: #fffff;
+          //background: #3366CC;
+          //border: 5px solid #3366CC;
+          //background: #FF5C33;
+          //border: 5px solid #FF5C33;
+          //background: #304764;
+	  //border: 30px solid #304764;
+          //background: #33CC33;
+          //border: 30px solid #33CC33;
+          //background: #BBBBBB;
+	  //border: 30px solid #BBBBBB;
+	  background: #33CC33;
+          border: 30px solid #33CC33;
           font-family: helvetica;
           font-size: 20;
 	   
@@ -158,11 +179,13 @@ P.blocktext {
           line-height: 150%;
 }
 .LogoText {
-          font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+          //font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	  font-family: helvetica;
 	  font-size: 100;
 	  font-weight: bold;
 	  //color: FF0000;
-	  color: 00bbcc;
+	  //color: 00bbcc;
+	  color: #666;
 	  padding: 10px;
 	  margin-right: 0;
 }
@@ -170,7 +193,8 @@ P.blocktext {
           text-align: center;
 	  font-family: helvetica;
 	  font-size: 45;
-	  color: 666666;
+	  color: #666;
+	  font-weight:bold;
 	  margin-bottom: 25px;
 }
 .HeaderText {
@@ -181,6 +205,17 @@ P.blocktext {
 	  padding: 10px;
 	  margin-right: 0;
 	  //font-style: italic;
+}
+.subHeaderText {
+	  position:relative;
+          font-family: helvetica;
+          font-size: 18pt;
+          color: #777777;
+          text-align: left;
+          margin-top: 0px;
+	  margin-bottom: 0px;
+	  margin-left: 0%;
+	  padding: 10px;
 }
 .Footer {
           font-family: times, Times New Roman, times-roman, georgia, serif;

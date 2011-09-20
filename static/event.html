@@ -1,25 +1,27 @@
 <html>
-  <head><title>guestlist</title>
+  <head><title>appname</title>
     <link type="text/css" rel="stylesheet" href="/css/home.css"> 
     <body>  
-      <div style='text-align: left;margin-left: auto;margin-right: auto;width: 600;background: #DDDDDD;padding:20'>
 	<div class="eventHeader">
 	  {{ title }}
 	</div>
+      <div style='text-align: left;margin-left: auto;margin-right: auto;width: 600;background: #DDDDDD;padding:20'>
+	<div class="subHeaderText">
+	<B>Where its at:</b>&nbsp;{{ location }}<br>
+	<br>
 	<B>Description:</b><br>
 	{{ description }}<br>
 	<br>
-	<b>Users:</b><br>
+	<b>People coming:</b><br>
 	{% for user in members %}
 	{{ user.email }}<br>
 	{% endfor %}
-
 	{% if join_button %}
 	<div style='text-align:center;margin-top: 20;'>
 	  <input class="joinButton" style="margin-top: 20;color: ffffff;width:300" onclick="window.location='/join?key={{ key }}'" type="Button" value="Join">
 	</div>
 	{% endif %}
-
+	</div>
       </div>
       <div class="Footer"><a href="/about">About</a>&nbsp;|&nbsp;<a href="/user">{{ linktext }}</a>&nbsp;|&nbsp;<a href="mailto:rogercosseboom@gmail.com">Email</a></div> 
     </body> 

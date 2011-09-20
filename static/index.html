@@ -1,14 +1,18 @@
 <html> 
-  <head><title>guestlist</title> 
+  <head><title>appname</title> 
     <link type="text/css" rel="stylesheet" href="/css/home.css"> 
     <body>
-      <div class='LogoText' style="text-align: center;margin-left:auto;margin-right:auto;margin-top:100;width:100%;overflow:hidden">
-	guestlist
+      <div class='LogoText' style="text-align: center;margin-left: auto;margin-right: auto;margin-top: 100;width: 100%">
+	appname
       </div>
-      <div style='text-align: center;margin-top: 50px;margin-left: auto;margin-right: auto;width: 100%'> 
-        <span onclick='window.location = "/browse"' class='mainButton' style='font-weight:bold;color: ffffff;margin-right:5px;'>join a group</span> 
-	<span onclick='window.location = "/create"' class='mainButton' style='font-weight:bold;color: ffffff;margin-left:5px;'>create a group</span> 
+      <div class='ResultsText' style="font-size: 30;text-align: center;">
+	<B>appname</B> is the easiest way to find a group of people <br>to hang out with in real life, or start a group of your own!
+	<div style='text-align: center;margin-top: 50px;margin-left: auto;margin-right: auto;width: 100%'> 
+          <span onclick='window.location = "/browse"' class='browseButton' style='font-weight: bold;color: ffffff;margin-right: 5px;'>join a hangout</span> 
+	  <B>-or-</B>
+	  <span onclick='window.location = "/create"' class='startButton' style='font-weight:bold;color: ffffff;margin-left:5px;'>start a hangout</span> 
+	</div>
       </div>
       <div class="Footer"><a href="/about">About</a>&nbsp;|&nbsp;<a href="/user">{{ linktext }}</a>&nbsp;|&nbsp;<a href="mailto:rogercosseboom@gmail.com">Email</a></div> 
-    </body> 
+    </body>
 </html>

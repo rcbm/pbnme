@@ -13,8 +13,8 @@ class Event(db.Model):
     create_date = db.DateTimeProperty(default=None, required=True)
     creator = db.UserProperty()
     title = db.StringProperty(default=None, required=True)
+    location = db.StringProperty(default=None, required=True)
     description = db.StringProperty(default=None, required=True, multiline=True)
-    #members = db.ListProperty(users.User)
     members = db.ListProperty(db.Key)
     
 '''
