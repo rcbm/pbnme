@@ -3,16 +3,17 @@ THINGS TO-DO:
 -------------
 * Break DeleteHandler into tasks
 * Add date/time
+* add hiding for non-owners, show a 'delete' group button on /user if zero-members in group
 
-Add Facebook compatibility
+Add a number system for people who are going to an event
+Add Geolocation (http://diveintohtml5.org/geolocation.html)
+Add Facebook (http://developers.facebook.com/docs/reference/api/)
 Fix alignment issue w/ logo
-Fix security hole for directly accessing *.html files
 Add existing group checking for create()
 Add date conflict checking for create()
 Implement 'default-value' checking to create form in JS
 Make a safe-guard that if manually deleting an event (on the backend),
   the reference in the user-profiles is also deleted... maybe when a user loads their page?
-Show a 'delete' group button on /user if zero-members in group
 
 DONE
 -------------
@@ -22,6 +23,8 @@ DONE
 * Check to see if I don't already belong to an event, if so don't show 'join' button
 * Join button should be hidden when viewing a group you already belong to
   (check both event's members and user's events? -- these should not be out of sync)
+
+Fix security hole for directly accessing *.html files
 Change default-value in forms to change depending on FOCUS not on click
 Auto-Join people who create an event
 Change create() to redirect to event template
@@ -70,11 +73,10 @@ class Join(webapp.RequestHandler):
                                     user_id = current_user.user_id(),
                                     email = current_user.email(),
                                     create_date = now,
-                                    last_date = now)
+                                    last_date = now,
+                                    events = [event.key()])
                 user_profile.put()
-                user_profile.events = [event.key()]
-                user_profile.put()
-                event.members.append(user.key())
+                event.members.append(user_profile.key())
                 event.put()
                 self.redirect('/user')
         else:

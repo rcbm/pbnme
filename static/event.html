@@ -5,23 +5,37 @@
 	<div class="eventHeader">
 	  {{ title }}
 	</div>
-      <div style='text-align: left;margin-left: auto;margin-right: auto;width: 600;background: #DDDDDD;padding:20'>
+      <div style='text-align: left;margin-left: auto;margin-right: auto;width: 600;'>
+	<div style='background: #DDDDDD;padding:20'>
+	  <div class="subHeaderText">
+	    <B>Where its at:</b>&nbsp;{{ location }}<br>
+	    <br>
+	    <B>Description:</b><br>
+	    {{ description }}<br>
+	  </div>
+	</div>
+	
 	<div class="subHeaderText">
-	<B>Where its at:</b>&nbsp;{{ location }}<br>
-	<br>
-	<B>Description:</b><br>
-	{{ description }}<br>
-	<br>
-	<b>People coming:</b><br>
+	  <span class="memberNumber">{{ members|length }}</span>
+	  {% if members|length < 2 %}
+		<b>Person coming:</b>
+	  {% else %}
+		<b>People coming:</b>
+	  {% endif %}
+	</div>
+	
 	{% for user in members %}
-	{{ user.email }}<br>
+	<div class='ResultsText' style='background-color: {% cycle #EEE,#DDD %};'>
+	  {{ user.email }}
+	</div>
 	{% endfor %}
+
 	{% if join_button %}
 	<div style='text-align:center;margin-top: 20;'>
 	  <input class="joinButton" style="margin-top: 20;color: ffffff;width:300" onclick="window.location='/join?key={{ key }}'" type="Button" value="Join">
 	</div>
 	{% endif %}
-	</div>
+	
       </div>
       <div class="Footer"><a href="/about">About</a>&nbsp;|&nbsp;<a href="/user">{{ linktext }}</a>&nbsp;|&nbsp;<a href="mailto:rogercosseboom@gmail.com">Email</a></div> 
     </body> 
