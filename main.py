@@ -1,8 +1,9 @@
 '''
 THINGS TO-DO:
 -------------
-* Break DeleteHandler into tasks
 * add hiding for non-owners, show a 'delete' group button on /user if zero-members in group
+* implement /delete as an ajax call
+* add un-join
 
 [implement form validation]
 [Add Geolocation (http://diveintohtml5.org/geolocation.html)]
@@ -15,7 +16,7 @@ Fix datetime
   
 Fix alignment issue w/ logo
 Add existing group checking for create()
-Add date conflict check ing for create()
+Add date conflict checking for create()
 Implement 'default-value' checking to create form in JS
 Make a safe-guard that if manually deleting an event (on the backend),
   the reference in the user-profiles is also deleted... maybe when a user loads their page?
@@ -31,6 +32,7 @@ DONE
   (check both event's members and user's events? -- these should not be out of sync)
 * add a way of showing some (or all) events on index.html
 
+Break DeleteHandler into tasks
 Add a number system for people who are going to an event
 Fix security hole for directly accessing *.html files
 Change default-value in forms to change depending on FOCUS not on click
@@ -46,20 +48,33 @@ from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.api import users
+from google.appengine.api import taskqueue
 from models import *
         
-class DeleteHandler(webapp.RequestHandler):
+class EventPurge(webapp.RequestHandler):
+    # Takes an event by key and removes itself from all its members
     def get(self):
-        ekey = self.request.get('key')
-        event = db.get(ekey)
-        # step 1. Iter through each member in the group, delete this group from their 'groups'
+        eventKey = self.request.get('key')
+        event = db.get(eventKey)
         for event_member in event.members:
-            member = db.get(event_member)
-            member.events = [s for s in member.events if str(s) != ekey]
-            member.put()
-        # step 2. delete the group itself
-        db.delete(event)
+            taskqueue.add(url="/unjointask", params={'userKey': event_member,
+                                                     'eventKey': eventKey})
+            # step 2. delete the group itself
+            taskqueue.add(url="/deletetask", params={'key': eventKey})
+            
+class DeleteTask(webapp.RequestHandler):
+    # Takes a key and deletes its corresponding entity
+    def post(self):
+        db.delete(self.request.get('key'))
         
+class UnjoinTask(webapp.RequestHandler):
+    # Takes an event and user
+    # removes the user from the given event
+    def post(self):
+        member = db.get(self.request.get('userKey'))
+        member.events = [s for s in member.events if str(s) != self.request.get('eventKey')]
+        member.put()
+
 class Join(webapp.RequestHandler):
     def get(self):
         current_user = users.get_current_user()

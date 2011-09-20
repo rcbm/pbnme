@@ -10,7 +10,7 @@
 	</div>
 	{% for event in events %}
 	<div class="ResultsText" style="background-color: {% cycle #EEE,#DDD %};">
-	  <a href="/event?key={{ event.key }}"><b>{{ event.title }}</b> started by {{ event.creator }}</a><a href="/delete?key={{ event.key }}">&nbsp;[delete]</a>
+	  <a href="/event?key={{ event.key }}"><b>{{ event.title }}</b> started by {{ event.creator }}</a><a href="/purge?key={{ event.key }}">&nbsp;[delete]</a>
 	</div>
 	{% endfor %}
       </div>

@@ -8,7 +8,9 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 
 application = webapp.WSGIApplication([('/', MainPage),
                                       ('/event', EventPage),
-                                      ('/delete', DeleteHandler),
+                                      ('/unjointask', UnjoinTask),
+                                      ('/deletetask', DeleteTask),
+                                      ('/purge', EventPurge),
                                       ('/home', MainPage),
                                       ('/user', UserPage),
                                       ('/join', Join),
