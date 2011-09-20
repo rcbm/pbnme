@@ -1,21 +1,11 @@
-/*.shadow {
-	-moz-box-shadow: 3px 3px 14px #aaa;
-	-webkit-box-shadow: 3px 3px 14px #aaa;
-	box-shadow: 3px 3px 14px #aaa;
-
-	/* For IE 8 */
-	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=14, Direction=135, Color='#aaaaaa')";
-
-	/* For IE 5.5 - 7 */
-	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=14, Direction=135, Color='#aaaaaa');
+.eventsSlideshow {
+	 text-align: center;
+	 height:100;
+	 width:100%;
+	 position:relative;
+	 overflow:hidden;
 }
-*/
-.transparent_70 {
-        filter:alpha(opacity=70);
-        -moz-opacity:0.7;
-        -khtml-opacity: 0.7;
-        opacity: 0.7;
-}
+
 .inputURL {
         color: #781351;
         background: #eeeeee;
@@ -140,9 +130,7 @@
 	  position:relative;
 }
 .ResultsText {
-	  z-index:1;
-	  position:relative;
-          font-family: helvetica;
+	  font-family: helvetica;
           font-size: 12pt;
           color: #777777;
           text-align: left;
@@ -153,7 +141,7 @@
 	  border-style: solid;
 	  border-width: 1px;
           margin-bottom: -1px;
-	  padding: 10px;
+	  padding: 20px;
 }
 .ResultsText A:link {text-decoration: none;color: #666666;}
 .ResultsText A:visited {text-decoration: none;color: #888888;}
@@ -232,12 +220,12 @@ P.blocktext {
 	  margin-right: 0;
           font-style: italic;
           font-style: italic;
-          margin-top: 200px;
+          margin-top: 100px;
           font-color: '#aaaaaa';
           text-align: center;
           margin-left: auto;
           margin-right: auto;
-          width: 80%;
+          width: 100%;
 }
 A:link {text-decoration: none;color: #AAAAAA;}
 A:visited {text-decoration: none;color: #AAAAAA;}

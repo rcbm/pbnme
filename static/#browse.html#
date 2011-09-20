@@ -1,0 +1,19 @@
+<html>
+  <head><title>appname</title>
+    <link type="text/css" rel="stylesheet" href="/css/home.css"> 
+    <body>  
+      <div style='text-align: left;margin-left: auto;margin-right: auto;width:600'>
+	<div class="subHeaderText" style="text-align:left;margin-top:30px;position:relative;z-index:1;width:600;">
+	  List of hangouts:
+	</div>
+      <div style='text-align: left;margin-left: auto;margin-right: auto;width:600'>
+	  {% for event in events %}
+	<div class='ResultsText' style='background-color: {% cycle #EEE,#DDD %};'>
+	  <a href="/event?key={{ event.key }}"><b>{{ event.title }}</b> at <b>{{ event.location }}</b>, started by {{ event.creator }}</a>
+	</div>
+	{% endfor %}
+	</div>
+      </div>
+      <div class="Footer"><a href="/about">About</a>&nbsp;|&nbsp;<a href="/user">{{ linktext }}</a>&nbsp;|&nbsp;<a href="mailto:rogercosseboom@gmail.com">Email</a></div> 
+    </body> 
+</html>
