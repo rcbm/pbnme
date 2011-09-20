@@ -3,13 +3,13 @@
     <link type="text/css" rel="stylesheet" href="/css/home.css"> 
     <body>  
       <a href="/"><div class="LogoText" style="font-size: 30;">appname</div></a>
-      <div style='text-align: left;margin-left: auto;margin-right: auto;width:600'>
+      <div style="text-align: left;margin-left: auto;margin-right: auto;width:600">
 	<div class="subHeaderText" style="text-align:left;position:relative;z-index:1;width:600;">
 	  List of hangouts:
 	</div>
-      <div style='text-align: left;margin-left: auto;margin-right: auto;width:600'>
+      <div style="text-align: left;margin-left: auto;margin-right: auto;width:600">
 	  {% for event in events %}
-	<div class='ResultsText' style='background-color: {% cycle #EEE,#DDD %};'>
+	<div class="ResultsText" style="background-color: {% cycle #EEE,#DDD %}">
 	  <a href="/event?key={{ event.key }}"><b>{{ event.title }}</b> at <b>{{ event.location }}</b>, started by {{ event.creator }}</a>
 	</div>
 	{% endfor %}

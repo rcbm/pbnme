@@ -3,11 +3,11 @@
     <link type="text/css" rel="stylesheet" href="/css/home.css"> 
     <body>  
       <a href="/"><div class="LogoText" style="font-size: 30;">appname</div></a>
-      <div style='text-align: left;margin-left: auto;margin-right: auto;width: 600;'>
+      <div style="text-align: left;margin-left: auto;margin-right: auto;width: 600;">
 	<div class="eventHeader">
 	  {{ title }}
 	</div>
-	<div style='background: #DDDDDD;padding:20'>
+	<div style="background: #DDDDDD;padding:20">
 	  <div class="subHeaderText">
 	    <B>When:</b>&nbsp;{{ datetime }}<br><br>
 	    <B>Where:</b>&nbsp;{{ location }}<br><br>
@@ -26,13 +26,13 @@
 	</div>
 	
 	{% for user in members %}
-	<div class='ResultsText' style='background-color: {% cycle #EEE,#DDD %};'>
+	<div class="ResultsText" style="background-color: {% cycle #EEE,#DDD %};">
 	  {{ user.email }}
 	</div>
 	{% endfor %}
 	
 	{% if join_button %}
-	<div style='text-align:center;margin-top: 20;'>
+	<div style="text-align:center;margin-top: 20;">
 	  <input class="joinButton" style="margin-top: 20;color: ffffff;width:300" onclick="window.location='/join?key={{ key }}'" type="Button" value="Join">
 	</div>
 	{% endif %}

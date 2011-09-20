@@ -14,21 +14,21 @@
   </head>
   <link type="text/css" rel="stylesheet" href="/css/home.css"> 
   <body>
-    <div class='LogoText' style="text-align: center;margin-left: auto;margin-right: auto;margin-top: 100;width: 100%">
+    <div class="LogoText" style="text-align: center;margin-left: auto;margin-right: auto;margin-top: 100;width: 100%">
       appname
     </div>
-    <div class='ResultsText' style="font-size: 30;text-align: center;">
+    <div class="ResultsText" style="font-size: 30;text-align: center;">
       <B>appname</B> is the easiest way to find a group of people <br>to hang out with in real life, or start a group of your own!
-      <div style='text-align: center;margin-top: 50px;margin-left: auto;margin-right: auto;width: 100%'> 
-        <span onclick='window.location = "/browse"' class='browseButton' style='font-weight: bold;color: ffffff;margin-right: 5px;'>join a hangout</span> 
+      <div style="text-align: center;margin-top: 50px;margin-left: auto;margin-right: auto;width: 100%">
+        <span onclick="window.location='/browse'" class="browseButton" style="font-weight: bold;color: ffffff;margin-right: 5px;">join a hangout</span> 
 	<B>&nbsp;or&nbsp;</B>
-	<span onclick='window.location = "/create"' class='startButton' style='font-weight:bold;color: ffffff;margin-left:5px;'>start a hangout</span> 
+	<span onclick="window.location = '/create'" class="startButton" style="font-weight:bold;color: ffffff;margin-left:5px;">start a hangout</span> 
       </div>
     </div>
-    <div style='text-align: center;margin-left: auto;margin-right: auto;margin-top:50px;width: 700;'>
+    <div style="text-align: center;margin-left: auto;margin-right: auto;margin-top:50px;width: 700;">
       <div class="eventsSlideshow">
 	{% for event in events %}
-	<div class='ResultsText' style='background-color: #EEE;width:100%'>
+	<div class="ResultsText" style="background-color: #EEE;width:100%">
 	  <a href="/event?key={{ event.key }}"><b>{{ event.title }}</b> at <b>{{ event.location }}</b>, started by {{ event.creator }}</a>
 	</div>
 	{% endfor %}

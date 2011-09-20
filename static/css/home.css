@@ -134,13 +134,15 @@
           font-size: 12pt;
           color: #777777;
           text-align: left;
-          margin-top: 0px;
+          //margin-top: 0px;
 	  margin-left: auto;
 	  margin-right: auto;
-	  border-color: #FFFFFF;
-	  border-style: solid;
-	  border-width: 1px;
-          margin-bottom: -1px;
+	  border-top-color: #FFFFFF;
+	  //border-top-color: #CCC;
+	  border-top-style: solid;
+	  border-top-width: 1px;
+	  //border-width: 1px;
+	  //margin-bottom: -1px;
 	  padding: 20px;
 }
 .ResultsText A:link {text-decoration: none;color: #666666;}
