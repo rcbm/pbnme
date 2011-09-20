@@ -12,13 +12,9 @@ class User(db.Model):
 class Event(db.Model):
     create_date = db.DateTimeProperty(default=None, required=True)
     creator = db.UserProperty()
+    datetime = db.DateTimeProperty(default=None, required=True)
     title = db.StringProperty(default=None, required=True)
     location = db.StringProperty(default=None, required=True)
     description = db.StringProperty(default=None, required=True, multiline=True)
     members = db.ListProperty(db.Key)
     
-'''
-class Members(db.Model):
-    members = db.ListProperty(db.Key)
-'''
-# need to make sure that members is a list of users (userids?)x

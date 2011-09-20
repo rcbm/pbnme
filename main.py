@@ -2,12 +2,12 @@
 THINGS TO-DO:
 -------------
 * Break DeleteHandler into tasks
-* Add date/time
 * add hiding for non-owners, show a 'delete' group button on /user if zero-members in group
 
-Add a number system for people who are going to an event
-Add Geolocation (http://diveintohtml5.org/geolocation.html)
-Add Facebook (http://developers.facebook.com/docs/reference/api/)
+[Add Geolocation (http://diveintohtml5.org/geolocation.html)]
+[Add Facebook (http://developers.facebook.com/docs/reference/api/)]
+
+Fix datetime to drop instances of word 'next' and 'this' etc.
 Fix alignment issue w/ logo
 Add existing group checking for create()
 Add date conflict checking for create()
@@ -17,13 +17,16 @@ Make a safe-guard that if manually deleting an event (on the backend),
 
 DONE
 -------------
+* Add date/time
 * Template out /browse
 * Add location to pages and db
 * Template out /user
 * Check to see if I don't already belong to an event, if so don't show 'join' button
 * Join button should be hidden when viewing a group you already belong to
   (check both event's members and user's events? -- these should not be out of sync)
+* add a way of showing some (or all) events on index.html
 
+Add a number system for people who are going to an event
 Fix security hole for directly accessing *.html files
 Change default-value in forms to change depending on FOCUS not on click
 Auto-Join people who create an event
@@ -39,7 +42,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
 from google.appengine.api import users
 from models import *
-
+        
 class DeleteHandler(webapp.RequestHandler):
     def get(self):
         ekey = self.request.get('key')
@@ -96,6 +99,7 @@ class EventPage(webapp.RequestHandler):
                            'key': event.key(),
                            'title': event.title,
                            'location': event.location,
+                           'datetime': event.datetime,
                            'description': event.description,
                            'members': [db.get(m) for m in event.members],
                            'join_button': False if existing_user and existing_user.key() in event.members else True}
@@ -118,7 +122,9 @@ class UserPage(webapp.RequestHandler):
 class MainPage(webapp.RequestHandler):
     def get(self):
         linktext = 'My Hangouts' if users.get_current_user() else 'Login'
-        template_values = {'linktext': linktext}
+        events = db.GqlQuery("SELECT * FROM Event LIMIT 100")
+        template_values = {'linktext': linktext,
+                           'events': events}
         self.response.out.write(template.render('static/index.html', template_values))
 
 class Browse(webapp.RequestHandler):
@@ -142,16 +148,19 @@ class Create(webapp.RequestHandler):
     def post(self):
         current_user = users.get_current_user()
         if current_user:
+            from dateutil import parser
             title = self.request.get('title')
             location = self.request.get('location')
             description = self.request.get('description')
             existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" % current_user.user_id()).get()
             now = datetime.datetime.now()
+            time = self.request.get('datetime')
             if existing_user:
                 event = Event(creator = current_user,
                               create_date = now,
                               title = title,
                               location = location,
+                              datetime = parser.parse(time),
                               description = description,
                               members = [existing_user.key()])
                 event.put()
@@ -169,6 +178,7 @@ class Create(webapp.RequestHandler):
                               create_date = now,
                               title = title,
                               location = location,
+                              datetime = parser.parse(time),
                               description = description,
                               members = [user_profile.key()])
                 event.put()
