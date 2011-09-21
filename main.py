@@ -1,8 +1,7 @@
 '''
 THINGS TO-DO:
 -------------
-* add hiding for non-owners, show a 'delete' group button on /user if zero-members in group
-* implement /delete as an ajax call
+* implement /delete as an ajax call (using post())
 * add un-join
 
 [implement form validation]
@@ -23,6 +22,7 @@ Make a safe-guard that if manually deleting an event (on the backend),
 
 DONE
 -------------
+* add hiding for non-owners, show a 'delete' group button on /user if zero-members in group
 * Add date/time
 * Template out /browse
 * Add location to pages and db
@@ -132,7 +132,8 @@ class UserPage(webapp.RequestHandler):
         if user:
             existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" % user.user_id()).get()
             events = [db.get(event) for event in existing_user.events] if existing_user else []
-            template_values = {'logout': users.create_logout_url("/"),
+            template_values = {'current_user': user,
+                               'logout': users.create_logout_url("/"),
                                'linktext': linktext,
                                'events': events}
             self.response.out.write(template.render('static/user.html', template_values))
