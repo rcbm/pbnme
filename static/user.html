@@ -6,24 +6,21 @@
     <link type="text/css" rel="stylesheet" href="/css/home.css"> 
     <body>
       <a href="/"><div class="LogoText" style="font-size: 30;">appname</div></a>
-      <div style="text-align: left;margin-left: auto;margin-right: auto;width:600">
-	<div class="subHeaderText" style="text-align:left;position:relative;width:600;">
-	  You're logged in:<BR>
-	  <a href="/">Home</a> | <a href="{{ logout }}">Logout</a> | <a href="/browse">Join</a> | <a href="/create">Create</a>
+      <div style="text-align: left;margin-left: auto;margin-right: auto;width:700">
+	<div class="subHeaderText" style="text-align:left;position:relative;width:700;">
+	  <a href="/">Home</a> | <a href="/browse">Join</a> | <a href="/create">Create</a><span style="float:right"><a href="{{ logout }}">Logout</a></span>
 	</div>
 	{% for event in events %}
 	<div class="ResultsText" style="font-size: 18;background-color: {% cycle #EEE,#DDD %};">
 	  <a href="/event?key={{ event.key }}">
 	    <b>{{ event.title }}</b> started by {{ event.creator }}
 	  </a>
-
 	  {% if event.creator == current_user and event.members|length < 3 %}
 		<span style="float: right">
 		  <a href="#" onclick="purgeEvent({{ forloop.counter }}, $(this), '{{ event.key }}');">
 		    delete
 		  </a>
 		</span>
-		
 	  {% endif %}
 	</div>
 	{% endfor %}

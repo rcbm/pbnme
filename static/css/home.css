@@ -184,7 +184,7 @@ P.blocktext {
           text-align: center;
 	  font-family: helvetica;
 	  font-size: 45;
-	  color: #666;
+	  color: #555;
 	  font-weight:bold;
 	  margin-bottom: 25px;
 }
@@ -199,9 +199,10 @@ P.blocktext {
 }
 .subHeaderText {
 	  position:relative;
-          font-family: helvetica;
+	  font-family: times, Times New Roman, times-roman, georgia, serif;
+          font-style: italic;
           font-size: 24pt;
-          color: #777777;
+          color: #DDD;
           text-align: left;
           margin-top: 0px;
 	  margin-bottom: 0px;
@@ -227,18 +228,17 @@ P.blocktext {
 }
 .Footer {
           font-family: times, Times New Roman, times-roman, georgia, serif;
+          font-style: italic;
 	  font-size: 40;
 	  color: 333333;
 	  padding: 10px;
 	  margin-right: 0;
-          font-style: italic;
-          font-style: italic;
           margin-top: 100px;
           font-color: '#aaaaaa';
           text-align: center;
           margin-left: auto;
           margin-right: auto;
-          width: 100%;
+          
 }
 A:link {text-decoration: none;color: #AAAAAA;}
 A:visited {text-decoration: none;color: #AAAAAA;}

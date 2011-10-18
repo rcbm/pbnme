@@ -3,12 +3,23 @@
     <link type="text/css" rel="stylesheet" href="/css/home.css"> 
     <body>  
       <a href="/"><div class="LogoText" style="font-size: 30;">appname</div></a>
-      <div style="text-align: left;margin-left: auto;margin-right: auto;width: 600;">
+      <div style="text-align: left;margin-left: auto;margin-right: auto;width: 700;">
 	<div class="eventHeader">
 	  {{ title }}
 	</div>
-	<div style="background: #DDDDDD;padding:20">
-	  <div class="subHeaderText">
+
+	<div style="background: #FFFF66;padding:20">
+	  <div class="subHeaderText" style="color: #777">
+	    <div class="memberNumberBrowse" style="font-style: normal;text-align:center;background-color: #ffffff;height:60px;width:60px;float:right;margin-right:20;">
+	      {{ members|length }}
+	      <div style="font-size:12">
+		{% if members|length < 2 %}
+		  person
+	        {% else %}
+		  people
+	        {% endif %}
+	      </div>
+	    </div>
 	    <B>When:</b>&nbsp;{{ datetime }}<br><br>
 	    <B>Where:</b>&nbsp;{{ location }}
 	    {% if description %}
@@ -19,17 +30,8 @@
 	  </div>
 	</div>
 	
-	<div class="subHeaderText">
-	  <span class="memberNumber">{{ members|length }}</span>
-	  {% if members|length < 2 %}
-		<b>person coming:</b>
-	  {% else %}
-		<b>people coming:</b>
-	  {% endif %}
-	</div>
-	
 	{% for user in members %}
-	<div class="ResultsText" style="background-color: {% cycle #EEE,#DDD %};">
+	<div class="ResultsText" style="font-size:18;background-color: {% cycle #EEE,#DDD %};">
 	  {{ user.email }}
 	</div>
 	{% endfor %}
