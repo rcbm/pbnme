@@ -66,13 +66,13 @@ class EventPurge(webapp.RequestHandler):
     def post(self):
         eventKey = self.request.get('key')
         event = db.get(eventKey)
-        '''
+
         for event_member in event.members:
             taskqueue.add(url="/unjointask", params={'userKey': event_member,
                                                      'eventKey': eventKey})
             # step 2. delete the group itself
             taskqueue.add(url="/deletetask", params={'key': eventKey})
-        '''    
+        
 class DeleteTask(webapp.RequestHandler):
     # Takes a key and deletes its corresponding entity
     def post(self):
