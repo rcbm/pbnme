@@ -5,20 +5,22 @@
       <a href="/"><div class="LogoText" style="font-size: 30;">appname</div></a>
       <div style="text-align: center;margin-left: auto;margin-right: auto;width:700">
 	<div class="subHeaderText" style="text-align:left;position:relative;z-index:1;width:700;">
-	  List of hangouts:
+	  Upcoming Hangouts
 	</div>
-      <div style="text-align: left;margin-left: auto;margin-right: auto;width:700">
+      <div style="text-align: left;margin-left: auto;margin-right: auto;width:700;">
 	  {% for event in events %}
-	<div class="ResultsText" style="background-color: {% cycle #EEE,#DDD %}">
-	  <span class="memberNumberBrowse">{{ event.members|length }}
-	    <span style="font-size:9;margin-left:-9;margin-right:10">
-	      ppl.
-	    </span>
-	  </span>
-	  <a href="/event?key={{ event.key }}"><b>{{ event.title }}</b> at <b>{{ event.location }}</b>, started by {{ event.creator }}</a>
+	<div class="ResultsText" style="background-color: {% cycle #EEE,#DDD %};">
+	  <div class="memberNumberBrowse" style="text-align:center;background-color: #ffffff;height:60px;width:60px;float:left;margin-right:20;">
+	    {{ event.members|length }}
+	    <div style="font-size:12">
+	      people
+	    </div>
+	  </div>
+	    <a href="/event?key={{ event.key }}"><b>{{ event.title }}</b><br>at {{ event.location }}</a>
+	  <div style="clear:both"></div>
 	</div>
 	{% endfor %}
-	</div>
+      </div>
       </div>
       <div class="Footer"><a href="/about">About</a>&nbsp;|&nbsp;<a href="/user">{{ linktext }}</a>&nbsp;|&nbsp;<a href="mailto:rogercosseboom@gmail.com">Email</a></div> 
     </body> 

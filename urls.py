@@ -17,6 +17,7 @@ application = webapp.WSGIApplication([('/', MainPage),
                                       ('/browse', Browse),
                                       ('/create', Create)],
                                      debug=True)
+
 def main():
     run_wsgi_app(application)
 

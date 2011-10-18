@@ -3,7 +3,6 @@ THINGS TO-DO:
 -------------
 * implement /delete as an ajax call (using post())
 * add un-join button to /user
-* add # of people attending on main events list page
 * sort events by # of people attending
 
 Not Urgent
@@ -13,6 +12,7 @@ Fix datetime
   - add datepicker
   - implement date and time ranges(i think they just subtract?)
 
+When there are no hangouts in /browse, add a 'create' message
 Fix alignment issue w/ logo
 Add existing group checking for create()
 Add date conflict checking for create()
@@ -20,17 +20,19 @@ Implement 'default-value' checking to create form in JS
 Make a safe-guard that if manually deleting an event (on the backend),
   the reference in the user-profiles is also deleted... maybe when a user loads their page?
 
-More Involved:
+Harder:
 -------------
 [implement form validation w/ js and python]
 [Add uploading of a photo when creating a hangout]
-[Apdd Geolocation (http://diveintohtml5.org/geolocation.html)]
+[Add Geolocation (http://diveintohtml5.org/geolocation.html)]
 [Add Facebook (http://developers.facebook.com/docs/reference/api/)]
 
-#################
+
+###########################################################################################
 
 DONE
 -------------
+* add # of people attending on main events list page
 * add hiding for non-owners, show a 'delete' group button on /user if zero-members in group
 * Add date/time
 * Template out /browse
@@ -48,7 +50,6 @@ Change default-value in forms to change depending on FOCUS not on click
 Auto-Join people who create an event
 Change create() to redirect to event template
 Create event template
-
 '''
 
 import os

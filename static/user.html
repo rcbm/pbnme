@@ -12,7 +12,7 @@
 	  <a href="/">Home</a> | <a href="{{ logout }}">Logout</a> | <a href="/browse">Join</a> | <a href="/create">Create</a>
 	</div>
 	{% for event in events %}
-	<div class="ResultsText" style="background-color: {% cycle #EEE,#DDD %};">
+	<div class="ResultsText" style="font-size: 18;background-color: {% cycle #EEE,#DDD %};">
 	  <a href="/event?key={{ event.key }}">
 	    <b>{{ event.title }}</b> started by {{ event.creator }}
 	  </a>

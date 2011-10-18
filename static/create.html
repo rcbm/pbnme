@@ -9,13 +9,10 @@
 	  Start a hangout:
 	  </div>
 	  <form action="/create" method="post" name="create">
-	    <input type="text" class="formElement" value="Write a funny title for your hangout" onfocus="value='';" onclick="value='';" name="title" style="width: 600px;"> 
-	    <input type="text" class="formElement" value="Where are you all going to meet up?" onfocus="value='';" onclick="value='';" name="location" style="width: 600px;margin-top: 15"> 
-	    <input type="text" class="formElement" value="What time is it?" onfocus="value='';" onclick="value='';" name="time" style="width: 290px;margin-top: 12;margin-right:11px;"> 
-	    <input type="text" class="formElement" value="What day is it?" onfocus="value='';" onclick="value='';" name="date" style="width: 295px;margin-top: 15;"> 
-	    <textarea class="formElement" onfocus="value='';" onclick="value='';" name="description" style="margin-top:15;width: 600px;height:200px;">
-Is there anything else people need to know?
-	    </textarea>
+	    <input type="text" class="formElement" value="What're you up to?" onfocus="value='';" onclick="value='';" maxlength="140" name="title" style="width: 600px;"> 
+	    <input type="text" class="formElement" value="Where is it?" onfocus="value='';" onclick="value='';" name="location" style="width: 600px;margin-top: 15"> 
+	    <input type="text" class="formElement" value="Day" onfocus="value='';" onclick="value='';" name="date" style="width: 290px;margin-top: 12;margin-right:11px;"> 
+	    <input type="text" class="formElement" value="Time" onfocus="value='';" onclick="value='';" name="time" style="width: 295px;margin-top: 15;"> 
 	    <input class="createButton" style="margin-top: 20;margin-left: 0;margin-right:2px;color: ffffff;font-weight:bold;" onclick="window.location='document.form[0].submit()'" type="Submit" value="Create">
 	    <input class="cancelButton" style="margin-top: 20;margin-left: 0;margin-left:2px;color: ffffff;font-weight:bold;" onclick="window.location='/home'" type="Button" value="Cancel">
 	  </form>

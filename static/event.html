@@ -10,9 +10,12 @@
 	<div style="background: #DDDDDD;padding:20">
 	  <div class="subHeaderText">
 	    <B>When:</b>&nbsp;{{ datetime }}<br><br>
-	    <B>Where:</b>&nbsp;{{ location }}<br><br>
+	    <B>Where:</b>&nbsp;{{ location }}
+	    {% if description %}
+	    <br><br>
 	    <B>Description:</b><br>
 	    {{ description }}<br>
+	    {% endif %}
 	  </div>
 	</div>
 	

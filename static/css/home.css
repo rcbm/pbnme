@@ -131,7 +131,7 @@
 }
 .ResultsText {
 	  font-family: helvetica;
-          font-size: 12pt;
+          font-size: 24pt;
           color: #777777;
           text-align: left;
           //margin-top: 0px;
@@ -200,7 +200,7 @@ P.blocktext {
 .subHeaderText {
 	  position:relative;
           font-family: helvetica;
-          font-size: 18pt;
+          font-size: 24pt;
           color: #777777;
           text-align: left;
           margin-top: 0px;
@@ -215,10 +215,15 @@ P.blocktext {
 	  color: #777777;
 }
 .memberNumberBrowse {
+	  margin-left: auto;
+	  margin-right: auto;
 	  font-family: helvetica;
-          font-size: 30pt;
+          font-size: 42pt;
           font-weight: bold;
-	  color: #777777;
+	  #color: #ff0066;
+          color: #5CADFF;
+          #color: #777777;
+	  vertical-align: middle;
 }
 .Footer {
           font-family: times, Times New Roman, times-roman, georgia, serif;

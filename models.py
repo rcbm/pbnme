@@ -8,7 +8,7 @@ class User(db.Model):
     create_date = db.DateTimeProperty(default=None, required=True)
     last_date = db.DateTimeProperty(default=None, required=True)
     events = db.ListProperty(db.Key)
-
+    
 class Event(db.Model):
     create_date = db.DateTimeProperty(default=None, required=True)
     creator = db.UserProperty()
