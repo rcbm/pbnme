@@ -11,6 +11,9 @@ handlers:
 - url: /images/
   static_dir: static/images
 
+- url: /toys/
+  static_dir: static/images/toys
+
 - url: /javascript/
   static_dir: static/javascript
 

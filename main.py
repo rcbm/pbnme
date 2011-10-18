@@ -2,23 +2,32 @@
 THINGS TO-DO:
 -------------
 * implement /delete as an ajax call (using post())
-* add un-join
+* add un-join button to /user
+* add # of people attending on main events list page
+* sort events by # of people attending
 
-[implement form validation]
-[Add Geolocation (http://diveintohtml5.org/geolocation.html)]
-[Add Facebook (http://developers.facebook.com/docs/reference/api/)]
-
+Not Urgent
+_____________
 Fix datetime
-  - change today to datetime.date.today()
-  - add datetime picker
-  - implement date/time ranges(i think they just subtract?)
-  
+  - change str(today) to datetime.date.today()
+  - add datepicker
+  - implement date and time ranges(i think they just subtract?)
+
 Fix alignment issue w/ logo
 Add existing group checking for create()
 Add date conflict checking for create()
 Implement 'default-value' checking to create form in JS
 Make a safe-guard that if manually deleting an event (on the backend),
   the reference in the user-profiles is also deleted... maybe when a user loads their page?
+
+More Involved:
+-------------
+[implement form validation w/ js and python]
+[Add uploading of a photo when creating a hangout]
+[Apdd Geolocation (http://diveintohtml5.org/geolocation.html)]
+[Add Facebook (http://developers.facebook.com/docs/reference/api/)]
+
+#################
 
 DONE
 -------------
@@ -53,15 +62,16 @@ from models import *
         
 class EventPurge(webapp.RequestHandler):
     # Takes an event by key and removes itself from all its members
-    def get(self):
+    def post(self):
         eventKey = self.request.get('key')
         event = db.get(eventKey)
+        '''
         for event_member in event.members:
             taskqueue.add(url="/unjointask", params={'userKey': event_member,
                                                      'eventKey': eventKey})
             # step 2. delete the group itself
             taskqueue.add(url="/deletetask", params={'key': eventKey})
-            
+        '''    
 class DeleteTask(webapp.RequestHandler):
     # Takes a key and deletes its corresponding entity
     def post(self):

@@ -18,7 +18,7 @@
       appname
     </div>
     <div class="ResultsText" style="font-size: 30;text-align: center;">
-      <B>appname</B> is the easiest way to find a group of people <br>to hang out with in real life, or start a group of your own!
+      <B></B> is the easiest way to find a group of people <br>to hang out with in real life, or start a group of your own!
       <div style="text-align: center;margin-top: 50px;margin-left: auto;margin-right: auto;width: 100%">
         <span onclick="window.location='/browse'" class="browseButton" style="font-weight: bold;color: ffffff;margin-right: 5px;">join a hangout</span> 
 	<B>&nbsp;or&nbsp;</B>
@@ -29,7 +29,7 @@
       <div class="eventsSlideshow">
 	{% for event in events %}
 	<div class="ResultsText" style="background-color: #EEE;width:100%">
-	  <a href="/event?key={{ event.key }}"><b>{{ event.title }}</b> at <b>{{ event.location }}</b>, started by {{ event.creator }}</a>
+	  <a href="/event?key={{ event.key }}"><b>{{ event.title }}</b> at <b>{{ event.location }}</b></a>
 	</div>
 	{% endfor %}
       </div>

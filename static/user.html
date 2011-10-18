@@ -1,5 +1,8 @@
 <html>
-  <head><title>appname</title>
+  <head>
+    <title>appname</title>
+    <script type="text/javascript" src="/javascript/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="/javascript/user.js"></script>
     <link type="text/css" rel="stylesheet" href="/css/home.css"> 
     <body>
       <a href="/"><div class="LogoText" style="font-size: 30;">appname</div></a>
@@ -13,8 +16,14 @@
 	  <a href="/event?key={{ event.key }}">
 	    <b>{{ event.title }}</b> started by {{ event.creator }}
 	  </a>
-	  {% if event.creator == current_user %}
-	    <a href="/purge?key={{ event.key }}">&nbsp;[delete]</a>
+
+	  {% if event.creator == current_user and event.members|length < 3 %}
+		<span style="float: right">
+		  <a href="#" onclick="purgeEvent({{ forloop.counter }}, $(this), '{{ event.key }}');">
+		    delete
+		  </a>
+		</span>
+		
 	  {% endif %}
 	</div>
 	{% endfor %}

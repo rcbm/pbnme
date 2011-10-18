@@ -15,6 +15,6 @@ class Event(db.Model):
     datetime = db.DateTimeProperty(default=None, required=True)
     title = db.StringProperty(default=None, required=True)
     location = db.StringProperty(default=None)
-    description = db.StringProperty(default=None, required=True, multiline=True)
+    description = db.StringProperty(default=None, required=False, multiline=True)
     members = db.ListProperty(db.Key)
     

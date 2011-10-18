@@ -214,6 +214,12 @@ P.blocktext {
           font-weight: bold;
 	  color: #777777;
 }
+.memberNumberBrowse {
+	  font-family: helvetica;
+          font-size: 30pt;
+          font-weight: bold;
+	  color: #777777;
+}
 .Footer {
           font-family: times, Times New Roman, times-roman, georgia, serif;
 	  font-size: 40;
