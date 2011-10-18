@@ -1,0 +1,31 @@
+<div id="fb-root"></div>
+<script src="http://connect.facebook.net/en_US/all.js"></script>
+<script>
+function fb_login() {
+   FB.init({
+  	appId: '{{ FB_APP_ID }}', 
+       cookie:true, 
+       status:true,
+       xfbml:true 
+    });
+
+
+  FB.login(function(response) {
+    if (response.session) {
+      if (response.perms) {
+        // user is logged in and granted some permissions.
+        // perms is a comma separated list of granted permissions
+        
+        window.location = '/login';
+        
+      } else {
+        
+        // user is logged in, but did not grant any permissions
+        window.location = '/login';
+      }
+    } else {
+      // user is not logged in
+    }
+  }, {perms:'email, offline_access,read_stream'});
+}
+</script>
