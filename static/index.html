@@ -17,33 +17,16 @@
     </div>
 
 
-    <!-- Facebook Profile shit -->
+<!-- Facebook Profile shit -->
 
-    <div class="ResultsText" style="margin-top:20;font-size: 30;text-align: center;">
-      <div id="fb-root"></div>
-      <script src="http://connect.facebook.net/en_US/all.js">
-      </script>
-      <script>
-         FB.init({ 
-            appId:'231959676859483', cookie:true, 
-            status:true, xfbml:true 
-         });
-         FB.api('/me', function(user) {
-           if(user != null) {
-              var image = document.getElementById('image');
-              image.src = 'http://graph.facebook.com/' + user.id + '/picture';
-              var name = document.getElementById('name');
-              name.innerHTML = user.name
-           }
-         });
-      </script>
+<div class="ResultsText" style="margin-top:20;font-size: 30;text-align: center;">
 
-      <div>                       
+<div>                       
 	<a href="#" onclick="fb_login();" id="facebook"></a>
 	<fb:login-button>Login with Facebook</fb:login-button>
-      </div>
-    </div>
-    
+</div>
+
+
     <div class="Footer"><a href="/about">About</a>&nbsp;|&nbsp;<a href="/user">{{ linktext }}</a>&nbsp;|&nbsp;<a href="mailto:rogercosseboom@gmail.com">Email</a></div> 
   </body>
 </html>
