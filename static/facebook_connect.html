@@ -33,6 +33,7 @@ FB.login(function(response) {
       console.log('Good to see you, ' + response.name + '.');
       FB.logout(function(response) {
         console.log('Logged out.');
+		window.location = '/browse';
       });
     });
   } else {
