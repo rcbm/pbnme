@@ -18,3 +18,8 @@ class Event(db.Model):
     description = db.StringProperty(default=None, required=False, multiline=True)
     members = db.ListProperty(db.Key)
     
+class Post(db.Model):
+    author = db.UserProperty()
+    create_date = db.DateTimeProperty(auto_now_add=True)
+    event = db.ReferenceProperty()
+    content = db.StringProperty(default=None, required=True, multiline=True)

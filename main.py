@@ -1,7 +1,8 @@
 '''
 THINGS TO-DO:
 -------------
-* implement /delete as an ajax call (using post())
+* implement /join as an ajax call (using post())
+
 * add un-join button to /user
 * sort events by # of people attending
 
@@ -32,6 +33,7 @@ Harder:
 
 DONE
 -------------
+* implement /delete as an ajax call (using post())
 * add # of people attending on main events list page
 * add hiding for non-owners, show a 'delete' group button on /user if zero-members in group
 * Add date/time
@@ -207,6 +209,7 @@ class Create(webapp.RequestHandler):
                                     create_date = now,
                                     last_date = now)
                 user_profile.put()
+                # Maybe change create_date = now w/ Auto_Now_Add=True in models.py
                 event = Event(creator = current_user,
                               create_date = now,
                               title = title,
