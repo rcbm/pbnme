@@ -17,6 +17,7 @@ class Event(db.Model):
     location = db.StringProperty(default=None)
     description = db.StringProperty(default=None, required=False, multiline=True)
     members = db.ListProperty(db.Key)
+    comments= db.ListProperty(db.Key)
     
 class Post(db.Model):
     author = db.UserProperty()

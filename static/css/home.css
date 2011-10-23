@@ -53,21 +53,23 @@
           font-size: 20;
 	   
 }
-.cancelButton {
-          color: #fffff;
-          background: #5CADFF;
-          border: 15px solid #5CADFF;
+.resetButton {
+		  color: #ffffff;
+          background: #E76E6E;
+          border: 15px solid #E76E6E;
           font-family: helvetica;
           font-size: 20;
+		  font-style: bold;
 	   
 }
 .createButton {
-          color: #fffff;
+          color: #ffffff;
           background: #33CC33;
           border: 15px solid #33CC33;
           font-family: helvetica;
           font-size: 20;
-	   
+		  font-style: bold;
+
 }
 .BodyText {
           font-family: helvetica;
