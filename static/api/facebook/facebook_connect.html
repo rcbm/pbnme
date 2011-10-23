@@ -6,11 +6,12 @@ function fb_login() {
 
  window.fbAsyncInit = function() {
     FB.init({
-      appId: '231959676859483', // FB_APP_ID 
-      status     : true,        // check login status
-      cookie     : true,        // enable cookies to allow the server to access the session
-      oauth      : true,        // enable OAuth 2.0
-      xfbml      : true         // parse XFBML
+      appId: '231959676859483', /*'{{ FB_APP_ID }}',*/ 
+      //channelURL : '127.0.0.1:8000/static/channel.html', // Channel File
+      status     : true, // check login status
+      cookie     : true, // enable cookies to allow the server to access the session
+      oauth      : true, // enable OAuth 2.0
+      xfbml      : true  // parse XFBML
     });
 
     // Additional initialization code here
@@ -32,7 +33,6 @@ FB.login(function(response) {
       console.log('Good to see you, ' + response.name + '.');
       FB.logout(function(response) {
         console.log('Logged out.');
-        window.location = '/browse';
       });
     });
   } else {
@@ -43,13 +43,3 @@ FB.login(function(response) {
 }
 
 </script>
-
-
-
-
-
-
-
-
-
-
