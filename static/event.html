@@ -47,13 +47,14 @@
 	  {% endfor %}
 	</div>
 
-	<!-- Comments Areal -->
-	<form action="/create" method="post" name="create">
-	  <textarea class='formElement' onfocus="value='';" onclick="value='';" name="description" style="margin-top:20;width:100%;height:100px;">Got a question about this hangout? Ask it here...</textarea>
-	  <input class="createButton" style="margin-top: 20;margin-left: 0;margin-right:2px;color: ffffff;font-weight:bold;" onclick="window.location='document.form[0].submit()'" type="Button" value="Submit Comment">
-	  <input type="reset" name="reset" value="Scrap It" class="resetButton">
+	<!-- Comments Area -->
+	<form action="/post" method="post" name="create">
+	  <textarea class='formElement' onfocus="value='';" onclick="value='';" name="comment_content" style="margin-top:20;width:100%;height:100px;">Got a question about this hangout? Ask it here...</textarea>
+	  <input class="createButton" type="button" value="Comment" onclick="window.location='/post?key={{ key }}&comment=comment_content'">
+	  <input class="resetButton" name="reset" type="reset" value="Reset" >
 	</form>
 	
+	<!-- Footer -->
       </div>
       <div class="Footer"><a href="/about">About</a>&nbsp;|&nbsp;<a href="/user">{{ linktext }}</a>&nbsp;|&nbsp;<a href="mailto:rogercosseboom@gmail.com">Email</a></div> 
     </body> 

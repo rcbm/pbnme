@@ -60,7 +60,10 @@
           font-family: helvetica;
           font-size: 20;
 		  font-style: bold;
-	   
+	      margin-top:20;
+	      margin-left: 0;
+	      margin-right:2px;
+	      font-weight:bold;
 }
 .createButton {
           color: #ffffff;
@@ -68,8 +71,10 @@
           border: 15px solid #33CC33;
           font-family: helvetica;
           font-size: 20;
-		  font-style: bold;
-
+		  margin-top:20;
+	      margin-left: 0;
+	      margin-right:2px;
+	      font-weight:bold;
 }
 .BodyText {
           font-family: helvetica;

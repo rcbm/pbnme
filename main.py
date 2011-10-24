@@ -125,6 +125,21 @@ class EventPage(webapp.RequestHandler):
             existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" % user.user_id()).get()
         else:
             existing_user = None
+        
+	    posts = db.GqlQuery("SELECT * "
+	                            "FROM Post "
+	                            "WHERE ANCESTOR IS :1 "
+	                            "ORDER BY date DESC LIMIT 10",
+	                             guestbook_key(guestbook_name))
+		
+	#	for post in posts:
+	#	            if post.author:
+	#	                self.response.out.write('<b>%s</b> wrote:' % post.author.nickname())
+	#	            else:
+	#	                self.response.out.write('An anonymous person wrote:')
+	#	            self.response.out.write('<blockquote>%s</blockquote>' %
+	#	                                    cgi.escape(greeting.content))
+		
         key = self.request.get('key')
         event = db.get(key)
         linktext = 'My Hangouts' if user else 'Login'
@@ -138,6 +153,21 @@ class EventPage(webapp.RequestHandler):
                            'join_button': False if existing_user and existing_user.key() in event.members else True}
         self.response.out.write(template.render('static/event.html', template_values))
 
+
+#	def post(self):
+
+#	    event = self.request.get('key')
+ #       comment_content = self.request.get('content')
+	
+  #      comment = Post(parent=guestbook_key(guestbook_name))
+
+   #     if users.get_current_user():
+	#        post.author = users.get_current_user()
+	 #       post.content = comment_content
+	  #      post.put()
+	   #     self.redirect('/?')
+	
+	
 class UserPage(webapp.RequestHandler):
     def get(self):
         user = users.get_current_user()
