@@ -88,6 +88,10 @@ class UnjoinTask(webapp.RequestHandler):
         member.events = [s for s in member.events if str(s) != self.request.get('eventKey')]
         member.put()
 
+class Test(webapp.RequestHandler):
+    def get(self):
+        self.response.out.write(template.render('static/test.html', {}))
+
 class Join(webapp.RequestHandler):
     def get(self):
         current_user = users.get_current_user()
