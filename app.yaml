@@ -20,6 +20,9 @@ handlers:
 - url: /css/
   static_dir: static/css
 
+- url: /fb/.*
+  script: fb/oauth.py
+
 - url: /.*
   script: urls.py
 
