@@ -53,17 +53,29 @@
           font-size: 20;
 	   
 }
+.cancelButton {
+          color: #ffffff;
+          background: #5CADFF;
+          border: 15px solid #5CADFF;
+          font-family: helvetica;
+          font-size: 20;
+	  font-style: bold;
+	  margin-top:20;
+	  margin-left: 0;
+	  margin-right:2px;
+	  font-weight:bold;
+}
 .resetButton {
-		  color: #ffffff;
+          color: #ffffff;
           background: #E76E6E;
           border: 15px solid #E76E6E;
           font-family: helvetica;
           font-size: 20;
-		  font-style: bold;
-	      margin-top:20;
-	      margin-left: 0;
-	      margin-right:2px;
-	      font-weight:bold;
+	  font-style: bold;
+	  margin-top:20;
+	  margin-left: 0;
+	  margin-right:2px;
+	  font-weight:bold;
 }
 .createButton {
           color: #ffffff;
@@ -71,10 +83,10 @@
           border: 15px solid #33CC33;
           font-family: helvetica;
           font-size: 20;
-		  margin-top:20;
-	      margin-left: 0;
-	      margin-right:2px;
-	      font-weight:bold;
+	  margin-top:20;
+	  margin-left: 0;
+	  margin-right:2px;
+	  font-weight:bold;
 }
 .BodyText {
           font-family: helvetica;
@@ -176,16 +188,28 @@ P.blocktext {
           width: 600;
           line-height: 150%;
 }
-.LogoText {
-          //font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-	  font-family: helvetica;
-	  font-size: 100;
+.LogoTextMini {
+          font-family: georgia, bookman, serif;
+	  font-size: 30;
+	  font-style: italic;
+	  letter-spacing: -.05em;
 	  font-weight: bold;
-	  //color: FF0000;
-	  //color: 00bbcc;
 	  color: #666;
 	  padding: 10px;
-	  margin-right: 0;
+}
+.LogoText {
+          font-family: georgia, bookman, serif;
+	  font-size: 100;
+	  letter-spacing: -.05em;
+	  font-style: italic;
+	  font-weight: bold;
+	  color: #666;
+	  padding: 10px;
+	  text-align: center;
+	  margin-left: auto;
+	  margin-right: auto;
+	  margin-top: 100
+	  
 }
 .eventHeader {
           text-align: center;

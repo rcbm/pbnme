@@ -88,17 +88,14 @@ class UnjoinTask(webapp.RequestHandler):
         member.events = [s for s in member.events if str(s) != self.request.get('eventKey')]
         member.put()
 
-class Test(webapp.RequestHandler):
-    def get(self):
-        self.response.out.write(template.render('static/test.html', {}))
-
 class Join(webapp.RequestHandler):
     def get(self):
         current_user = users.get_current_user()
         if current_user:
             key = self.request.get('key')
             event = db.get(key)
-            user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" % users.get_current_user().user_id()).get()
+            user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" %
+                               users.get_current_user().user_id()).get()
             # Make sure user isn't already part of the event
             if user:
                 if user.key() not in event.members:
@@ -126,7 +123,8 @@ class EventPage(webapp.RequestHandler):
     def get(self):
         user = users.get_current_user()
         if user:
-            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" % user.user_id()).get()
+            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" %
+                                        user.user_id()).get()
         else:
             existing_user = None
         
@@ -157,27 +155,25 @@ class EventPage(webapp.RequestHandler):
                            'join_button': False if existing_user and existing_user.key() in event.members else True}
         self.response.out.write(template.render('static/event.html', template_values))
 
-
-#	def post(self):
-
-#	    event = self.request.get('key')
- #       comment_content = self.request.get('content')
-	
-  #      comment = Post(parent=guestbook_key(guestbook_name))
-
-   #     if users.get_current_user():
-	#        post.author = users.get_current_user()
-	 #       post.content = comment_content
-	  #      post.put()
-	   #     self.redirect('/?')
-	
+'''
+    def post(self):
+        event = self.request.get('key')
+        comment_content = self.request.get('content')
+	comment = Post(parent=guestbook_key(guestbook_name))
+        if users.get_current_user():
+          post.author = users.get_current_user()
+          post.content = comment_content
+          post.put()
+          self.redirect('/?')
+'''	
 	
 class UserPage(webapp.RequestHandler):
     def get(self):
         user = users.get_current_user()
         linktext = 'My Hangouts' if users.get_current_user() else 'Login'
         if user:
-            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" % user.user_id()).get()
+            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" %
+                                        user.user_id()).get()
             events = [db.get(event) for event in existing_user.events] if existing_user else []
             template_values = {'current_user': user,
                                'logout': users.create_logout_url("/"),
@@ -220,7 +216,8 @@ class Create(webapp.RequestHandler):
             title = self.request.get('title')
             location = self.request.get('location')
             description = self.request.get('description')
-            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" % current_user.user_id()).get()
+            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" %
+                                        current_user.user_id()).get()
             now = datetime.datetime.now()
             time = self.request.get('time')
             date = self.request.get('date')

@@ -1,8 +1,8 @@
 <html>
-  <head><title>appname</title>
+  <head><title>rollwith</title>
     <link type="text/css" rel="stylesheet" href="/css/home.css"> 
     <body>  
-      <a href="/"><div class="LogoText" style="font-size: 30;">appname</div></a>
+      <a href="/"><div class="LogoTextMini">rollwith</div></a>
       <div style="text-align: center;margin-left: auto;margin-right: auto;width:700">
 	<div class="subHeaderText" style="text-align:left;position:relative;z-index:1;width:700;">
 	  Upcoming Hangouts
@@ -26,6 +26,6 @@
 	{% endfor %}
       </div>
       </div>
-      <div class="Footer"><a href="/about">About</a>&nbsp;|&nbsp;<a href="/user">{{ linktext }}</a>&nbsp;|&nbsp;<a href="mailto:rogercosseboom@gmail.com">Email</a></div> 
+      {% include "footer.html" %}
     </body> 
 </html>
