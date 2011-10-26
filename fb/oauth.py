@@ -47,8 +47,7 @@ class BaseHandler(webapp.RequestHandler):
 
 class HomeHandler(BaseHandler):
     def get(self):
-        ### MAKE THIS LOAD PROFILE ONLY IF IT HASNT LOADED IN THE LAST 24hrs
-        user=self.current_user
+        ### MAKE THIS LOAD PROFILE ONLY IF IT HASNT LOADED IN THE LAST 24hrsuser=self.current_user
         graph = facebook.GraphAPI(user.access_token)
         likes = graph.get_object("/me/likes")
         likes = likes['data']
