@@ -48,9 +48,15 @@
 	</div>
 
 	<!-- Comments Area -->
-	<form action="/post" method="post" name="create">
-	  <textarea class='formElement' onfocus="value='';" onclick="value='';" name="comment_content" style="margin-top:20;width:100%;height:100px;">Got a question about this hangout? Ask it here...</textarea>
-	  <input class="createButton" type="button" value="Comment" onclick="window.location='/post?key={{ key }}&comment=comment_content'">
+	<form action="/post" method="post" name="post">
+	  <input class='formElement'
+		  	 type="textarea"
+			 value="Got a question about this hangout? Ask it here..." 
+			 onfocus="value='';" 
+			 onclick="value='';" 
+			 name="comment_content" 
+			 style="margin-top:20;width:100%;height:100px;">
+	  <input class="createButton" type="submit" value="Comment" onclick="window.location='document.form[0].submit()'">
 	  <input class="resetButton" name="reset" type="reset" value="Reset" >
 	</form>
 	

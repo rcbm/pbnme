@@ -131,15 +131,18 @@ class EventPage(webapp.RequestHandler):
 	                            "WHERE ANCESTOR IS :1 "
 	                            "ORDER BY date DESC LIMIT 10",
 	                             guestbook_key(guestbook_name))
-		
-	#	for post in posts:
-	#	            if post.author:
-	#	                self.response.out.write('<b>%s</b> wrote:' % post.author.nickname())
-	#	            else:
-	#	                self.response.out.write('An anonymous person wrote:')
-	#	            self.response.out.write('<blockquote>%s</blockquote>' %
-	#	                                    cgi.escape(greeting.content))
-		
+	
+	
+	
+	"""	
+		for post in posts:
+		            if post.author:
+		                self.response.out.write('<b>%s</b> wrote:' % post.author.nickname())
+		            else:
+		                self.response.out.write('An anonymous person wrote:')
+		            self.response.out.write('<blockquote>%s</blockquote>' %
+		                                    cgi.escape(greeting.content))
+	"""	
         key = self.request.get('key')
         event = db.get(key)
         linktext = 'My Hangouts' if user else 'Login'
@@ -153,20 +156,81 @@ class EventPage(webapp.RequestHandler):
                            'join_button': False if existing_user and existing_user.key() in event.members else True}
         self.response.out.write(template.render('static/event.html', template_values))
 
+"""
+This is just here as a reference for me
 
-#	def post(self):
+		def post(self):
+	        current_user = users.get_current_user()
+	        if current_user:
+	            from dateutil import parser
+	            title = self.request.get('title')
+	            location = self.request.get('location')
+	            description = self.request.get('description')
+	            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" % current_user.user_id()).get()
+	            now = datetime.datetime.now()
+	            time = self.request.get('time')
+	            date = self.request.get('date')
+	            if existing_user:
+	                event = Event(creator = current_user,
+	                              create_date = now,
+	                              title = title,
+	                              location = location,
+	                              datetime = parser.parse('%s %s' %(date, time), fuzzy=True),
+	                              description = description,
+	                              members = [existing_user.key()])
+	                event.put()
+	                existing_user.events.append(event.key())
+	                existing_user.put()
+	                self.redirect("/event?key=%s" % event.key())
+	            else:
+	                user_profile = User(user = current_user,
+	                                    user_id = current_user.user_id(),
+	                                    email = current_user.email(),
+	                                    create_date = now,
+	                                    last_date = now)
+	                user_profile.put()
+	                # Maybe change create_date = now w/ Auto_Now_Add=True in models.py
+	                event = Event(creator = current_user,
+	                              create_date = now,
+	                              title = title,
+	                              location = location,
+	                              datetime = parser.parse('%s %s' %(date, time), fuzzy=True),
+	                              description = description,
+	                              members = [user_profile.key()])
+	                event.put()
+	                # In order to have both the event and the user reference each other
+	                # one has to be saved and then retrieved and saved again (so as to generate a db.Key)
+	                user_profile.events = [event.key()]
+	                user_profile.put()
+	                self.redirect("/event?key=%s" % event.key())
+	        else:
+	            self.redirect(users.create_login_url(self.request.uri))
 
-#	    event = self.request.get('key')
- #       comment_content = self.request.get('content')
-	
-  #      comment = Post(parent=guestbook_key(guestbook_name))
+#this is the post in progress
 
-   #     if users.get_current_user():
-	#        post.author = users.get_current_user()
-	 #       post.content = comment_content
-	  #      post.put()
-	   #     self.redirect('/?')
-	
+	def post(self):
+		current_user = users.get_current_user()
+        
+        if current_user:
+	        from dateutil import parser
+            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" % current_user.user_id()).get()
+            now = datetime.datetime.now()
+            time = self.request.get('time')
+            date = self.request.get('date')
+			key = self.request.get('key') 
+		    event = db.get(key)
+            comment_content = self.request.get('comment_content') 
+
+			comment = Post(author = current_user,
+                      	   create_date = now,
+                           comment = comment_content,
+                           location = location,
+                           event = key)
+            post.put()
+			event.posts.append(comment.key())
+            event.put()
+            self.redirect("/event?key=%s" % event.key())
+"""
 	
 class UserPage(webapp.RequestHandler):
     def get(self):
