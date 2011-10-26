@@ -3,7 +3,7 @@ from google.appengine.api import users
 
 class fbUser(db.Model):
     id = db.StringProperty(required=True)
-    email = db.EmailProperty(default=None, required=True)
+    email = db.EmailProperty(default=None)
     created = db.DateTimeProperty(auto_now_add=True)
     updated = db.DateTimeProperty(auto_now=True)
     name = db.StringProperty(required=True)

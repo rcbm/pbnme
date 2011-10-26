@@ -47,18 +47,21 @@ class BaseHandler(webapp.RequestHandler):
 
 class HomeHandler(BaseHandler):
     def get(self):
-        ### MAKE THIS LOAD PROFILE ONLY IF IT HASNT LOADED IN THE LAST 24hrsuser=self.current_user
+        ### MAKE THIS LOAD PROFILE ONLY IF IT HASNT LOADED IN THE LAST 24hrs
+        user=self.current_user
         graph = facebook.GraphAPI(user.access_token)
         likes = graph.get_object("/me/likes")
         likes = likes['data']
         user.likes = [like['id'] for like in likes]
 
         picture = urllib2.urlopen('http://graph.facebook.com/%s/picture' % self.current_user.id).read()
+        user.picture = db.Blob(picture)
+        user.put()
+
+        # display picture w/ appropriate headers
         self.response.headers['Content-Type'] = 'image/jpeg'
         self.response.out.write(picture)
-        #user.picture = db.Blob(picture)
-        #user.put()
-
+        
         #path = os.path.join(os.path.dirname(__file__), "../static/oauth.html")
         #args = dict(current_user=self.current_user)
         #self.response.out.write(template.render(path, args))
