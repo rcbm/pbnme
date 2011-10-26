@@ -2,9 +2,9 @@
 THINGS TO-DO:
 -------------
 * implement /join as an ajax call (using post())
-
 * add un-join button to /user
 * sort events by # of people attending
+* pair down /create fields
 
 Not Urgent
 _____________

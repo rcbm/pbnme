@@ -1,3 +1,12 @@
+"""
+Future Facebook Dataflow
+------------------------------
+after /fb/auth/login, redirects to oauth.html  - this should instead...
+
+1. store user's likes 
+2. store user's profile picture 'http://graph.facebook.com/%s/picture' % self.current_user.id
+"""
+
 FACEBOOK_APP_ID = "231959676859483"
 FACEBOOK_APP_SECRET = "7c3857ee6170df4246cfffbf1544591e"
 
@@ -22,15 +31,7 @@ from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from google.appengine.ext.webapp import template
-
-class fbUser(db.Model):
-    id = db.StringProperty(required=True)
-    created = db.DateTimeProperty(auto_now_add=True)
-    updated = db.DateTimeProperty(auto_now=True)
-    name = db.StringProperty(required=True)
-    profile_url = db.StringProperty(required=True)
-    access_token = db.StringProperty(required=True)
-
+from models import *
 
 class BaseHandler(webapp.RequestHandler):
     @property
@@ -46,19 +47,24 @@ class BaseHandler(webapp.RequestHandler):
 
 class HomeHandler(BaseHandler):
     def get(self):
+        ### MAKE THIS LOAD PROFILE ONLY IF IT HASNT LOADED IN THE LAST 24hrs
         user=self.current_user
-        '''
         graph = facebook.GraphAPI(user.access_token)
-        profile = graph.get_object("me")
-        friends = graph.get_connections("me", "friends")
-        print '\n%s\n' % profile
-        print '\n%s\n' % friends
-        '''
-        
-        path = os.path.join(os.path.dirname(__file__), "../static/oauth.html")
-        args = dict(current_user=self.current_user)
-        self.response.out.write(template.render(path, args))
-        
+        likes = graph.get_object("/me/likes")
+        likes = likes['data']
+        user.likes = [like['id'] for like in likes]
+
+        picture = urllib2.urlopen('http://graph.facebook.com/%s/picture' % self.current_user.id).read()
+        self.response.headers['Content-Type'] = 'image/jpeg'
+        self.response.out.write(picture)
+        #user.picture = db.Blob(picture)
+        #user.put()
+
+        #path = os.path.join(os.path.dirname(__file__), "../static/oauth.html")
+        #args = dict(current_user=self.current_user)
+        #self.response.out.write(template.render(path, args))
+        #self.response.out.write('<img src="http://graph.facebook.com/%s/picture"/>' % self.current_user.id)
+
         
 class LoginHandler(BaseHandler):
     def get(self):
