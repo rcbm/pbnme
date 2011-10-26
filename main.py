@@ -127,23 +127,10 @@ class EventPage(webapp.RequestHandler):
                                         user.user_id()).get()
         else:
             existing_user = None
-        
-	    posts = db.GqlQuery("SELECT * "
-	                            "FROM Post "
-	                            "WHERE ANCESTOR IS :1 "
-	                            "ORDER BY date DESC LIMIT 10",
-	                             guestbook_key(guestbook_name))
-		
-	#	for post in posts:
-	#	            if post.author:
-	#	                self.response.out.write('<b>%s</b> wrote:' % post.author.nickname())
-	#	            else:
-	#	                self.response.out.write('An anonymous person wrote:')
-	#	            self.response.out.write('<blockquote>%s</blockquote>' %
-	#	                                    cgi.escape(greeting.content))
-		
+
         key = self.request.get('key')
         event = db.get(key)
+        posts = event.posts
         linktext = 'My Hangouts' if user else 'Login'
         template_values = {'linktext': linktext,
                            'key': event.key(),
@@ -152,20 +139,26 @@ class EventPage(webapp.RequestHandler):
                            'datetime': event.datetime,
                            'description': event.description,
                            'members': [db.get(m) for m in event.members],
+                           'posts': [db.get(p) for p in event.posts],
                            'join_button': False if existing_user and existing_user.key() in event.members else True}
         self.response.out.write(template.render('static/event.html', template_values))
 
-'''
     def post(self):
-        event = self.request.get('key')
-        comment_content = self.request.get('content')
-	comment = Post(parent=guestbook_key(guestbook_name))
-        if users.get_current_user():
-          post.author = users.get_current_user()
-          post.content = comment_content
-          post.put()
-          self.redirect('/?')
-'''	
+        current_user = users.get_current_user()
+        if current_user: #makes sure user is logged in
+            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" % current_user.user_id()).get()
+            key = self.request.get('event_key')
+            current_event = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" % key )
+            comment_content = self.request.get('comment_content') 
+            comment = Post(author = current_user,
+                           content = comment_content,
+	                       event = current_eventkey)
+            post.put()
+            event.posts.append(comment.key())
+            event.put()
+            self.redirect("/event?key=%s" % event.key())
+        else:
+            self.redirect(users.create_login_url(self.request.uri))
 	
 class UserPage(webapp.RequestHandler):
     def get(self):
