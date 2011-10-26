@@ -1,25 +1,19 @@
 <html> 
-  <head><title>appname</title> 
+  <head><title>rollwith</title> 
   </head>
   <link type="text/css" rel="stylesheet" href="/css/home.css"> 
   <body>
-    <div class="LogoText" style="text-align: center;margin-left: auto;margin-right: auto;margin-top: 100">
-      <b>appname</b>
+    <div class="LogoText" style="">
+      rollwith
     </div>
     <div class="ResultsText" style="margin-top:-20;font-size: 30;text-align: center;">
-      Hang in real life.
+      Create and find one-off gatherings<br> to hang with people in real life!
       <div style="text-align: center;margin-top: 50px;margin-left: auto;margin-right: auto;width: 100%">
-        <span onclick="window.location='/browse'" class="browseButton" style="font-weight: bold;color: ffffff;margin-right: 5px;">join a hangout</span> 
+        <span onclick="window.location='/browse'" class="browseButton" style="font-weight: bold;color: ffffff;margin-right: 5px;">find a hangout</span> 
 	<B>&nbsp;or&nbsp;</B>
 	<span onclick="window.location = '/create'" class="startButton" style="font-weight:bold;color: ffffff;margin-left:5px;">start a hangout</span> 
       </div>
     </div>
-
-<!-- Facebook Profile shit -->
-
-<div class="ResultsText" style="margin-top:20;font-size: 30;text-align: center;">
-
-
-    <div class="Footer"><a href="/about">About</a>&nbsp;|&nbsp;<a href="/user">{{ linktext }}</a>&nbsp;|&nbsp;<a href="mailto:rogercosseboom@gmail.com">Email</a></div> 
+    {% include "footer.html" %}
   </body>
 </html>

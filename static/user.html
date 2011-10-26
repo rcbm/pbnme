@@ -1,17 +1,15 @@
 <html>
   <head>
-    {% include "api/facebook/facebook_connect.html" %}
-    <title>appname</title>
+    <title>rollwith</title>
     <script type="text/javascript" src="/javascript/jquery-1.3.2.min.js"></script>
     <script type="text/javascript" src="/javascript/user.js"></script>
     <link type="text/css" rel="stylesheet" href="/css/home.css"> 
     <body>
-      <a href="/"><div class="LogoText" style="font-size: 30;">appname</div></a>
+      <a href="/"><div class="LogoTextMini">rollwith</div></a>
       <div style="text-align: left;margin-left: auto;margin-right: auto;width:700">
 	<div class="subHeaderText" style="text-align:left;position:relative;width:700;">
-	  <a href="/">Home</a> | <a href="/browse">Join</a> | <a href="/create">Create</a> | <a href="#" onclick="fb_login();" id="facebook">Connect Facebook</a><span style="float:right"><a href="{{ logout }}">Logout</a></span>
+	  <a href="/">Home</a> | <a href="/browse">Join</a> | <a href="/create">Create</a> | <a href="/fb/auth/login">FB Connect</a><span style="float:right"><a href="{{ logout }}">Logout</a></span>
 	</div>
-	
 	{% for event in events %}
 	<div class="ResultsText" style="font-size: 18;background-color: {% cycle #EEE,#DDD %};">
 	  <a href="/event?key={{ event.key }}">
@@ -27,6 +25,6 @@
 	</div>
 	{% endfor %}
       </div>
-      <div class="Footer"><a href="/about">About</a>&nbsp;|&nbsp;<a href="/user">{{ linktext }}</a>&nbsp;|&nbsp;<a href="mailto:rogercosseboom@gmail.com">Email</a></div> 
+      {% include "footer.html" %}
     </body> 
 </html>

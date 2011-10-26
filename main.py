@@ -94,7 +94,8 @@ class Join(webapp.RequestHandler):
         if current_user:
             key = self.request.get('key')
             event = db.get(key)
-            user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" % users.get_current_user().user_id()).get()
+            user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" %
+                               users.get_current_user().user_id()).get()
             # Make sure user isn't already part of the event
             if user:
                 if user.key() not in event.members:
@@ -122,7 +123,8 @@ class EventPage(webapp.RequestHandler):
     def get(self):
         user = users.get_current_user()
         if user:
-            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" % user.user_id()).get()
+            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" %
+                                        user.user_id()).get()
         else:
             existing_user = None
         
@@ -237,7 +239,8 @@ class UserPage(webapp.RequestHandler):
         user = users.get_current_user()
         linktext = 'My Hangouts' if users.get_current_user() else 'Login'
         if user:
-            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" % user.user_id()).get()
+            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" %
+                                        user.user_id()).get()
             events = [db.get(event) for event in existing_user.events] if existing_user else []
             template_values = {'current_user': user,
                                'logout': users.create_logout_url("/"),
@@ -280,7 +283,8 @@ class Create(webapp.RequestHandler):
             title = self.request.get('title')
             location = self.request.get('location')
             description = self.request.get('description')
-            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" % current_user.user_id()).get()
+            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" %
+                                        current_user.user_id()).get()
             now = datetime.datetime.now()
             time = self.request.get('time')
             date = self.request.get('date')
