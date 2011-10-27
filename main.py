@@ -110,7 +110,6 @@ class Join(webapp.RequestHandler):
                 user_profile = User(user = current_user,
                                     user_id = current_user.user_id(),
                                     email = current_user.email(),
-                                    create_date = now,
                                     last_date = now,
                                     events = [event.key()])
                 user_profile.put()
@@ -144,7 +143,7 @@ class EventPage(webapp.RequestHandler):
 
     def post(self):
         current_user = users.get_current_user()
-        if current_user: #makes sure user is logged in
+        if current_user: # Make sure user is logged in
             existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" %
                                         current_user.user_id()).get()
             key = self.request.get('event_key')
@@ -217,7 +216,6 @@ class Create(webapp.RequestHandler):
             date = self.request.get('date')
             if existing_user:
                 event = Event(creator = current_user,
-                              create_date = now,
                               title = title,
                               location = location,
                               datetime = parser.parse('%s %s' %(date, time), fuzzy=True),
@@ -231,12 +229,9 @@ class Create(webapp.RequestHandler):
                 user_profile = User(user = current_user,
                                     user_id = current_user.user_id(),
                                     email = current_user.email(),
-                                    create_date = now,
                                     last_date = now)
                 user_profile.put()
-                # Maybe change create_date = now w/ Auto_Now_Add=True in models.py
                 event = Event(creator = current_user,
-                              create_date = now,
                               title = title,
                               location = location,
                               datetime = parser.parse('%s %s' %(date, time), fuzzy=True),
