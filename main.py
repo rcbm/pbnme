@@ -152,10 +152,10 @@ class EventPage(webapp.RequestHandler):
             comment_content = self.request.get('comment_content') 
             comment = Post(author = current_user,
                            content = comment_content,
-	                       event = current_eventkey)
+	                       event = current_event)
             post.put()
-            event.posts.append(comment.key())
-            event.put()
+         #  event.posts.append(comment.key())
+         #  event.put()
             self.redirect("/event?key=%s" % event.key())
         else:
             self.redirect(users.create_login_url(self.request.uri))
