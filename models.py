@@ -29,12 +29,10 @@ class Event(db.Model):
     location = db.StringProperty(default=None)
     description = db.StringProperty(default=None, required=False, multiline=True)
     members = db.ListProperty(db.Key)
-    #posts = db.ListProperty(db.Key)
-
-
+    posts = db.ListProperty(db.Key)
     
 class Post(db.Model):
-    event = db.ReferenceProperty(Event, collection_name='posts')
+    event = db.ReferenceProperty(Event)
     author = db.UserProperty()
     content = db.StringProperty(default=None, required=True, multiline=True)
     create_date = db.DateTimeProperty(auto_now_add=True)

@@ -5,6 +5,10 @@ after /fb/auth/login, redirects to oauth.html  - this should instead...
 
 1. store user's likes 
 2. store user's profile picture 'http://graph.facebook.com/%s/picture' % self.current_user.id
+
+
+########
+Refactor models.py away from UserProperty()
 """
 
 FACEBOOK_APP_ID = "231959676859483"
@@ -58,7 +62,7 @@ class HomeHandler(BaseHandler):
         user.picture = db.Blob(picture)
         user.put()
 
-        # display picture w/ appropriate headers
+        # Display user's profile pic w/ appropriate headers
         self.response.headers['Content-Type'] = 'image/jpeg'
         self.response.out.write(picture)
         

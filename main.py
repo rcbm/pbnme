@@ -127,10 +127,8 @@ class EventPage(webapp.RequestHandler):
                                         user.user_id()).get()
         else:
             existing_user = None
-
         key = self.request.get('key')
         event = db.get(key)
-        posts = event.posts
         linktext = 'My Hangouts' if user else 'Login'
         template_values = {'linktext': linktext,
                            'key': event.key(),
@@ -146,17 +144,19 @@ class EventPage(webapp.RequestHandler):
     def post(self):
         current_user = users.get_current_user()
         if current_user: #makes sure user is logged in
-            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" % current_user.user_id()).get()
+            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" %
+                                        current_user.user_id()).get()
             key = self.request.get('event_key')
-            current_event = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" % key )
+            current_event = db.get(key)
             comment_content = self.request.get('comment_content') 
             comment = Post(author = current_user,
                            content = comment_content,
-	                       event = current_eventkey)
-            post.put()
-            event.posts.append(comment.key())
-            event.put()
-            self.redirect("/event?key=%s" % event.key())
+                           event = current_event)
+            comment.put()
+            comment_key = comment.key()
+            current_event.posts.append(comment_key)
+            current_event.put()
+            self.redirect("/event?key=%s" % current_event.key())
         else:
             self.redirect(users.create_login_url(self.request.uri))
 	

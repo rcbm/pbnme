@@ -39,25 +39,40 @@
 	{% endif %}
 	
 	<!-- List of Users -->
-	<div style="margin-top:20px">
-	  {% for user in members %}
-	  <div class="ResultsText" style="font-size:18;background-color: {% cycle #EEE,#DDD %};">
-	    {{ user.email }}
-	  </div>
-	  {% endfor %}
-	</div>
+	<!--
+	    <div style="margin-top:20px">
+	      {% for user in members %}
+	      <div class="ResultsText" style="font-size:18;background-color: {% cycle #EEE,#DDD %};">
+		{{ user.email }}
+	      </div>
+	      {% endfor %}
+	    </div>
+	    -->
 
+	
 	<!-- Comments Area -->
 	<form action="/post" method="post" name="post">
-	  <input class='formElement'
-		  	 type="textarea"
-			 value="Got a question about this hangout? Ask it here..." 
-			 name="comment_content" 
-			 style="margin-top:20;width:100%;height:100px;">
-	  <input type='hidden' name="event_key" value={{ key }}>
+	    <textarea class='formElement'
+		      onfocus="value='';"
+		      onclick="value='';"
+		      name="comment_content"
+		      style="margin-top:20;width:100%;height:150px;">Got a question about this hangout? Ask it here...</textarea>
+	  <input type="hidden" name="event_key" value="{{ key }}">
 	  <input class="createButton" type="submit" value="Comment" onclick='document.form[0].submit()'>
 	  <input class="resetButton" type="reset" value="Reset" >
 	</form>
+
+
+	<!-- List of Posts -->
+	<div style="margin-top:20px">
+	  {% for p in posts %}
+	  <div class="ResultsText" style="font-size:18;background-color: {% cycle #EEE,#DDD %};">
+	    <b>{{ p.author }} says...</b>
+	    <br>
+	    {{ p.content }}
+	  </div>
+	  {% endfor %}
+	</div>
 
 	
 	<!-- Footer -->
