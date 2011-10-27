@@ -5,6 +5,7 @@ THINGS TO-DO:
 * add un-join button to /user
 * sort events by # of people attending
 * pair down /create fields
+* Clicking on a comment always erases, should fix this
 
 Not Urgent
 _____________

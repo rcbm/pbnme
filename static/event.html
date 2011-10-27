@@ -5,6 +5,7 @@
       <a href="/"><div class="LogoTextMini">rollwith</div></a>
       <div style="text-align: left;margin-left: auto;margin-right: auto;width: 700;">
 
+	
 	<!-- Event Info -->
 	<div class="eventHeader">
 	  {{ title }}
@@ -31,12 +32,14 @@
 	  </div>
 	</div>
 
+	
 	<!-- Join Button -->
 	{% if join_button %}
 	<div style="text-align:center;l">
 	  <input class="joinButton" style="margin-top: 20;color: ffffff;width:300" onclick="window.location='/join?key={{ key }}'" type="Button" value="Join">
 	</div>
 	{% endif %}
+
 	
 	<!-- List of Users -->
 	<!--
