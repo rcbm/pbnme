@@ -1,21 +1,82 @@
 '''
+Future Sketches
+-------------------------
+GEOLOCATION:
+Users in Berkeley CA and Pittsburgh PA can log in and create events.
+Users in other places can only see events but cannot create or join them.
+If they try they'll get a polite message and a promise we'll contact them
+when its available in their city.
+
+
+
+FACEBOOK:
+When a user logs in we sign them in w/ FB. Then we see if we have the
+user's information in our datastore. If we do, has it been updated recently? (~72hrs)
+
+FB Information we keep on hand: 
+ - ID
+ - Name
+ - Small Photo
+ - Access Token
+ - List of Likes
+ - (List of Friends?)
+
+QUESTIONS:
+How do we deal w/ people who don't have facebook? Landing page?
+Where does this page go? How much stuff do we actually store?
+Do we need a list of friends... for the matching algorithm?
+
+
+
+
+EXPIRING EVENTS:
+An event has a Datetime when it is to occur, and a
+active flag. When machinetime > an events Datetime,
+this Event should flip the active flag. This means that machinetime
+must be monitoring machinetime. Is there a continuous process for
+this? Or can we have a task execute this whenever a user performs
+some action?
+
+
+
+ 
+
 THINGS TO-DO:
+
+URGENT
 -------------
+* swap Google Users to FB
+* add content to FAQ (hook already made)
+* add content to About (hook already made)
+* implement email and/or fb message reminders
+* make more robust /browse (sort by date, sort by score, etc.)
 * implement /join as an ajax call (using post())
+* implement expiring events
+* implement scrolling /browse events
 * add un-join button to /user
 * sort events by # of people attending
-* pair down /create fields
-* Clicking on a comment always erases, should fix this
+* clicking on a comment always erases, should fix this
+* add editing events
+  -- extrapolate existing /create UI to have hooks for populating w/ data
+* Make a FB login  w/ logo? (see: http://www.letsdrinktonight.com)
+* Overhaul day / times
+  - check for string recognition
+    -- should recognize string 'today' as datetime.date.today(), etc.
+  - implement date and time ranges(i think they just subtract?)
+
+BUGS:
+------------
+- When a user isn't logged in but then goes to join an event, logs in,
+  and then he's already going to that event, it just lands at an empty
+  screen (is it a python if statement?)
+- When a user isn't logged in but wants to make a hangout, it nukes
+  their hangout info before logging them back in
+
 
 Not Urgent
 _____________
-Fix datetime
-  - change str(today) to datetime.date.today()
-  - add datepicker
-  - implement date and time ranges(i think they just subtract?)
-
+Add datepicker
 When there are no hangouts in /browse, add a 'create' message
-Fix alignment issue w/ logo
 Add existing group checking for create()
 Add date conflict checking for create()
 Implement 'default-value' checking to create form in JS
@@ -27,13 +88,14 @@ Harder:
 [implement form validation w/ js and python]
 [Add uploading of a photo when creating a hangout]
 [Add Geolocation (http://diveintohtml5.org/geolocation.html)]
-[Add Facebook (http://developers.facebook.com/docs/reference/api/)]
 
 
 ###########################################################################################
 
 DONE
 -------------
+* pair down /create fields
+* add event comments
 * implement /delete as an ajax call (using post())
 * add # of people attending on main events list page
 * add hiding for non-owners, show a 'delete' group button on /user if zero-members in group
@@ -46,6 +108,7 @@ DONE
   (check both event's members and user's events? -- these should not be out of sync)
 * add a way of showing some (or all) events on index.html
 
+Fix alignment issue w/ logo
 Break DeleteHandler into tasks
 Add a number system for people who are going to an event
 Fix security hole for directly accessing *.html files
@@ -53,6 +116,9 @@ Change default-value in forms to change depending on FOCUS not on click
 Auto-Join people who create an event
 Change create() to redirect to event template
 Create event template
+
+[Add Facebook (http://developers.facebook.com/docs/reference/api/)]
+
 '''
 
 import os
@@ -64,6 +130,18 @@ from google.appengine.api import users
 from google.appengine.api import taskqueue
 from models import *
         
+class FAQPage(webapp.RequestHandler):
+    def get(self):
+        user = users.get_current_user()
+        self.response.out.write(template.render('static/temp.html',
+                                                {'linktext':'My Hangouts' if user else 'Login'}))
+
+class AboutPage(webapp.RequestHandler):
+    def get(self):
+        user = users.get_current_user()
+        self.response.out.write(template.render('static/temp.html',
+                                                {'linktext':'My Hangouts' if user else 'Login'}))
+
 class EventPurge(webapp.RequestHandler):
     # Takes an event by key and removes itself from all its members
     def post(self):
@@ -160,6 +238,10 @@ class EventPage(webapp.RequestHandler):
         else:
             self.redirect(users.create_login_url(self.request.uri))
 	
+class LogoPage(webapp.RequestHandler):
+    def get(self):
+        self.response.out.write(template.render('static/logo.html', {}))
+
 class UserPage(webapp.RequestHandler):
     def get(self):
         user = users.get_current_user()

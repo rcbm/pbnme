@@ -1,14 +1,13 @@
 <html> 
-  <head><title>rollwith</title> 
+  <head><title>pbandme</title> 
+    {% include "googanalysis.html" %}
   </head>
   <link type="text/css" rel="stylesheet" href="/css/home.css"> 
   <body>
-    <div class="LogoText" style="">
-      rollwith
-    </div>
-    <div class="ResultsText" style="color:#999;margin-top:-20;font-size: 30;text-align: center;">
-      Find activities to hang with people in real life!
-      <div style="text-align: center;margin-top: 50px;margin-left: auto;margin-right: auto;width: 100%">
+    {% include "logo.html" %}
+    <div class="ResultsText" style="color:#666;margin-top:-20;font-size: 20;text-align: center;margin-top:20;"> 
+      <span style="font-family:georgia;font-size: 80;"><span style="color: #FF9900">Find a group</span> <span style="color: #CC0099">like you,</span><br> <span style="color: #E70000">in real life.</span></span>
+      <div style="text-align: center;margin-top: 80px;margin-left: auto;margin-right: auto;width: 100%">
         <span onclick="window.location='/browse'" class="browseButton" style="font-weight: bold;color: ffffff;margin-right: 5px;">find a hangout</span> 
 	<B>&nbsp;or&nbsp;</B>
 	<span onclick="window.location = '/create'" class="startButton" style="font-weight:bold;color: ffffff;margin-left:5px;">start a hangout</span> 

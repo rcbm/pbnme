@@ -23,6 +23,7 @@ class User(db.Model):
     
 class Event(db.Model):
     create_date = db.DateTimeProperty(auto_now_add=True, default=None)
+    active = db.BooleanProperty(default=True)
     creator = db.UserProperty()
     datetime = db.DateTimeProperty(default=None, required=True)
     title = db.StringProperty(default=None, required=True)

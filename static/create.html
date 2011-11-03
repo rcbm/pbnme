@@ -1,22 +1,41 @@
 <html>
-  <head><title>rollwith</title>
+  <head><title>pbandme</title>
     <script type="text/javascript" src="/javascript/jquery-1.3.2.min.js"></script>
     <link type="text/css" rel="stylesheet" href="/css/home.css"> 
-    <body>  
-      <a href="/"><div class="LogoTextMini">rollwith</div></a>
-      	<div style="text-align: left;margin-left: auto;margin-right: auto;width:600;">
-	  <div class="subHeaderText" style="text-align:left;position:relative;width:600;">
+    {% include "googanalysis.html" %}
+  </head>
+  <body>  
+    {% include "logo.html" %}
+      <div style="text-align: left;margin-left: auto;margin-right: auto;width:700">
+	<div class="subHeaderText" style="text-align:left;position:relative;width:700;">
 	  Start a hangout:
-	  </div>
-	  <form action="/create" method="post" name="create">
-	    <input type="text" class="formElement" value="What are you doing?" onfocus="value='';" onclick="value='';" maxlength="140" name="title" style="width: 600px;"> 
-	    <input type="text" class="formElement" value="Where is it?" onfocus="value='';" onclick="value='';" name="location" style="width: 600px;margin-top: 15"> 
-	    <input type="text" class="formElement" value="Day" onfocus="value='';" onclick="value='';" name="date" style="width: 290px;margin-top: 12;margin-right:11px;"> 
-	    <input type="text" class="formElement" value="Time" onfocus="value='';" onclick="value='';" name="time" style="width: 295px;margin-top: 15;"> 
-	    <input class="createButton" style="margin-top: 20;margin-left: 0;margin-right:2px;color: ffffff;font-weight:bold;" onclick="window.location='document.form[0].submit()'" type="Submit" value="Create">
-	    <input class="cancelButton" style="margin-top: 20;margin-left: 0;margin-left:2px;color: ffffff;font-weight:bold;" onclick="window.location='/home'" type="Button" value="Cancel">
-	  </form>
 	</div>
-	{% include "footer.html" %}
+	<form action="/create" method="post" name="create">
+	  <input type="text" class="createFormElement" value="What are you doing?"
+		 onclick="if (value == 'What are you doing?') {value='';} else {value=value;};"
+		 onfocus="if (value == 'What are you doing?') {value='';} else {value=value;};"
+		 maxlength="140" name="title" style="width: 700px;">
+	  <input type="text" class="createFormElement" value="Where is it?"
+		 onclick="if (value == 'Where is it?') {value='';} else {value=value;};"
+		 onfocus="if (value == 'Where is it?') {value='';} else {value=value;};"
+		 name="location" style="width: 700px;margin-top: 15"> 
+	  <input type="text" class="createFormElement" value="Day"
+		 onclick="if (value == 'Day') {value='';} else {value=value;};"
+		 onfocus="if (value == 'Day') {value='';} else {value=value;};"
+		 name="date" style="width: 290px;margin-top: 12;margin-right:11px;">
+	  <input type="text" class="createFormElement" value="Time"
+		 onclick="if (value == 'Time') {value='';} else {value=value;};"
+		 onfocus="if (value == 'Time') {value='';} else {value=value;};"
+		 name="time" style="width: 295px;margin-top: 15;"> 
+	  <div class="smallNotes" style="margin-top: 0;width: 700">
+	    "Today", "Saturday", "10/20/12" <span style="margin-left: 99">"Noon", "9pm", "8:00"</span>
+	  </div>
+	  <input class="createButton" style="margin-top: 20;margin-left: 0;margin-right:2px;color: ffffff;font-weight:bold;" onclick="window.location='document.form[0].submit()'" type="Submit" value="Create">
+	  <input class="cancelButton" style="margin-top: 20;margin-left: 0;margin-left:2px;color: ffffff;font-weight:bold;" onclick="window.location='/home'" type="Button" value="Cancel">
+	</form>
+      </div>
+      {% include "footer.html" %}
     </body> 
 </html>
+
+

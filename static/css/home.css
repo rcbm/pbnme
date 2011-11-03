@@ -45,10 +45,18 @@
           font-family: helvetica;
           font-size: 20;
 }
+.createFormElement {
+          color: #777777;
+          background: #DDDDDD;
+          border: 10px solid #DDDDDD;
+          font-family: helvetica;
+          font-size: 40;
+}
 .joinButton {
           color: #ffffff;
           background: #5CADFF;
-          border: 10px solid #5CADFF;
+          font-weight: bold;
+	  border: 10px solid #5CADFF;
           font-family: helvetica;
           font-size: 20;
 	   
@@ -132,21 +140,13 @@
           font-size: 20;
 	   
 }
-.EmptyResultsText {
-          background-color: FFFFCC;
-	  font-family: helvetica;
-          font-size: 12pt;
-          color: #777777;
-          text-align: left;
+.smallNotes {
+          font-family: helvetica;
+          font-size: 11pt;
+          color: #bbb;
+	  font-style: italic;
+	  text-align: left;
           margin-top: 0px;
-	  border-color: FFFFFF;
-	  border-style: solid;
-	  border-width: 1px;
-          margin-bottom: 0px;
-	  margin-left: 0px;
-	  padding: 10px;
-	  z-index:1;
-	  position:relative;
 }
 .ResultsText {
 	  font-family: helvetica;
@@ -189,12 +189,12 @@ P.blocktext {
           line-height: 150%;
 }
 .LogoTextMini {
-          font-family: georgia, bookman, serif;
+          font-family: arial;
 	  font-size: 30;
-	  font-style: italic;
-	  letter-spacing: -.05em;
+	  //font-style: italic;
 	  font-weight: bold;
-	  color: #666;
+	  letter-spacing: -.05em;
+	  color: #E70000;
 	  padding: 10px;
 }
 .LogoText {
@@ -234,7 +234,7 @@ P.blocktext {
 	  font-family: times, Times New Roman, times-roman, georgia, serif;
           font-style: italic;
           font-size: 24pt;
-          color: #DDD;
+          color: #aaa;
           text-align: left;
           margin-top: 0px;
 	  margin-bottom: 0px;

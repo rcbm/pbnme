@@ -1,14 +1,16 @@
 <html>
-  <head><title>rollwith</title>
-    <link type="text/css" rel="stylesheet" href="/css/home.css"> 
-    <body>  
-      <a href="/"><div class="LogoTextMini">rollwith</div></a>
-      <div style="text-align: center;margin-left: auto;margin-right: auto;width:700">
-	<div class="subHeaderText" style="text-align:left;position:relative;z-index:1;width:700;">
-	  Upcoming Hangouts
-	</div>
+  <head><title>pbandme</title>
+    <link type="text/css" rel="stylesheet" href="/css/home.css">
+    {% include "googanalysis.html" %}
+  </head>
+  <body>  
+    {% include "logo.html" %}
+    <div style="text-align: center;margin-left: auto;margin-right: auto;width:700">
+      <div class="subHeaderText" style="text-align:left;position:relative;z-index:1;width:700;">
+	Upcoming Hangouts
+      </div>
       <div style="text-align: left;margin-left: auto;margin-right: auto;width:700;">
-	  {% for event in events %}
+	{% for event in events %}
 	<div class="ResultsText" style="background-color: {% cycle #EEE,#DDD %};">
 	  <div class="memberNumberBrowse" style="text-align:center;background-color: #ffffff;height:60px;width:60px;float:left;margin-right:20;">
 	    {{ event.members|length }}
