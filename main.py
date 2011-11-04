@@ -326,16 +326,14 @@ class CreatePage(BaseHandler):
 
 class UserPage(BaseHandler):
     def get(self):
-        logging.info('########## AT /USER ##################')
         user = self.current_user
         if user:
-            logging.info('############# FOUND USER ######################')
             # If stored profile is > 3 days old, update it
             if (datetime.now() - user.updated).days > 3:
-                logging.info('FB data not fresh; requesting')
+                logging.info('INFO: FB data is not fresh; requesting new')
                 FBUpdateHandler(user).load()
 
-            # Render /user
+            # Render /user Page
             events = [db.get(event) for event in user.events] if user else []
             template_values = {'current_user': user,
                                'logout': users.create_logout_url("/"),
@@ -344,7 +342,6 @@ class UserPage(BaseHandler):
             self.response.out.write(template.render('static/user.html', template_values))
             self.response.out.write('<p><a href="/auth/logout">Log out</a></p>')
         else:
-            logging.info('########## COULDNT FIND USER ##############')
             self.redirect('/auth/login')
             
         '''
