@@ -82,16 +82,30 @@ class LoginHandler(BaseHandler):
 
             # Download the user profile and cache a local instance of the
             # basic profile info
-            profile = json.load(urllib2.urlopen(
-                "https://graph.facebook.com/me?" +
-                urllib.urlencode(dict(access_token=access_token))))
-            user = fbUser(key_name=str(profile["id"]), id=str(profile["id"]),
-                        name=profile["name"], access_token=access_token,
-                        profile_url=profile["link"])
-            user.put()
+            ### THIS IS NUKING DATA AT EVERY LOGIN
+            if self.current_user:
+                logging.info('########### FOUND USDRRDFSDFSDF ##########')
 
-            set_cookie(self.response, "fb_user", str(profile["id"]),
-                       expires=time.time() + 30 * 86400)
+            logging.info('TOKEN: %s' % access_token)
+            user = db.GqlQuery("SELECT * FROM fbUser WHERE access_token = '%s'" %
+                                        access_token).get()
+            if user:
+                logging.info('################ LOOKED UP USER #############')
+                set_cookie(self.response, "fb_user", str(user.id),
+                           expires=time.time() + 30 * 86400)
+            else:
+                logging.info('################ COULDN"T LOOK UP ###########')
+
+                profile = json.load(urllib2.urlopen(
+                    "https://graph.facebook.com/me?" +
+                    urllib.urlencode(dict(access_token=access_token))))
+                user = fbUser(key_name=str(profile["id"]), id=str(profile["id"]),
+                            name=profile["name"], access_token=access_token,
+                            profile_url=profile["link"])
+                user.put()
+
+                set_cookie(self.response, "fb_user", str(profile["id"]),
+                           expires=time.time() + 30 * 86400)
             self.redirect('/user')
         else:
             self.redirect(
@@ -100,7 +114,7 @@ class LoginHandler(BaseHandler):
         
 class LogoutHandler(BaseHandler):
     def get(self):
-        logging.debug('logging out.....')
+        logging.debug('####### logging out #########')
         set_cookie(self.response, "fb_user", "", expires=time.time() - 86400)
         self.redirect("/")
 

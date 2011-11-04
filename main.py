@@ -102,6 +102,7 @@ Harder:
 
 DONE
 -------------
+- When a user who's logged in before, logs in again- their data (likes,pic) gets nuked
 * pair down /create fields
 * add event comments
 * implement /delete as an ajax call (using post())
@@ -331,7 +332,7 @@ class UserPage(BaseHandler):
             logging.info('############# FOUND USER ######################')
             # If stored profile is > 3 days old, update it
             if (datetime.now() - user.updated).days > 3:
-                logging.debug('FB data not fresh; requesting')
+                logging.info('FB data not fresh; requesting')
                 FBUpdateHandler(user).load()
 
             # Render /user
