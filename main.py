@@ -6,7 +6,7 @@ VERSION a2:
 Differences
 - list of links on front page, logo remains same, tagline remains but is near top
 - tagline ends w/ facebook login prompt
-- footer needs to be rethought, esp for front page
+- footer needs to be rethought, esp. for front page
 
 
 GEOLOCATION:
@@ -249,22 +249,6 @@ class EventPage(webapp.RequestHandler):
 class LogoPage(webapp.RequestHandler):
     def get(self):
         self.response.out.write(template.render('static/logo.html', {}))
-
-class UserPage(webapp.RequestHandler):
-    def get(self):
-        user = users.get_current_user()
-        linktext = 'My Hangouts' if users.get_current_user() else 'Login'
-        if user:
-            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" %
-                                        user.user_id()).get()
-            events = [db.get(event) for event in existing_user.events] if existing_user else []
-            template_values = {'current_user': user,
-                               'logout': users.create_logout_url("/"),
-                               'linktext': linktext,
-                               'events': events}
-            self.response.out.write(template.render('static/user.html', template_values))
-        else:
-            self.redirect(users.create_login_url(self.request.uri))
 
 class MainPage(webapp.RequestHandler):
     def get(self):

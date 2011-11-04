@@ -28,8 +28,6 @@ import urllib2
 import wsgiref.handlers
 import fb.facebook as facebook
         
-from google.appengine.dist import use_library
-use_library('django', '1.2')
 from django.utils import simplejson as json
 from google.appengine.ext import db
 from google.appengine.ext import webapp
@@ -48,16 +46,35 @@ class BaseHandler(webapp.RequestHandler):
                 self._current_user = fbUser.get_by_key_name(user_id)
         return self._current_user
 
-
-class HomeHandler(BaseHandler):
+class UserPage(BaseHandler):
     def get(self):
+        args = dict(current_user=self.current_user)
+        self.response.out.write(template.render('static/oauth.html', args))
+        
         ### MAKE THIS LOAD PROFILE ONLY IF IT HASNT LOADED IN THE LAST 24hrs
-        user=self.current_user
+
+        #linktext = 'My Hangouts' if users.get_current_user() else 'Login'
+        #self.response.out.write(template.render('stat/oauth.html', {}))
+            
+        user = self.current_user
+
+        """
+        events = [db.get(event) for event in existing_user.events] if existing_user else []
+        template_values = {'current_user': user,
+                           'logout': users.create_logout_url("/"),
+                           'linktext': linktext,
+                           'events': events}
+        self.response.out.write(template.render('static/user.html', template_values))
+        """
+        
+        
+        '''
         graph = facebook.GraphAPI(user.access_token)
         likes = graph.get_object("/me/likes")
         likes = likes['data']
         user.likes = [like['id'] for like in likes]
 
+        # Download Picture
         picture = urllib2.urlopen('http://graph.facebook.com/%s/picture' % self.current_user.id).read()
         user.picture = db.Blob(picture)
         user.put()
@@ -65,12 +82,14 @@ class HomeHandler(BaseHandler):
         # Display user's profile pic w/ appropriate headers
         self.response.headers['Content-Type'] = 'image/jpeg'
         self.response.out.write(picture)
-        
+        '''
+
+
         #path = os.path.join(os.path.dirname(__file__), "../static/oauth.html")
         #args = dict(current_user=self.current_user)
         #self.response.out.write(template.render(path, args))
         #self.response.out.write('<img src="http://graph.facebook.com/%s/picture"/>' % self.current_user.id)
-
+        
         
 class LoginHandler(BaseHandler):
     def get(self):
@@ -96,13 +115,12 @@ class LoginHandler(BaseHandler):
 
             set_cookie(self.response, "fb_user", str(profile["id"]),
                        expires=time.time() + 30 * 86400)
-            self.redirect("/fb/")
+            self.redirect('/fb')
         else:
             self.redirect(
                 "https://graph.facebook.com/oauth/authorize?" +
                 urllib.urlencode(args))
-
-
+        
 class LogoutHandler(BaseHandler):
     def get(self):
         set_cookie(self.response, "fb_user", "", expires=time.time() - 86400)
@@ -151,14 +169,3 @@ def cookie_signature(*parts):
     hash = hmac.new(FACEBOOK_APP_SECRET, digestmod=hashlib.sha1)
     for part in parts: hash.update(part)
     return hash.hexdigest()
-
-
-def main():
-    util.run_wsgi_app(webapp.WSGIApplication([(r"/fb/", HomeHandler),
-                                              (r"/fb/auth/login", LoginHandler),
-                                              (r"/fb/auth/logout", LogoutHandler)],
-                                             debug=True))
-
-
-if __name__ == "__main__":
-    main()
