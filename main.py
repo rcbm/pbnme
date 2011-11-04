@@ -1,6 +1,14 @@
 '''
 Future Sketches
 -------------------------
+VERSION a2:
+
+Differences
+- list of links on front page, logo remains same, tagline remains but is near top
+- tagline ends w/ facebook login prompt
+- footer needs to be rethought, esp for front page
+
+
 GEOLOCATION:
 Users in Berkeley CA and Pittsburgh PA can log in and create events.
 Users in other places can only see events but cannot create or join them.
