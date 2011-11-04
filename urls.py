@@ -21,7 +21,7 @@ application = webapp.WSGIApplication([('/', MainPage),
                                       ('/join', Join),
                                       ('/browse', Browse),
                                       ('/create', CreatePage),
-                                      ('/post', EventPage)],
+                                      ('/post', EventPage),
                                       ('/geo', Geo)],
                                      debug=True)
 
