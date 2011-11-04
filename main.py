@@ -335,3 +335,7 @@ class Create(webapp.RequestHandler):
                 self.redirect("/event?key=%s" % event.key())
         else:
             self.redirect(users.create_login_url(self.request.uri))
+
+class Geo(webapp.RequestHandler):
+    def get(self):
+        self.response.out.write(template.render('static/geo.html', {'foo': 'bar'}))
