@@ -323,7 +323,6 @@ class CreatePage(BaseHandler):
         else:
             self.redirect(users.create_login_url(self.request.uri))
 
-
 class UserPage(BaseHandler):
     def get(self):
         user = self.current_user
@@ -356,5 +355,8 @@ class UserPage(BaseHandler):
         self.response.out.write(template.render(path, args))
         self.response.out.write('<img src="http://graph.facebook.com/%s/picture"/>' % self.current_user.id)
         """
+
         
-        
+class Geo(webapp.RequestHandler):
+    def get(self):
+        self.response.out.write(template.render('static/geo.html', {}))
