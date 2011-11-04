@@ -344,19 +344,15 @@ class UserPage(BaseHandler):
         else:
             self.redirect('/auth/login')
             
-        '''
-        #args = dict(current_user=self.current_user)
-        #self.response.out.write(template.render('static/oauth.html', args))
-        
+        """
+        ## IMAGES
+
         # Display user's profile pic w/ appropriate headers
         picture = user.picture
         self.response.headers['Content-Type'] = 'image/jpeg'
         self.response.out.write(picture)
-        '''
-        
-        """
-        path = os.path.join(os.path.dirname(__file__), "../static/oauth.html")
-        args = dict(current_user=self.current_user)
+
+        # Display user's profile pic from FB
         self.response.out.write(template.render(path, args))
         self.response.out.write('<img src="http://graph.facebook.com/%s/picture"/>' % self.current_user.id)
         """
