@@ -130,6 +130,7 @@ Create event template
 '''
 
 import os
+import logging
 import datetime
 from google.appengine.ext import db
 from google.appengine.ext import webapp
@@ -324,13 +325,28 @@ class CreatePage(BaseHandler):
 
 class UserPage(BaseHandler):
     def get(self):
+        logging.info('########## AT /USER ##################')
         user = self.current_user
-        # If stored profile is > 3 days old, update it
-        if (datetime.now() - user.updated).days > 3:
-            FBUpdateHandler(user).load()
+        if user:
+            logging.info('############# FOUND USER ######################')
+            # If stored profile is > 3 days old, update it
+            if (datetime.now() - user.updated).days > 3:
+                logging.debug('FB data not fresh; requesting')
+                FBUpdateHandler(user).load()
+
+            # Render /user
+            events = [db.get(event) for event in user.events] if user else []
+            template_values = {'current_user': user,
+                               'logout': users.create_logout_url("/"),
+                               'linktext': 'My Hangouts',
+                               'events': events}
+            self.response.out.write(template.render('static/user.html', template_values))
+            self.response.out.write('<p><a href="/auth/logout">Log out</a></p>')
+        else:
+            logging.info('########## COULDNT FIND USER ##############')
+            self.redirect('/auth/login')
             
         '''
-        
         #args = dict(current_user=self.current_user)
         #self.response.out.write(template.render('static/oauth.html', args))
         
@@ -339,14 +355,6 @@ class UserPage(BaseHandler):
         self.response.headers['Content-Type'] = 'image/jpeg'
         self.response.out.write(picture)
         '''
-        '''
-        ## Render /user
-        events = [db.get(event) for event in existing_user.events] if existing_user else []
-        template_values = {'current_user': user,
-                           'logout': users.create_logout_url("/"),
-                           'linktext': linktext,
-                           'events': events}
-        self.response.out.write(template.render('static/user.html', template_values))
         
         """
         path = os.path.join(os.path.dirname(__file__), "../static/oauth.html")
@@ -354,6 +362,5 @@ class UserPage(BaseHandler):
         self.response.out.write(template.render(path, args))
         self.response.out.write('<img src="http://graph.facebook.com/%s/picture"/>' % self.current_user.id)
         """
-        '''
         
         

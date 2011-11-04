@@ -92,7 +92,7 @@ class LoginHandler(BaseHandler):
 
             set_cookie(self.response, "fb_user", str(profile["id"]),
                        expires=time.time() + 30 * 86400)
-            self.redirect('/fb')
+            self.redirect('/user')
         else:
             self.redirect(
                 "https://graph.facebook.com/oauth/authorize?" +
@@ -100,8 +100,9 @@ class LoginHandler(BaseHandler):
         
 class LogoutHandler(BaseHandler):
     def get(self):
+        logging.debug('logging out.....')
         set_cookie(self.response, "fb_user", "", expires=time.time() - 86400)
-        self.redirect("/fb")
+        self.redirect("/")
 
 
 def set_cookie(response, name, value, domain=None, path="/", expires=None):

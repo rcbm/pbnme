@@ -8,10 +8,9 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
 application = webapp.WSGIApplication([('/', MainPage),
-                                      ('/fb', UserPage),
-                                      ('/fb/auth/login', LoginHandler),
-                                      ('/fb/auth/logout', LogoutHandler),
-                                      ('/user', LoginHandler),
+                                      ('/auth/login', LoginHandler),
+                                      ('/auth/logout', LogoutHandler),
+                                      ('/user', UserPage),
                                       ('/about', AboutPage),
                                       ('/faq', FAQPage),
                                       ('/event', EventPage),
