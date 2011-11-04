@@ -33,6 +33,7 @@ from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from google.appengine.ext.webapp import template
+from datetime import datetime
 from models import *
 
 class BaseHandler(webapp.RequestHandler):
@@ -46,50 +47,26 @@ class BaseHandler(webapp.RequestHandler):
                 self._current_user = fbUser.get_by_key_name(user_id)
         return self._current_user
 
-class UserPage(BaseHandler):
-    def get(self):
-        args = dict(current_user=self.current_user)
-        self.response.out.write(template.render('static/oauth.html', args))
-        
-        ### MAKE THIS LOAD PROFILE ONLY IF IT HASNT LOADED IN THE LAST 24hrs
+class FBUpdateHandler(webapp.RequestHandler):
+    def __init__(self, user):
+        self.user = user;
 
-        #linktext = 'My Hangouts' if users.get_current_user() else 'Login'
-        #self.response.out.write(template.render('stat/oauth.html', {}))
-            
-        user = self.current_user
-
-        """
-        events = [db.get(event) for event in existing_user.events] if existing_user else []
-        template_values = {'current_user': user,
-                           'logout': users.create_logout_url("/"),
-                           'linktext': linktext,
-                           'events': events}
-        self.response.out.write(template.render('static/user.html', template_values))
-        """
-        
-        
-        '''
+    def load(self):
+        # Loads FB Profile Info
+        # Should only be run if now() - last >72hrs
+        user = self.user
         graph = facebook.GraphAPI(user.access_token)
+
+        # Download Likes
         likes = graph.get_object("/me/likes")
         likes = likes['data']
         user.likes = [like['id'] for like in likes]
 
         # Download Picture
-        picture = urllib2.urlopen('http://graph.facebook.com/%s/picture' % self.current_user.id).read()
+        picture = urllib2.urlopen('http://graph.facebook.com/%s/picture' % user.id).read()
         user.picture = db.Blob(picture)
+        user.updated = datetime.now()
         user.put()
-
-        # Display user's profile pic w/ appropriate headers
-        self.response.headers['Content-Type'] = 'image/jpeg'
-        self.response.out.write(picture)
-        '''
-
-
-        #path = os.path.join(os.path.dirname(__file__), "../static/oauth.html")
-        #args = dict(current_user=self.current_user)
-        #self.response.out.write(template.render(path, args))
-        #self.response.out.write('<img src="http://graph.facebook.com/%s/picture"/>' % self.current_user.id)
-        
         
 class LoginHandler(BaseHandler):
     def get(self):
@@ -124,7 +101,7 @@ class LoginHandler(BaseHandler):
 class LogoutHandler(BaseHandler):
     def get(self):
         set_cookie(self.response, "fb_user", "", expires=time.time() - 86400)
-        self.redirect("/fb/")
+        self.redirect("/fb")
 
 
 def set_cookie(response, name, value, domain=None, path="/", expires=None):

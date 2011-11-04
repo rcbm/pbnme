@@ -137,20 +137,21 @@ from google.appengine.ext.webapp import template
 from google.appengine.api import users
 from google.appengine.api import taskqueue
 from models import *
-        
-class FAQPage(webapp.RequestHandler):
+from fb.oauth import *
+
+class FAQPage(BaseHandler):
+    def get(self):
+        user = self.current_user
+        self.response.out.write(template.render('static/temp.html',
+                                                {'linktext':'My Hangouts' if user else 'Login'}))
+
+class AboutPage(BaseHandler):
     def get(self):
         user = users.get_current_user()
         self.response.out.write(template.render('static/temp.html',
                                                 {'linktext':'My Hangouts' if user else 'Login'}))
 
-class AboutPage(webapp.RequestHandler):
-    def get(self):
-        user = users.get_current_user()
-        self.response.out.write(template.render('static/temp.html',
-                                                {'linktext':'My Hangouts' if user else 'Login'}))
-
-class EventPurge(webapp.RequestHandler):
+class EventPurge(BaseHandler):
     # Takes an event by key and removes itself from all its members
     def post(self):
         eventKey = self.request.get('key')
@@ -162,12 +163,12 @@ class EventPurge(webapp.RequestHandler):
             # step 2. delete the group itself
             taskqueue.add(url="/deletetask", params={'key': eventKey})
         
-class DeleteTask(webapp.RequestHandler):
+class DeleteTask(BaseHandler):
     # Takes a key and deletes its corresponding entity
     def post(self):
         db.delete(self.request.get('key'))
         
-class UnjoinTask(webapp.RequestHandler):
+class UnjoinTask(BaseHandler):
     # Takes an event and user
     # removes the user from the given event
     def post(self):
@@ -175,7 +176,7 @@ class UnjoinTask(webapp.RequestHandler):
         member.events = [s for s in member.events if str(s) != self.request.get('eventKey')]
         member.put()
 
-class Join(webapp.RequestHandler):
+class Join(BaseHandler):
     def get(self):
         current_user = users.get_current_user()
         if current_user:
@@ -205,7 +206,7 @@ class Join(webapp.RequestHandler):
         else:
             self.redirect(users.create_login_url(self.request.uri))
 
-class EventPage(webapp.RequestHandler):
+class EventPage(BaseHandler):
     def get(self):
         user = users.get_current_user()
         if user:
@@ -246,11 +247,11 @@ class EventPage(webapp.RequestHandler):
         else:
             self.redirect(users.create_login_url(self.request.uri))
 	
-class LogoPage(webapp.RequestHandler):
+class LogoPage(BaseHandler):
     def get(self):
         self.response.out.write(template.render('static/logo.html', {}))
 
-class MainPage(webapp.RequestHandler):
+class MainPage(BaseHandler):
     def get(self):
         linktext = 'My Hangouts' if users.get_current_user() else 'Login'
         events = db.GqlQuery("SELECT * FROM Event LIMIT 100")
@@ -258,7 +259,7 @@ class MainPage(webapp.RequestHandler):
                            'events': events}
         self.response.out.write(template.render('static/index.html', template_values))
 
-class Browse(webapp.RequestHandler):
+class Browse(BaseHandler):
     def get(self):
         linktext = 'My Hangouts' if users.get_current_user() else 'Login'
         events = db.GqlQuery("SELECT * FROM Event LIMIT 100")
@@ -266,7 +267,7 @@ class Browse(webapp.RequestHandler):
                            'events': events}
         self.response.out.write(template.render('static/browse.html', template_values))
         
-class Create(webapp.RequestHandler):
+class CreatePage(BaseHandler):
     ####
     # if user exists, make an event and add it to their eventslist
     # else create the user first
@@ -319,3 +320,40 @@ class Create(webapp.RequestHandler):
                 self.redirect("/event?key=%s" % event.key())
         else:
             self.redirect(users.create_login_url(self.request.uri))
+
+
+class UserPage(BaseHandler):
+    def get(self):
+        user = self.current_user
+        # If stored profile is > 3 days old, update it
+        if (datetime.now() - user.updated).days > 3:
+            FBUpdateHandler(user).load()
+            
+        '''
+        
+        #args = dict(current_user=self.current_user)
+        #self.response.out.write(template.render('static/oauth.html', args))
+        
+        # Display user's profile pic w/ appropriate headers
+        picture = user.picture
+        self.response.headers['Content-Type'] = 'image/jpeg'
+        self.response.out.write(picture)
+        '''
+        '''
+        ## Render /user
+        events = [db.get(event) for event in existing_user.events] if existing_user else []
+        template_values = {'current_user': user,
+                           'logout': users.create_logout_url("/"),
+                           'linktext': linktext,
+                           'events': events}
+        self.response.out.write(template.render('static/user.html', template_values))
+        
+        """
+        path = os.path.join(os.path.dirname(__file__), "../static/oauth.html")
+        args = dict(current_user=self.current_user)
+        self.response.out.write(template.render(path, args))
+        self.response.out.write('<img src="http://graph.facebook.com/%s/picture"/>' % self.current_user.id)
+        """
+        '''
+        
+        
