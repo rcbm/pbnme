@@ -84,6 +84,7 @@ BUGS:
 Not Urgent
 _____________
 Add datepicker
+Add YQL alternative from Thriftfish (for geolocating)
 When there are no hangouts in /browse, add a 'create' message
 Add existing group checking for create()
 Add date conflict checking for create()
@@ -360,7 +361,6 @@ class UserPage(BaseHandler):
         self.response.out.write('<img src="http://graph.facebook.com/%s/picture"/>' % self.current_user.id)
         """
 
-        
 class Geo(webapp.RequestHandler):
-    def get(self):
+    def get(self):    
         self.response.out.write(template.render('static/geo.html', {}))
