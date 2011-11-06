@@ -2,11 +2,15 @@ from google.appengine.dist import use_library
 use_library('django', '1.2')
 
 import os
+from fb.oauth import *
 from main import *
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
 application = webapp.WSGIApplication([('/', MainPage),
+                                      ('/auth/login', LoginHandler),
+                                      ('/auth/logout', LogoutHandler),
+                                      ('/user', UserPage),
                                       ('/about', AboutPage),
                                       ('/faq', FAQPage),
                                       ('/event', EventPage),
@@ -14,10 +18,9 @@ application = webapp.WSGIApplication([('/', MainPage),
                                       ('/deletetask', DeleteTask),
                                       ('/purge', EventPurge),
                                       ('/home', MainPage),
-                                      ('/user', UserPage),
                                       ('/join', Join),
                                       ('/browse', Browse),
-                                      ('/create', Create),
+                                      ('/create', CreatePage),
                                       ('/post', EventPage),
                                       ('/geo', Geo)],
                                      debug=True)

@@ -28,13 +28,12 @@ import urllib2
 import wsgiref.handlers
 import fb.facebook as facebook
         
-from google.appengine.dist import use_library
-use_library('django', '1.2')
 from django.utils import simplejson as json
 from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 from google.appengine.ext.webapp import template
+from datetime import datetime
 from models import *
 
 class BaseHandler(webapp.RequestHandler):
@@ -48,29 +47,26 @@ class BaseHandler(webapp.RequestHandler):
                 self._current_user = fbUser.get_by_key_name(user_id)
         return self._current_user
 
+class FBUpdateHandler(webapp.RequestHandler):
+    def __init__(self, user):
+        self.user = user;
 
-class HomeHandler(BaseHandler):
-    def get(self):
-        ### MAKE THIS LOAD PROFILE ONLY IF IT HASNT LOADED IN THE LAST 24hrs
-        user=self.current_user
+    def load(self):
+        # Loads FB Profile Info
+        # Should only be run if now() - last >72hrs
+        user = self.user
         graph = facebook.GraphAPI(user.access_token)
+
+        # Download Likes
         likes = graph.get_object("/me/likes")
         likes = likes['data']
         user.likes = [like['id'] for like in likes]
 
-        picture = urllib2.urlopen('http://graph.facebook.com/%s/picture' % self.current_user.id).read()
+        # Download Picture
+        picture = urllib2.urlopen('http://graph.facebook.com/%s/picture' % user.id).read()
         user.picture = db.Blob(picture)
+        user.updated = datetime.now()
         user.put()
-
-        # Display user's profile pic w/ appropriate headers
-        self.response.headers['Content-Type'] = 'image/jpeg'
-        self.response.out.write(picture)
-        
-        #path = os.path.join(os.path.dirname(__file__), "../static/oauth.html")
-        #args = dict(current_user=self.current_user)
-        #self.response.out.write(template.render(path, args))
-        #self.response.out.write('<img src="http://graph.facebook.com/%s/picture"/>' % self.current_user.id)
-
         
 class LoginHandler(BaseHandler):
     def get(self):
@@ -84,29 +80,36 @@ class LoginHandler(BaseHandler):
                 urllib.urlencode(args)).read())
             access_token = response["access_token"][-1]
 
-            # Download the user profile and cache a local instance of the
-            # basic profile info
-            profile = json.load(urllib2.urlopen(
-                "https://graph.facebook.com/me?" +
-                urllib.urlencode(dict(access_token=access_token))))
-            user = fbUser(key_name=str(profile["id"]), id=str(profile["id"]),
-                        name=profile["name"], access_token=access_token,
-                        profile_url=profile["link"])
-            user.put()
+            # Try too look up user in our DB by token
+            user = db.GqlQuery("SELECT * FROM fbUser WHERE access_token = '%s'" %
+                               access_token).get()
+            if user:
+                id = user.id
+            else:
+                # Download the user profile and cache a local instance of the
+                # basic profile info
+                profile = json.load(urllib2.urlopen(
+                    "https://graph.facebook.com/me?" +
+                    urllib.urlencode(dict(access_token=access_token))))
+                user = fbUser(key_name=str(profile["id"]), id=str(profile["id"]),
+                            name=profile["name"], access_token=access_token,
+                            profile_url=profile["link"])
+                user.put()
+                id = profile["id"]
 
-            set_cookie(self.response, "fb_user", str(profile["id"]),
+            set_cookie(self.response, "fb_user", str(id),
                        expires=time.time() + 30 * 86400)
-            self.redirect("/fb/")
+            self.redirect('/user')
         else:
             self.redirect(
                 "https://graph.facebook.com/oauth/authorize?" +
                 urllib.urlencode(args))
-
-
+        
 class LogoutHandler(BaseHandler):
     def get(self):
+        logging.info('INFO: Logging out')
         set_cookie(self.response, "fb_user", "", expires=time.time() - 86400)
-        self.redirect("/fb/")
+        self.redirect("/")
 
 
 def set_cookie(response, name, value, domain=None, path="/", expires=None):
@@ -151,14 +154,3 @@ def cookie_signature(*parts):
     hash = hmac.new(FACEBOOK_APP_SECRET, digestmod=hashlib.sha1)
     for part in parts: hash.update(part)
     return hash.hexdigest()
-
-
-def main():
-    util.run_wsgi_app(webapp.WSGIApplication([(r"/fb/", HomeHandler),
-                                              (r"/fb/auth/login", LoginHandler),
-                                              (r"/fb/auth/logout", LogoutHandler)],
-                                             debug=True))
-
-
-if __name__ == "__main__":
-    main()
