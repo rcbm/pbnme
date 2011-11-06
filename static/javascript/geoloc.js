@@ -59,15 +59,17 @@ jQuery(window).ready(function(){
 
 	function handle_geolocation_query(position)
 	{
-        $("#lat").html(position.coords.latitude);
+        $("#lat").html(Math.abs([position.coords.latitude - 37.871667]));
         $("#long").html(position.coords.longitude);
-
-       if ([Math.abs([position.coords.latitude - 37.871667]) < .27] && [Math.abs([position.coords.longitude - -122.272778]) < .27])
+ 
+       if (Math.abs([position.coords.latitude - 37.871667]) < .27 && Math.abs([position.coords.longitude - -122.272778]) < .27)
          {alert("berkeley")}
-       else if ([Math.abs([position.coords.latitude - 440.441667]) < .27] && [Math.abs([position.coords.longitude - -80]) < .27])
+       else if (Math.abs([position.coords.latitude - 440.441667]) < .27 && Math.abs([position.coords.longitude - -80]) < .27)
          {alert("pittsburgh")}
        else
          {alert("too far away")}
+
+
 	}
 
     //+-0.27 degrees  Pittsburgh: 440.441667, -80,  Berkeley: 37.871667, -122.272778
