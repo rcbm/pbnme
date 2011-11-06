@@ -66,5 +66,7 @@ function normalize_yql_response(response)
 	    jQuery("#map").remove();
 	    jQuery(document.body).append(
 	        jQuery(document.createElement("img")).attr("src", image_url).attr('id','map')
-	    );
+	        );
+        $('#lat').html=position.coords.latitude;
+        $('#long').html=position.coords.longitude;
 	}
