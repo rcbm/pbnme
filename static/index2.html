@@ -1,15 +1,49 @@
 <html>
-  <head><title>pbandme</title>
+  <head>
+    <title>pbandme</title>
     <link type="text/css" rel="stylesheet" href="/css/home.css">
     {% include "googanalysis.html" %}
   </head>
   <body>  
-    {% include "logo.html" %}
-    <div style="text-align: center;margin-left: auto;margin-right: auto;width:700">
-      <div class="subHeaderText" style="text-align:left;position:relative;z-index:1;width:700;">
-	Upcoming Hangouts
+    
+    <!-- BIGGER Content Box  -->
+    <div style="text-align: left;
+		margin-left: auto;
+		margin-right: auto;
+		width:1000;
+		height:800;
+		background-color: #eee;
+		{% comment %}border: 1px solid black{% endcomment %}
+		height: 500;">
+
+      
+      <!-- Left Content Box  -->
+      <div style="text-align: left;
+		  width:400;
+		  float:left;
+		  padding:10;
+		  {%comment%}border: 2px solid red;{%endcomment%}">
+	
+	<!-- Tag Line -->
+	<span style="font-family:georgia;font-size: 80;">
+	  <span style="color: #FF9900">&#64257;nd people</span><br>
+	  <span style="color: #E70000">like you,</span><br>
+	  <span style="color: #CC0099;">in real life.</span><br>
+	  <span style="color: #133783;">sign in.</span><!--<img src="images/social/icons_facebook.png" width="60">-->
+	</span>
+
       </div>
-      <div style="text-align: left;margin-left: auto;margin-right: auto;width:700;">
+
+       
+      <!-- Right Content Box  -->
+      <div style="width:550;
+		  height:500;
+		  float:right;
+		  {%comment%}border: 2px solid green{%endcomment%};
+		  overflow:scroll;
+		">
+
+	<!-- List Events -->
 	{% for event in events %}
 	<div class="ResultsText" style="background-color: {% cycle #EEE,#DDD %};">
 	  <div class="memberNumberBrowse" style="text-align:center;background-color: #ffffff;height:60px;width:60px;float:left;margin-right:20;">
@@ -27,7 +61,13 @@
 	</div>
 	{% endfor %}
       </div>
-      </div>
+      <!-- End List of Events -->
+
+      
+    </div>
+    <div style="text-align:center;margin-top:80;">
       {% include "footer.html" %}
-    </body> 
+      {% include "logo.html" %}
+    </div>
+  </body> 
 </html>
