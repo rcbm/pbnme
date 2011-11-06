@@ -16,7 +16,7 @@
     <div style="text-align: left;margin-left: auto;margin-right: auto;width:700">
       <div class="subHeaderText" style="text-align:left;position:relative;width:700;">
 	<a href="/browse">Find a Hangout</a>&nbsp;|&nbsp;<a href="/create">Start a Hangout</a>
-	<span style="float:right"><a href="{{ logout }}">Logout</a></span>
+	<span style="float:right"><a href="/auth/logout">Logout</a></span>
       </div>
       {% for event in events %}
       <div class="ResultsText" style="font-size: 18;background-color: {% cycle #EEE,#DDD %};">
@@ -30,7 +30,6 @@
 		  </a>
 		</span>
 		{% endif %}
-		
       </div>
       {% endfor %}
     </div>

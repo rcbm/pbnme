@@ -71,7 +71,7 @@
 	<div style="margin-top:20px">
 	  {% for p in posts %}
 	  <div class="ResultsText" style="font-size:18;background-color: {% cycle #EEE,#DDD %};">
-	    <b>{{ p.author }} says...</b>
+	    <b>{{ p.author.name }} says...</b>
 	    <br>
 	    {{ p.content }}
 	  </div>
