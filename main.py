@@ -229,12 +229,10 @@ class EventPage(BaseHandler):
                            'join_button': False if existing_user and existing_user.key() in event.members else True}
         self.response.out.write(template.render('static/event.html', template_values))
 
-        
     def post(self):
-        current_user = users.get_current_user()
-        if current_user: # Make sure user is logged in
-            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" %
-                                        current_user.user_id()).get()
+        current_user = existing_user = self.current_user
+        # Make sure user is logged in
+        if current_user: 
             key = self.request.get('event_key')
             current_event = db.get(key)
             comment_content = self.request.get('comment_content') 
@@ -247,7 +245,7 @@ class EventPage(BaseHandler):
             current_event.put()
             self.redirect("/event?key=%s" % current_event.key())
         else:
-            self.redirect(users.create_login_url(self.request.uri))
+            self.redirect('/fb/auth/login')
 
             
 class LogoPage(BaseHandler):
