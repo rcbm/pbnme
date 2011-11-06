@@ -22,7 +22,8 @@ application = webapp.WSGIApplication([('/', MainPage),
                                       ('/browse', Browse),
                                       ('/create', CreatePage),
                                       ('/post', EventPage),
-                                      ('/geo', Geo)],
+                                      ('/geo', Geo),
+                                      ('/newmain', NewMainPage)],
                                      debug=True)
 
 def main():

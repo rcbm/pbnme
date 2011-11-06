@@ -47,6 +47,12 @@ class BaseHandler(webapp.RequestHandler):
                 self._current_user = fbUser.get_by_key_name(user_id)
         return self._current_user
 
+    @property
+    def linktext(self):
+        self._linktext = 'My Hangouts' if self.current_user else 'Login'
+        return self._linktext
+
+    
 class FBUpdateHandler(webapp.RequestHandler):
     def __init__(self, user):
         self.user = user;
@@ -65,7 +71,7 @@ class FBUpdateHandler(webapp.RequestHandler):
         # Download Picture
         picture = urllib2.urlopen('http://graph.facebook.com/%s/picture' % user.id).read()
         user.picture = db.Blob(picture)
-        user.updated = datetime.now()
+        user.updated = dnatetime.now()
         user.put()
         
 class LoginHandler(BaseHandler):
@@ -80,20 +86,19 @@ class LoginHandler(BaseHandler):
                 urllib.urlencode(args)).read())
             access_token = response["access_token"][-1]
 
-            # Try too look up user in our DB by token
+            # Try too look up user in our DB by access_token
             user = db.GqlQuery("SELECT * FROM fbUser WHERE access_token = '%s'" %
                                access_token).get()
             if user:
                 id = user.id
             else:
-                # Download the user profile and cache a local instance of the
-                # basic profile info
+                # Create a user, download the user profile and store basic profile info
                 profile = json.load(urllib2.urlopen(
-                    "https://graph.facebook.com/me?" +
-                    urllib.urlencode(dict(access_token=access_token))))
+                        "https://graph.facebook.com/me?" +
+                        urllib.urlencode(dict(access_token=access_token))))
                 user = fbUser(key_name=str(profile["id"]), id=str(profile["id"]),
-                            name=profile["name"], access_token=access_token,
-                            profile_url=profile["link"])
+                              name=profile["name"], access_token=access_token,
+                              profile_url=profile["link"])
                 user.put()
                 id = profile["id"]
 
@@ -107,6 +112,7 @@ class LoginHandler(BaseHandler):
         
 class LogoutHandler(BaseHandler):
     def get(self):
+        logging.info("whoa")
         logging.info('INFO: Logging out')
         set_cookie(self.response, "fb_user", "", expires=time.time() - 86400)
         self.redirect("/")

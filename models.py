@@ -2,38 +2,32 @@ from google.appengine.ext import db
 from google.appengine.api import users
 
 class fbUser(db.Model):
-    id = db.StringProperty(required=True)
-    email = db.EmailProperty(default=None)
     created = db.DateTimeProperty(auto_now_add=True)
     updated = db.DateTimeProperty(auto_now=True)
+    id = db.StringProperty(required=True)
     name = db.StringProperty(required=True)
+    email = db.EmailProperty(default=None)    # How do we get this?
     profile_url = db.StringProperty(required=True)
     access_token = db.StringProperty(required=True)
     picture = db.BlobProperty(default=None)
     likes = db.StringListProperty(default=None)
     events = db.ListProperty(db.Key)
-    
-class User(db.Model):
-    user = db.UserProperty(required=True)
-    user_id = db.StringProperty(default=None, required=True)
-    email = db.EmailProperty(default=None, required=True)
-    create_date = db.DateTimeProperty(auto_now_add=True, default=None)
-    last_date = db.DateTimeProperty(default=None, required=True)
-    events = db.ListProperty(db.Key)
+
     
 class Event(db.Model):
-    create_date = db.DateTimeProperty(auto_now_add=True, default=None)
+    created = db.DateTimeProperty(auto_now_add=True, default=None)
+    updated = db.DateTimeProperty(auto_now=True)
     active = db.BooleanProperty(default=True)
-    creator = db.UserProperty()
+    creator = db.ReferenceProperty(fbUser)
     datetime = db.DateTimeProperty(default=None, required=True)
     title = db.StringProperty(default=None, required=True)
     location = db.StringProperty(default=None)
-    description = db.StringProperty(default=None, required=False, multiline=True)
     members = db.ListProperty(db.Key)
     posts = db.ListProperty(db.Key)
+
     
 class Post(db.Model):
+    created = db.DateTimeProperty(auto_now_add=True)
     event = db.ReferenceProperty(Event)
-    author = db.UserProperty()
+    author = db.ReferenceProperty(fbUser)
     content = db.StringProperty(default=None, required=True, multiline=True)
-    create_date = db.DateTimeProperty(auto_now_add=True)

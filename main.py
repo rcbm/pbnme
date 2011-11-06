@@ -53,7 +53,8 @@ THINGS TO-DO:
 
 URGENT
 -------------
-* swap Google Users to FB
+# LOOK UP BATCH put()'s for /create
+# LOOK UP SEPERATING DAY / TIME in /events
 * add content to FAQ (hook already made)
 * add content to About (hook already made)
 * implement email and/or fb message reminders
@@ -83,6 +84,7 @@ BUGS:
 
 Not Urgent
 _____________
+Add optional 'Description' field
 Add datepicker
 Add YQL alternative from Thriftfish (for geolocating)
 When there are no hangouts in /browse, add a 'create' message
@@ -103,6 +105,7 @@ Harder:
 
 DONE
 -------------
+* swap Google Users to FB
 - When a user who's logged in before, logs in again- their data (likes,pic) gets nuked
 * pair down /create fields
 * add event comments
@@ -145,21 +148,18 @@ from fb.oauth import *
 class FAQPage(BaseHandler):
     def get(self):
         user = self.current_user
-        self.response.out.write(template.render('static/temp.html',
-                                                {'linktext':'My Hangouts' if user else 'Login'}))
+        self.response.out.write(template.render('static/temp.html', {'linktext': self.linktext}))
 
 class AboutPage(BaseHandler):
     def get(self):
         user = self.current_user
-        self.response.out.write(template.render('static/temp.html',
-                                                {'linktext':'My Hangouts' if user else 'Login'}))
+        self.response.out.write(template.render('static/temp.html', {'linktext': self.linktext}))
 
 class EventPurge(BaseHandler):
     # Takes an event by key and removes itself from all its members
     def post(self):
         eventKey = self.request.get('key')
         event = db.get(eventKey)
-
         for event_member in event.members:
             taskqueue.add(url="/unjointask", params={'userKey': event_member,
                                                      'eventKey': eventKey})
@@ -184,32 +184,19 @@ class UnjoinTask(BaseHandler):
         
 class Join(BaseHandler):
     def get(self):
-        current_user = self.current_user
-        if current_user:
+        user = self.current_user
+        if user:
             key = self.request.get('key')
             event = db.get(key)
-            user = current_user
             # Make sure user isn't already part of the event
-            if user:
-                if user.key() not in event.members:
-                    user.events.append(db.Key(key))
-                    user.put()
-                    event.members.append(user.key())
-                    event.put()
-                    self.redirect('/user')
-            else:
-                now = datetime.datetime.now()
-                user_profile = fbUser(user = current_user,
-                                    user_id = current_user.user_id(),
-                                    email = current_user.email(),
-                                    last_date = now,
-                                    events = [event.key()])
-                user_profile.put()
-                event.members.append(user_profile.key())
+            if user.key() not in event.members:
+                user.events.append(db.Key(key))
+                user.put()
+                event.members.append(user.key())
                 event.put()
                 self.redirect('/user')
         else:
-            self.redirect('/fb/auth/login')
+            self.redirect('/auth/login')
 
             
 class EventPage(BaseHandler):
@@ -217,17 +204,15 @@ class EventPage(BaseHandler):
         user = existing_user = self.current_user
         key = self.request.get('key')
         event = db.get(key)
-        linktext = 'My Hangouts' if user else 'Login'
-        template_values = {'linktext': linktext,
-                           'key': event.key(),
-                           'title': event.title,
-                           'location': event.location,
-                           'datetime': event.datetime,
-                           'description': event.description,
-                           'members': [db.get(m) for m in event.members],
-                           'posts': [db.get(p) for p in event.posts],
-                           'join_button': False if existing_user and existing_user.key() in event.members else True}
-        self.response.out.write(template.render('static/event.html', template_values))
+        join_button = False if existing_user and existing_user.key() in event.members else True
+        self.response.out.write(template.render('static/event.html', { 'linktext': self.linktext,
+                                                                       'key': event.key(),
+                                                                       'title': event.title,
+                                                                       'location': event.location,
+                                                                       'datetime': event.datetime,
+                                                                       'members': [db.get(m) for m in event.members],
+                                                                       'posts': [db.get(p) for p in event.posts],
+                                                                       'join_button': join_button}))
 
     def post(self):
         current_user = existing_user = self.current_user
@@ -245,7 +230,7 @@ class EventPage(BaseHandler):
             current_event.put()
             self.redirect("/event?key=%s" % current_event.key())
         else:
-            self.redirect('/fb/auth/login')
+            self.redirect('/auth/login')
 
             
 class LogoPage(BaseHandler):
@@ -255,20 +240,21 @@ class LogoPage(BaseHandler):
         
 class MainPage(BaseHandler):
     def get(self):
-        linktext = 'My Hangouts' if users.get_current_user() else 'Login'
-        events = db.GqlQuery("SELECT * FROM Event LIMIT 100")
-        template_values = {'linktext': linktext,
-                           'events': events}
-        self.response.out.write(template.render('static/index.html', template_values))
+        self.response.out.write(template.render('static/index.html', { 'linktext':self.linktext }))
 
         
+class NewMainPage(BaseHandler):
+    def get(self):
+        events = db.GqlQuery("SELECT * FROM Event LIMIT 100")
+        self.response.out.write(template.render('static/index2.html', { 'linktext': self.linktext,
+                                                                        'events': events }))
+
+
 class Browse(BaseHandler):
     def get(self):
-        linktext = 'My Hangouts' if users.get_current_user() else 'Login'
         events = db.GqlQuery("SELECT * FROM Event LIMIT 100")
-        template_values = {'linktext': linktext,
-                           'events': events}
-        self.response.out.write(template.render('static/browse.html', template_values))
+        self.response.out.write(template.render('static/browse.html', { 'linktext': self.linktext,
+                                                                        'events': events }))
 
         
 class CreatePage(BaseHandler):
@@ -277,53 +263,28 @@ class CreatePage(BaseHandler):
     # else create the user first
     ####
     def get(self):
-        linktext = 'My Hangouts' if users.get_current_user() else 'Login'
-        template_values = {'linktext': linktext}
-        self.response.out.write(template.render('static/create.html', template_values))
+        self.response.out.write(template.render('static/create.html', {'linktext': self.linktext}))
         
     def post(self):
-        current_user = users.get_current_user()
-        if current_user:
+        user = self.current_user
+        if user:
             from dateutil import parser
             title = self.request.get('title')
             location = self.request.get('location')
-            description = self.request.get('description')
-            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" %
-                                        current_user.user_id()).get()
-            now = datetime.datetime.now()
+            now = datetime.now()
             time = self.request.get('time')
             date = self.request.get('date')
-            if existing_user:
-                event = Event(creator = current_user,
-                              title = title,
-                              location = location,
-                              datetime = parser.parse('%s %s' %(date, time), fuzzy=True),
-                              description = description,
-                              members = [existing_user.key()])
-                event.put()
-                existing_user.events.append(event.key())
-                existing_user.put()
-                self.redirect("/event?key=%s" % event.key())
-            else:
-                user_profile = User(user = current_user,
-                                    user_id = current_user.user_id(),
-                                    email = current_user.email(),
-                                    last_date = now)
-                user_profile.put()
-                event = Event(creator = current_user,
-                              title = title,
-                              location = location,
-                              datetime = parser.parse('%s %s' %(date, time), fuzzy=True),
-                              description = description,
-                              members = [user_profile.key()])
-                event.put()
-                # In order to have both the event and the user reference each other
-                # one has to be saved and then retrieved and saved again (so as to generate a db.Key)
-                user_profile.events = [event.key()]
-                user_profile.put()
-                self.redirect("/event?key=%s" % event.key())
+            event = Event(creator = user,
+                          title = title,
+                          location = location,
+                          datetime = parser.parse('%s %s' %(date, time), fuzzy=True),
+                          members = [user.key()])
+            event.put()
+            user.events.append(event.key())
+            user.put()
+            self.redirect("/event?key=%s" % event.key())
         else:
-            self.redirect(users.create_login_url(self.request.uri))
+            self.redirect('/auth/login')
 
             
 class UserPage(BaseHandler):
@@ -337,28 +298,23 @@ class UserPage(BaseHandler):
 
             # Render /user Page
             events = [db.get(event) for event in user.events] if user else []
-            template_values = {'current_user': user,
-                               'logout': users.create_logout_url("/"),
-                               'linktext': 'My Hangouts',
-                               'events': events}
-            self.response.out.write(template.render('static/user.html', template_values))
-            self.response.out.write('<p><a href="/auth/logout">Log out</a></p>')
+            self.response.out.write(template.render('static/user.html', {'linktext': self.linktext,
+                                                                         'current_user': user,
+                                                                         'events': events}))
         else:
             self.redirect('/auth/login')
             
         """
-        ## IMAGES
+        ## IMAGES STUFF
 
         # Display user's profile pic w/ appropriate headers
         picture = user.picture
         self.response.headers['Content-Type'] = 'image/jpeg'
         self.response.out.write(picture)
-
-        # Display user's profile pic from FB
-        self.response.out.write(template.render(path, args))
-        self.response.out.write('<img src="http://graph.facebook.com/%s/picture"/>' % self.current_user.id)
         """
 
+        
 class Geo(webapp.RequestHandler):
     def get(self):    
         self.response.out.write(template.render('static/geo.html', {}))
+
