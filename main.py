@@ -150,7 +150,7 @@ class FAQPage(BaseHandler):
 
 class AboutPage(BaseHandler):
     def get(self):
-        user = users.get_current_user()
+        user = self.current_user
         self.response.out.write(template.render('static/temp.html',
                                                 {'linktext':'My Hangouts' if user else 'Login'}))
 
@@ -165,11 +165,13 @@ class EventPurge(BaseHandler):
                                                      'eventKey': eventKey})
             # step 2. delete the group itself
             taskqueue.add(url="/deletetask", params={'key': eventKey})
-        
+
+            
 class DeleteTask(BaseHandler):
     # Takes a key and deletes its corresponding entity
     def post(self):
         db.delete(self.request.get('key'))
+
         
 class UnjoinTask(BaseHandler):
     # Takes an event and user
@@ -179,14 +181,14 @@ class UnjoinTask(BaseHandler):
         member.events = [s for s in member.events if str(s) != self.request.get('eventKey')]
         member.put()
 
+        
 class Join(BaseHandler):
     def get(self):
-        current_user = users.get_current_user()
+        current_user = self.current_user
         if current_user:
             key = self.request.get('key')
             event = db.get(key)
-            user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" %
-                               users.get_current_user().user_id()).get()
+            user = current_user
             # Make sure user isn't already part of the event
             if user:
                 if user.key() not in event.members:
@@ -197,7 +199,7 @@ class Join(BaseHandler):
                     self.redirect('/user')
             else:
                 now = datetime.datetime.now()
-                user_profile = User(user = current_user,
+                user_profile = fbUser(user = current_user,
                                     user_id = current_user.user_id(),
                                     email = current_user.email(),
                                     last_date = now,
@@ -207,16 +209,12 @@ class Join(BaseHandler):
                 event.put()
                 self.redirect('/user')
         else:
-            self.redirect(users.create_login_url(self.request.uri))
+            self.redirect('/fb/auth/login')
 
+            
 class EventPage(BaseHandler):
     def get(self):
-        user = users.get_current_user()
-        if user:
-            existing_user = db.GqlQuery("SELECT * FROM User WHERE user_id = '%s'" %
-                                        user.user_id()).get()
-        else:
-            existing_user = None
+        user = existing_user = self.current_user
         key = self.request.get('key')
         event = db.get(key)
         linktext = 'My Hangouts' if user else 'Login'
@@ -231,6 +229,7 @@ class EventPage(BaseHandler):
                            'join_button': False if existing_user and existing_user.key() in event.members else True}
         self.response.out.write(template.render('static/event.html', template_values))
 
+        
     def post(self):
         current_user = users.get_current_user()
         if current_user: # Make sure user is logged in
@@ -249,11 +248,13 @@ class EventPage(BaseHandler):
             self.redirect("/event?key=%s" % current_event.key())
         else:
             self.redirect(users.create_login_url(self.request.uri))
-	
+
+            
 class LogoPage(BaseHandler):
     def get(self):
         self.response.out.write(template.render('static/logo.html', {}))
 
+        
 class MainPage(BaseHandler):
     def get(self):
         linktext = 'My Hangouts' if users.get_current_user() else 'Login'
@@ -262,6 +263,7 @@ class MainPage(BaseHandler):
                            'events': events}
         self.response.out.write(template.render('static/index.html', template_values))
 
+        
 class Browse(BaseHandler):
     def get(self):
         linktext = 'My Hangouts' if users.get_current_user() else 'Login'
@@ -269,6 +271,7 @@ class Browse(BaseHandler):
         template_values = {'linktext': linktext,
                            'events': events}
         self.response.out.write(template.render('static/browse.html', template_values))
+
         
 class CreatePage(BaseHandler):
     ####
@@ -324,6 +327,7 @@ class CreatePage(BaseHandler):
         else:
             self.redirect(users.create_login_url(self.request.uri))
 
+            
 class UserPage(BaseHandler):
     def get(self):
         user = self.current_user
