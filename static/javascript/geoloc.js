@@ -59,7 +59,7 @@ jQuery(window).ready(function(){
 
 	function handle_geolocation_query(position)
 	{
-        $("#lat").html(Math.abs([position.coords.latitude - 37.871667]));
+        $("#lat").html(position.coords.latitude);
         $("#long").html(position.coords.longitude);
  
        if (Math.abs([position.coords.latitude - 37.871667]) < .27 && Math.abs([position.coords.longitude - -122.272778]) < .27)
