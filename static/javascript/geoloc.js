@@ -64,7 +64,7 @@ jQuery(window).ready(function(){
  
        if (Math.abs([position.coords.latitude - 37.871667]) < .27 && Math.abs([position.coords.longitude - -122.272778]) < .27)
          {alert("berkeley")}
-       else if (Math.abs([position.coords.latitude - 440.441667]) < .27 && Math.abs([position.coords.longitude - -80]) < .27)
+       else if (Math.abs([position.coords.latitude - 40.441667]) < .27 && Math.abs([position.coords.longitude - -80]) < .27)
          {alert("pittsburgh")}
        else
          {alert("too far away")}
@@ -72,4 +72,4 @@ jQuery(window).ready(function(){
 
 	}
 
-    //+-0.27 degrees  Pittsburgh: 440.441667, -80,  Berkeley: 37.871667, -122.272778
+    //+-0.27 degrees  Pittsburgh: 40.441667, -80,  Berkeley: 37.871667, -122.272778
