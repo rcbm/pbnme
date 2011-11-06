@@ -72,4 +72,4 @@ jQuery(window).ready(function(){
 
 	}
 
-    //+-0.27 degrees  Pittsburgh: 440.441667, -80,  Berkeley: 37.871667, -122.272778
+    //+-0.27 degrees  Pittsburgh: 40.441667, -80,  Berkeley: 37.871667, -122.272778
