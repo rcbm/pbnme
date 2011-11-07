@@ -7,7 +7,7 @@ from main import *
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 
-application = webapp.WSGIApplication([('/', MainPage),
+application = webapp.WSGIApplication([('/', NewMainPage),
                                       ('/auth/login', LoginHandler),
                                       ('/auth/logout', LogoutHandler),
                                       ('/user', UserPage),
