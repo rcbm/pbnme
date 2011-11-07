@@ -6,7 +6,7 @@
   </head>
   <body>  
     
-    <!-- BIGGER Content Box  -->
+    <!-- Main Content Box  -->
     <div style="text-align: left;
 		margin-left: auto;
 		margin-right: auto;
@@ -26,15 +26,15 @@
 		  ">
 	
 	<!-- Tag Line -->
-	<span style="font-family:georgia;font-size: 80;">
+	<span class="tagLine">
 	  <span style="color: #FF9900">&#64257;nd people</span><br>
 	  <span style="color: #E70000">like you,</span><br>
-	  <span style="color: #CC0099;">in real life.</span><br>
+	  <span style="color: #CC0099">in real life.</span><br>
 	  <a href="/auth/login">
-	    <span style="color: #133783;">
+	    <span style="color: #133783">
 	      sign-in:
 	      </span>
-	    <img src="images/social/icons_facebook.png" width="50">
+	    <img src="images/social/icons_facebook.png" width="50" height="50">
 	  </a>
 	</span>
 
@@ -52,14 +52,9 @@
 	<!-- List Events -->
 	{% for event in events %}
 	<div class="ResultsText" style="background-color: {% cycle #DDD,#EEE %};">
+
 	  <!-- Generate # of people attending -->
-	  <div class="memberNumberBrowse" style="text-align:center;
-						 background-color: #ffffff;
-						 height:60px;
-						 width:60px;
-						 float:left;
-						 margin-right:20;
-						 ">
+	  <div class="memberNumberBrowse">
 	    {{ event.members|length }}
 	    <div style="font-size:12">
 	      {% if event.members|length < 2 %}
@@ -70,18 +65,22 @@
 	    </div>
 	    </div>
 	  <!-- End # -->
+
 	  <a href="/event?key={{ event.key }}"><b>{{ event.title }}</b><br>at {{ event.location }}</a>
 	  <div style="clear:both"></div>
 	</div>
 	{% endfor %}
       </div>
       <!-- End List of Events -->
-
       
     </div>
-    <div style="text-align:center;margin-top:80;">
+
+
+    <div style="text-align:center; margin-top:80;">
       {% include "footer.html" %}
       {% include "logo.html" %}
     </div>
+
+    
   </body> 
 </html>

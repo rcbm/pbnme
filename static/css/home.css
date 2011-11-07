@@ -156,9 +156,9 @@
           //margin-top: 0px;
 	  margin-left: auto;
 	  margin-right: auto;
-	  //border-top-color: #FFFFFF;
-	  //border-top-style: solid;
-	  //border-top-width: 1px;
+	  border-bottom-color: #FFFFFF;
+	  border-bottom-style: solid;
+	  border-bottom-width: 1px;
 	  //border-width: 1px;
 	  //margin-bottom: -1px;
 	  padding: 20px;
@@ -256,6 +256,16 @@ P.blocktext {
           color: #5CADFF;
           #color: #777777;
 	  vertical-align: middle;
+	  text-align: center;
+	  background-color: #fff;
+	  height:60px;
+	  width:60px;
+	  float:left;
+	  margin-right:20;
+}
+.tagLine{
+	font-family: georgia;
+	font-size: 80;
 }
 .Footer {
           font-family: times, Times New Roman, times-roman, georgia, serif;
