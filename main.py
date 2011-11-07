@@ -3,6 +3,10 @@ Future Sketches
 -------------------------
 VERSION a2:
 
+FRONT PAGE GOALS:
+- display links of events near person
+- prompt to sign in 
+
 Differences
 - list of links on front page, logo remains same, tagline remains but is near top
 - tagline ends w/ facebook login prompt
@@ -17,23 +21,10 @@ when its available in their city.
 
 
 
-FACEBOOK:
-When a user logs in we sign them in w/ FB. Then we see if we have the
-user's information in our datastore. If we do, has it been updated recently? (~72hrs)
-
-FB Information we keep on hand: 
- - ID
- - Name
- - Small Photo
- - Access Token
- - List of Likes
- - (List of Friends?)
-
-QUESTIONS:
+FB QUESTIONS:
 How do we deal w/ people who don't have facebook? Landing page?
 Where does this page go? How much stuff do we actually store?
 Do we need a list of friends... for the matching algorithm?
-
 
 
 
@@ -233,10 +224,6 @@ class EventPage(BaseHandler):
             self.redirect('/auth/login')
 
             
-class LogoPage(BaseHandler):
-    def get(self):
-        self.response.out.write(template.render('static/logo.html', {}))
-
         
 class MainPage(BaseHandler):
     def get(self):
@@ -258,10 +245,6 @@ class Browse(BaseHandler):
 
         
 class CreatePage(BaseHandler):
-    ####
-    # if user exists, make an event and add it to their eventslist
-    # else create the user first
-    ####
     def get(self):
         self.response.out.write(template.render('static/create.html', {'linktext': self.linktext}))
         
@@ -297,10 +280,10 @@ class UserPage(BaseHandler):
                 FBUpdateHandler(user).load()
 
             # Render /user Page
-            events = [db.get(event) for event in user.events] if user else []
-            self.response.out.write(template.render('static/user.html', {'linktext': self.linktext,
-                                                                         'current_user': user,
-                                                                         'events': events}))
+            events = [db.get(event) for event in user.events]
+            self.response.out.write(template.render('static/user.html', { 'linktext': self.linktext,
+                                                                          'current_user': user,
+                                                                          'events': events }))
         else:
             self.redirect('/auth/login')
             
@@ -314,7 +297,6 @@ class UserPage(BaseHandler):
         """
 
         
-class Geo(webapp.RequestHandler):
+class Geo(BaseHandler):
     def get(self):    
         self.response.out.write(template.render('static/geo.html', {}))
-

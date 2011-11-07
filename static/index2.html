@@ -10,7 +10,7 @@
     <div style="text-align: left;
 		margin-left: auto;
 		margin-right: auto;
-		width:1000;
+		width:965;
 		height:800;
 		background-color: #eee;
 		{% comment %}border: 1px solid black{% endcomment %}
@@ -21,7 +21,9 @@
       <div style="text-align: left;
 		  width:400;
 		  float:left;
-		  padding:10;
+		  padding-left:10;
+		  padding-top:10;
+		  padding-right:5;
 		  {%comment%}border: 2px solid red;{%endcomment%}">
 	
 	<!-- Tag Line -->
@@ -29,7 +31,8 @@
 	  <span style="color: #FF9900">&#64257;nd people</span><br>
 	  <span style="color: #E70000">like you,</span><br>
 	  <span style="color: #CC0099;">in real life.</span><br>
-	  <span style="color: #133783;">sign in.</span><!--<img src="images/social/icons_facebook.png" width="60">-->
+	  <a href="/auth/login"><span style="color: #133783;">sign in.</span></a>
+	  <!--<img src="images/social/icons_facebook.png" width="60">-->
 	</span>
 
       </div>
@@ -40,7 +43,8 @@
 		  height:500;
 		  float:right;
 		  {%comment%}border: 2px solid green{%endcomment%};
-		  overflow:scroll;
+		  overflow-x:hidden; 
+		  overflow-y:scroll;
 		">
 
 	<!-- List Events -->
