@@ -55,10 +55,8 @@ URGENT
 * implement scrolling /browse events
 * add un-join button to /user
 * sort events by # of people attending
-* clicking on a comment always erases, should fix this
 * add editing events
   -- extrapolate existing /create UI to have hooks for populating w/ data
-* Make a FB login  w/ logo? (see: http://www.letsdrinktonight.com)
 * Overhaul day / times
   - check for string recognition
     -- should recognize string 'today' as datetime.date.today(), etc.
@@ -77,7 +75,6 @@ Not Urgent
 _____________
 Add optional 'Description' field
 Add datepicker
-Add YQL alternative from Thriftfish (for geolocating)
 When there are no hangouts in /browse, add a 'create' message
 Add existing group checking for create()
 Add date conflict checking for create()
@@ -109,6 +106,8 @@ DONE
 * Template out /user
 * Check to see if I don't already belong to an event, if so don't show 'join' button
 * Join button should be hidden when viewing a group you already belong to
+* clicking on a comment always erases, should fix this
+* Make a FB login  w/ logo? (see: http://www.letsdrinktonight.com)
   (check both event's members and user's events? -- these should not be out of sync)
 * add a way of showing some (or all) events on index.html
 

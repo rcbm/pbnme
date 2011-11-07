@@ -13,7 +13,6 @@
 		width:975;
 		height:800;
 		background-color: #eee;
-		{% comment %}border: 1px solid black{% endcomment %}
 		height: 500;">
 
       
@@ -24,7 +23,7 @@
 		  padding-left:10;
 		  padding-top:10;
 		  padding-right:10;
-		  {%comment%}border: 2px solid red;{%endcomment%}">
+		  ">
 	
 	<!-- Tag Line -->
 	<span style="font-family:georgia;font-size: 80;">
@@ -46,15 +45,21 @@
       <div style="width:550;
 		  height:500;
 		  float:right;
-		  {%comment%}border: 2px solid green{%endcomment%};
 		  overflow-x:hidden; 
 		  overflow-y:scroll;
-		">
+		  ">
 
 	<!-- List Events -->
 	{% for event in events %}
-	<div class="ResultsText" style="background-color: {% cycle #EEE,#DDD %};">
-	  <div class="memberNumberBrowse" style="text-align:center;background-color: #ffffff;height:60px;width:60px;float:left;margin-right:20;">
+	<div class="ResultsText" style="background-color: {% cycle #DDD,#EEE %};">
+	  <!-- Generate # of people attending -->
+	  <div class="memberNumberBrowse" style="text-align:center;
+						 background-color: #ffffff;
+						 height:60px;
+						 width:60px;
+						 float:left;
+						 margin-right:20;
+						 ">
 	    {{ event.members|length }}
 	    <div style="font-size:12">
 	      {% if event.members|length < 2 %}
@@ -63,7 +68,8 @@
 		people
 	      {% endif %}
 	    </div>
-	  </div>
+	    </div>
+	  <!-- End # -->
 	  <a href="/event?key={{ event.key }}"><b>{{ event.title }}</b><br>at {{ event.location }}</a>
 	  <div style="clear:both"></div>
 	</div>
