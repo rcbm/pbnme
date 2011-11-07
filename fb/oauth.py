@@ -1,19 +1,3 @@
-"""
-Future Facebook Dataflow
-------------------------------
-after /fb/auth/login, redirects to oauth.html  - this should instead...
-
-1. store user's likes 
-2. store user's profile picture 'http://graph.facebook.com/%s/picture' % self.current_user.id
-
-
-########
-Refactor models.py away from UserProperty()
-"""
-
-FACEBOOK_APP_ID = "231959676859483"
-FACEBOOK_APP_SECRET = "7c3857ee6170df4246cfffbf1544591e"
-
 import base64
 import cgi
 import Cookie
@@ -27,7 +11,8 @@ import urllib
 import urllib2
 import wsgiref.handlers
 import fb.facebook as facebook
-        
+
+from appengine_config import *
 from django.utils import simplejson as json
 from google.appengine.ext import db
 from google.appengine.ext import webapp
