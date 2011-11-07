@@ -1,18 +1,6 @@
 '''
 Future Sketches
 -------------------------
-VERSION a2:
-
-FRONT PAGE GOALS:
-- display links of events near person
-- prompt to sign in 
-
-Differences
-- list of links on front page, logo remains same, tagline remains but is near top
-- tagline ends w/ facebook login prompt
-- footer needs to be rethought, esp. for front page
-
-
 GEOLOCATION:
 Users in Berkeley CA and Pittsburgh PA can log in and create events.
 Users in other places can only see events but cannot create or join them.
@@ -20,12 +8,10 @@ If they try they'll get a polite message and a promise we'll contact them
 when its available in their city.
 
 
-
 FB QUESTIONS:
 How do we deal w/ people who don't have facebook? Landing page?
 Where does this page go? How much stuff do we actually store?
 Do we need a list of friends... for the matching algorithm?
-
 
 
 EXPIRING EVENTS:
@@ -37,8 +23,8 @@ this? Or can we have a task execute this whenever a user performs
 some action?
 
 
+###############################################
 
- 
 
 THINGS TO-DO:
 
@@ -73,6 +59,7 @@ BUGS:
 
 Not Urgent
 _____________
+Add flipping words for group on homepage (circle, group, crew, posse, gang, etc...)
 Add optional 'Description' field
 Add datepicker
 When there are no hangouts in /browse, add a 'create' message
@@ -93,8 +80,10 @@ Harder:
 
 DONE
 -------------
+- Deleting one's hangouts seems broken
 * swap Google Users to FB
 - When a user who's logged in before, logs in again- their data (likes,pic) gets nuked
+[Add Facebook (http://developers.facebook.com/docs/reference/api/)]
 * pair down /create fields
 * add event comments
 * implement /delete as an ajax call (using post())
@@ -110,7 +99,6 @@ DONE
 * Make a FB login  w/ logo? (see: http://www.letsdrinktonight.com)
   (check both event's members and user's events? -- these should not be out of sync)
 * add a way of showing some (or all) events on index.html
-
 Fix alignment issue w/ logo
 Break DeleteHandler into tasks
 Add a number system for people who are going to an event
@@ -119,8 +107,6 @@ Change default-value in forms to change depending on FOCUS not on click
 Auto-Join people who create an event
 Change create() to redirect to event template
 Create event template
-
-[Add Facebook (http://developers.facebook.com/docs/reference/api/)]
 
 '''
 

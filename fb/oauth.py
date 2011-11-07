@@ -34,7 +34,7 @@ class BaseHandler(webapp.RequestHandler):
 
     @property
     def linktext(self):
-        self._linktext = 'My Hangouts' if self.current_user else 'Login'
+        self._linktext = 'My Hangouts' if self.current_user else 'Sign-in'
         return self._linktext
 
     
@@ -63,6 +63,7 @@ class LoginHandler(BaseHandler):
     def get(self):
         verification_code = self.request.get("code")
         args = dict(client_id=FACEBOOK_APP_ID, redirect_uri=self.request.path_url)
+        logging.info('INFO: LOGGING IN...')
         if self.request.get("code"):
             args["client_secret"] = FACEBOOK_APP_SECRET
             args["code"] = self.request.get("code")
@@ -76,7 +77,9 @@ class LoginHandler(BaseHandler):
                                access_token).get()
             if user:
                 id = user.id
+                logging.info('INFO: USER FOUND: ID# %s' % id)
             else:
+                logging.info('INFO: ADDING NEW USER')
                 # Create a user, download the user profile and store basic profile info
                 profile = json.load(urllib2.urlopen(
                         "https://graph.facebook.com/me?" +
@@ -97,8 +100,7 @@ class LoginHandler(BaseHandler):
         
 class LogoutHandler(BaseHandler):
     def get(self):
-        logging.info("whoa")
-        logging.info('INFO: Logging out')
+        logging.info('INFO: LOGGING OUT')
         set_cookie(self.response, "fb_user", "", expires=time.time() - 86400)
         self.redirect("/")
 

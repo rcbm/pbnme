@@ -17,10 +17,10 @@ class fbUser(db.Model):
 class Event(db.Model):
     created = db.DateTimeProperty(auto_now_add=True, default=None)
     updated = db.DateTimeProperty(auto_now=True)
+    title = db.StringProperty(default=None, required=True)
     active = db.BooleanProperty(default=True)
     creator = db.ReferenceProperty(fbUser)
     datetime = db.DateTimeProperty(default=None, required=True)
-    title = db.StringProperty(default=None, required=True)
     location = db.StringProperty(default=None)
     members = db.ListProperty(db.Key)
     posts = db.ListProperty(db.Key)

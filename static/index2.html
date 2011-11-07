@@ -7,34 +7,37 @@
   <body>  
     
     <!-- Main Content Box  -->
-    <div style="text-align: left;
+    <div style="margin-top:50;
 		margin-left: auto;
 		margin-right: auto;
+		text-align: right;
 		width:975;
-		height:800;
-		background-color: #eee;
-		height: 500;">
+		">
 
-      
+      {% include "logo.html" %}
+
+      <!-- Grey Box -->
+      <div style="width:975;
+		  height:500;
+		  background-color: #eee;
+		  ">
+	
       <!-- Left Content Box  -->
       <div style="text-align: left;
-		  width:400;
+		  width:385;
 		  float:left;
 		  padding-left:10;
 		  padding-top:10;
-		  padding-right:10;
 		  ">
 	
 	<!-- Tag Line -->
-	<span class="tagLine">
-	  <span style="color: #FF9900">&#64257;nd people</span><br>
-	  <span style="color: #E70000">like you,</span><br>
-	  <span style="color: #CC0099">in real life.</span><br>
+	<span class="tagLine" style="vertical-align:middle">
+	  <span style="color: #FF9900">hang with</span><br>
+	  <span style="color: #E70000">a posse</span><br>
+	  <span style="color: #CC0099">like you,</span><br>
 	  <a href="/auth/login">
-	    <span style="color: #133783">
-	      sign-in:
-	      </span>
-	    <img src="images/social/icons_facebook.png" width="50" height="50">
+	    <span style="color: #133783">in real life.</span><br>
+	    <img src="images/social/icons_facebook.png" width="60" height="60">
 	  </a>
 	</span>
 
@@ -42,7 +45,7 @@
 
        
       <!-- Right Content Box  -->
-      <div style="width:550;
+      <div style="width:575;
 		  height:500;
 		  float:right;
 		  overflow-x:hidden; 
@@ -73,14 +76,12 @@
       </div>
       <!-- End List of Events -->
       
+      </div>
     </div>
 
 
-    <div style="text-align:center; margin-top:80;">
-      {% include "footer.html" %}
-      {% include "logo.html" %}
-    </div>
-
+    <!-- Footer -->
+      {% include "front-footer.html" %}
     
   </body> 
 </html>

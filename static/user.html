@@ -23,7 +23,7 @@
 	<a href="/event?key={{ event.key }}">
 	  <b>{{ event.title }}</b> at {{ event.location }}
 	</a>
-	{% if event.creator == current_user and event.members|length < 3 %}
+	{% if event.creator.id == current_user.id and event.members|length < 3 %}
 		<span style="float: right">
 		  <a href="#" onclick="purgeEvent({{ forloop.counter }}, $(this), '{{ event.key }}');">
 		    delete

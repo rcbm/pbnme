@@ -282,6 +282,23 @@ P.blocktext {
           margin-right: auto;
           
 }
+.frontFooter {
+          font-family: georgia, times, serif;
+          font-style: italic;
+	  letter-spacing: -1px;
+	  font-size: 18;
+	  font-weight: bold;
+	  color: 333333;
+	  padding: 10px;
+	  margin-right: 0;
+          margin-top: 50px;
+	  text-align: center;
+          font-color: '#aaaaaa';
+          text-align: center;
+          margin-left: auto;
+          margin-right: auto;
+          
+}
 A:link {text-decoration: none;color: #AAAAAA;}
 A:visited {text-decoration: none;color: #AAAAAA;}
 A:active {text-decoration: none;color: #AAAAAA;}
