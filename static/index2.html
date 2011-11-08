@@ -2,10 +2,10 @@
   <head>
     <title>pbandme</title>
     <link type="text/css" rel="stylesheet" href="/css/home.css">
+    <script src="javascript/home.js"></script>
     {% include "googanalysis.html" %}
   </head>
-  <body>  
-    
+  <body onload="javascript: timedReplace()">
     <!-- Main Content Box  -->
     <div style="position: relative;
 		margin-left: auto;
@@ -33,7 +33,7 @@
 	  <!-- Tag Line -->
 	  <div class="tagLine" style="">
 	    <span style="line-height:70%;color: #FF9900">hang with</span><br>
-	    <span style="line-height:normal;color: #E70000">a posse</span><br>
+	    <span style="line-height:normal;color: #E70000">a <span id="group">posse</span></span><br>
 	    <span style="line-height:normal;color: #CC0099">like you,</span><br>
 	    <a href="/auth/login">
 	      <span style="color: #133783">in real life.</span><br>
