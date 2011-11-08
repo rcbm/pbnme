@@ -1,6 +1,12 @@
 var time;
 var timer_is_on=0;
-words = ['posse', 'circle', 'group', 'crew', 'gang'];
+words = ['posse',
+	 'circle',
+	 'group',
+	 'crew',
+	 'gang',
+	 'clique',
+	 'crowd'];
 
 function timedReplace() {
     word = words.shift();
