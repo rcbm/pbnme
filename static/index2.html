@@ -47,6 +47,7 @@
 	<!-- Right Content Box  -->
 	<div style="width:575;
 		    height:500;
+		    border-left: 1px solid #fff;
 		    float:right;
 		    overflow-x:hidden; 
 		    overflow-y:scroll;
@@ -91,21 +92,35 @@
 		  height:125;
 		  ">
 
-	<div style="float:right;">{% include "logo.html" %}</div>
+	
+	<!-- Logo -->
+	<div style="float:right;
+		    height:125;">
+	  {% include "logo.html" %}
+	  <div style="line-height: 130%;
+		      margin-right: 5px;
+		      color: #999;
+		      ">
+	  By Matt Barackman & Roger Cosseboom
+	  <br>
+	  <i>November 2011</i>
+	  </div>
 
-	<div style="text-align:left
-		    font-size:20;
-		    color: #999;
+	</div>
+	
+	<!-- Footer Menu -->
+	<div style="padding: 10;
 		    float:left;
 		    ">
-	  
 	  {% include "front-footer.html" %}
-	  ©2011 Matt Barackman & Roger Cosseboom
-	  
 	</div>
+
+	
+
+	
       </div>
       
-    <!-- End Main Content Box -->
+      <!-- End Main Content Box -->
     </div>
   </body> 
 </html>
