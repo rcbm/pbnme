@@ -124,12 +124,12 @@ from fb.oauth import *
 class FAQPage(BaseHandler):
     def get(self):
         user = self.current_user
-        self.response.out.write(template.render('static/temp.html', {'linktext': self.linktext}))
+        self.response.out.write(template.render('static/faq.html', {'linktext': self.linktext}))
 
 class AboutPage(BaseHandler):
     def get(self):
         user = self.current_user
-        self.response.out.write(template.render('static/temp.html', {'linktext': self.linktext}))
+        self.response.out.write(template.render('static/about.html', {'linktext': self.linktext}))
 
 class EventPurge(BaseHandler):
     # Takes an event by key and removes itself from all its members
