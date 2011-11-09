@@ -48,6 +48,7 @@ URGENT
 
 BUGS:
 ------------
+- Full profile info doesn't seem to be downloading... (check last-update seems broken)
 - When a user isn't logged in but then goes to join an event, logs in,
   and then he's already going to that event, it just lands at an empty
   screen (is it a python if statement?)
@@ -77,6 +78,7 @@ Harder:
 
 DONE
 -------------
+Added robots.txt
 Add date conflict checking for create()
 Add flipping words for group on homepage (circle, group, crew, posse, gang, etc...)
 - Deleting one's hangouts seems broken
@@ -254,7 +256,7 @@ class UserPage(BaseHandler):
         if user:
             # If stored profile is > 3 days old, update it
             if (datetime.now() - user.updated).days > 3:
-                logging.info('INFO: %s-%s  FB data is not fresh; requesting new' % (user.id, user.name))
+                logging.info('INFO: %s - %s  FB data is not fresh; requesting new' % (user.id, user.name))
                 FBUpdateHandler(user).load()
 
             # Render /user Page

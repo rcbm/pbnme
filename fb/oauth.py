@@ -46,8 +46,13 @@ class FBUpdateHandler(webapp.RequestHandler):
         # Loads FB Profile Info
         # Should only be run if now() - last >72hrs
         user = self.user
+        logging.info('INFO: %s - %s  Attempting to update profile' % (user.id, user.name))
         graph = facebook.GraphAPI(user.access_token)
 
+        # Download Email
+        profile = graph.get_object("/me")
+        user.email = str(profile['email'])
+        
         # Download Likes
         likes = graph.get_object("/me/likes")
         likes = likes['data']
@@ -56,13 +61,16 @@ class FBUpdateHandler(webapp.RequestHandler):
         # Download Picture
         picture = urllib2.urlopen('http://graph.facebook.com/%s/picture' % user.id).read()
         user.picture = db.Blob(picture)
-        user.updated = dnatetime.now()
+        user.updated = datetime.now()
         user.put()
+        logging.info('INFO: %s - %s  Update Complete' % (user.id, user.name))
         
 class LoginHandler(BaseHandler):
     def get(self):
         verification_code = self.request.get("code")
-        args = dict(client_id=FACEBOOK_APP_ID, redirect_uri=self.request.path_url)
+        args = dict(client_id=FACEBOOK_APP_ID,
+                    redirect_uri=self.request.path_url,
+                    scope='email,user_likes')
         if self.request.get("code"):
             args["client_secret"] = FACEBOOK_APP_SECRET
             args["code"] = self.request.get("code")
@@ -76,22 +84,27 @@ class LoginHandler(BaseHandler):
                                access_token).get()
             if user:
                 id = user.id
-                logging.info('INFO: %s-%s  User Found' % (id, user.name))
+                logging.info('INFO: %s - %s  User Found' % (id, user.name))
             else:
                 # Create a user, download the user profile and store basic profile info
                 profile = json.load(urllib2.urlopen(
                         "https://graph.facebook.com/me?" +
                         urllib.urlencode(dict(access_token=access_token))))
-                user = fbUser(key_name=str(profile["id"]), id=str(profile["id"]),
-                              name=profile["name"], access_token=access_token,
+                user = fbUser(key_name=str(profile["id"]),
+                              id=str(profile["id"]),
+                              email=str(profile['email']),
+                              name=profile["name"],
+                              access_token=access_token,
                               profile_url=profile["link"])
                 user.put()
                 id = profile["id"]
-                logging.info('INFO: %s-%s ADDING NEW USER' % (id, user.name))
-                
+                logging.info('INFO: %s - %s Adding New User' % (id, user.name))
+                FBUpdateHandler(user).load()
+            
             set_cookie(self.response, "fb_user", str(id),
                        expires=time.time() + 30 * 86400)
             self.redirect('/user')
+            
         else:
             self.redirect(
                 "https://graph.facebook.com/oauth/authorize?" +
@@ -99,7 +112,8 @@ class LoginHandler(BaseHandler):
         
 class LogoutHandler(BaseHandler):
     def get(self):
-        logging.info('INFO: LOGGING OUT')
+        user = self.current_user
+        logging.info('INFO: %s - %s Logging Out' % (user.id, user.name))
         set_cookie(self.response, "fb_user", "", expires=time.time() - 86400)
         self.redirect("/")
 
