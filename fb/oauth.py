@@ -63,7 +63,7 @@ class LoginHandler(BaseHandler):
     def get(self):
         verification_code = self.request.get("code")
         args = dict(client_id=FACEBOOK_APP_ID, redirect_uri=self.request.path_url)
-        logging.info('INFO: LOGGING IN...')
+        logging.info('INFO: %s-%s  Logging In' % (user.id, user.name))
         if self.request.get("code"):
             args["client_secret"] = FACEBOOK_APP_SECRET
             args["code"] = self.request.get("code")
@@ -77,9 +77,8 @@ class LoginHandler(BaseHandler):
                                access_token).get()
             if user:
                 id = user.id
-                logging.info('INFO: USER FOUND: ID# %s' % id)
+                logging.info('INFO: %s-%s  User Found' % (id, user.name))
             else:
-                logging.info('INFO: ADDING NEW USER')
                 # Create a user, download the user profile and store basic profile info
                 profile = json.load(urllib2.urlopen(
                         "https://graph.facebook.com/me?" +
@@ -89,7 +88,8 @@ class LoginHandler(BaseHandler):
                               profile_url=profile["link"])
                 user.put()
                 id = profile["id"]
-
+                logging.info('INFO: %s-%s ADDING NEW USER' % (id, user.name))
+                
             set_cookie(self.response, "fb_user", str(id),
                        expires=time.time() + 30 * 86400)
             self.redirect('/user')

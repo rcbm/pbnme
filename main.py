@@ -30,17 +30,15 @@ THINGS TO-DO:
 
 URGENT
 -------------
-# LOOK UP BATCH put()'s for /create
-# LOOK UP SEPERATING DAY / TIME in /events
-* add content to FAQ (hook already made)
-* add content to About (hook already made)
 * implement email and/or fb message reminders
+* Seperate Day and / TIME in /events
+* add content to FAQ
+* add content to About
 * make more robust /browse (sort by date, sort by score, etc.)
-* implement /join as an ajax call (using post())
 * implement expiring events
 * implement scrolling /browse events
 * add un-join button to /user
-* sort events by # of people attending
+* add sorting of events by # of people attending
 * add editing events
   -- extrapolate existing /create UI to have hooks for populating w/ data
 * Overhaul day / times
@@ -59,12 +57,11 @@ BUGS:
 
 Not Urgent
 _____________
-Add flipping words for group on homepage (circle, group, crew, posse, gang, etc...)
+implement /join as an ajax call (using post())
 Add optional 'Description' field
 Add datepicker
-When there are no hangouts in /browse, add a 'create' message
+When there are no hangouts in /browse or /user, add a 'create' message
 Add existing group checking for create()
-Add date conflict checking for create()
 Implement 'default-value' checking to create form in JS
 Make a safe-guard that if manually deleting an event (on the backend),
   the reference in the user-profiles is also deleted... maybe when a user loads their page?
@@ -80,6 +77,8 @@ Harder:
 
 DONE
 -------------
+Add date conflict checking for create()
+Add flipping words for group on homepage (circle, group, crew, posse, gang, etc...)
 - Deleting one's hangouts seems broken
 * swap Google Users to FB
 - When a user who's logged in before, logs in again- their data (likes,pic) gets nuked
@@ -157,7 +156,7 @@ class UnjoinTask(BaseHandler):
         member.events = [s for s in member.events if str(s) != self.request.get('eventKey')]
         member.put()
 
-        
+
 class Join(BaseHandler):
     def get(self):
         user = self.current_user
@@ -208,18 +207,12 @@ class EventPage(BaseHandler):
         else:
             self.redirect('/auth/login')
 
-            
-        
-class MainPage(BaseHandler):
-    def get(self):
-        self.response.out.write(template.render('static/index.html', { 'linktext':self.linktext }))
 
-        
-class NewMainPage(BaseHandler):
+class MainPage(BaseHandler):
     def get(self):
         events = db.GqlQuery("SELECT * FROM Event LIMIT 100")
         self.response.out.write(template.render('static/index2.html', { 'linktext': self.linktext,
-                                                                        'events': events }))
+                                                                       'events': events }))
 
 
 class Browse(BaseHandler):
@@ -261,7 +254,7 @@ class UserPage(BaseHandler):
         if user:
             # If stored profile is > 3 days old, update it
             if (datetime.now() - user.updated).days > 3:
-                logging.info('INFO: FB data is not fresh; requesting new')
+                logging.info('INFO: %s-%s  FB data is not fresh; requesting new' % (user.id, user.name))
                 FBUpdateHandler(user).load()
 
             # Render /user Page
