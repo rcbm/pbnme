@@ -63,7 +63,6 @@ class LoginHandler(BaseHandler):
     def get(self):
         verification_code = self.request.get("code")
         args = dict(client_id=FACEBOOK_APP_ID, redirect_uri=self.request.path_url)
-        logging.info('INFO: %s-%s  Logging In' % (user.id, user.name))
         if self.request.get("code"):
             args["client_secret"] = FACEBOOK_APP_SECRET
             args["code"] = self.request.get("code")
