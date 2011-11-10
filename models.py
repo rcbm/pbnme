@@ -11,6 +11,7 @@ class fbUser(db.Model):
     access_token = db.StringProperty(required=True)
     picture = db.BlobProperty(default=None)
     likes = db.StringListProperty(default=None)
+    mattlikes = db.StringListProperty(default=None)
     events = db.ListProperty(db.Key)
 
     

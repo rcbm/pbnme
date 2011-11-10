@@ -57,7 +57,7 @@ class FBUpdateHandler(webapp.RequestHandler):
         likes = graph.get_object("/me/likes")
         likes = likes['data']
         user.likes = [like['id'] for like in likes]
-
+        
         # Download Picture
         picture = urllib2.urlopen('http://graph.facebook.com/%s/picture' % user.id).read()
         user.picture = db.Blob(picture)

@@ -1,17 +1,20 @@
 '''
-Future Sketches
+Features
 -------------------------
 GEOLOCATION:
 Users in Berkeley CA and Pittsburgh PA can log in and create events.
 Users in other places can only see events but cannot create or join them.
 If they try they'll get a polite message and a promise we'll contact them
 when its available in their city.
+QUICK N DIRTY: We have HTML5 code that works, need to test YQL backup code.
+Maybe Impliment this on /auth/login? 
 
 
-FB QUESTIONS:
+PEOPLE W/O FB:
 How do we deal w/ people who don't have facebook? Landing page?
 Where does this page go? How much stuff do we actually store?
 Do we need a list of friends... for the matching algorithm?
+QUICK N DIRTY: We don't.
 
 
 EXPIRING EVENTS:
@@ -21,6 +24,34 @@ this Event should flip the active flag. This means that machinetime
 must be monitoring machinetime. Is there a continuous process for
 this? Or can we have a task execute this whenever a user performs
 some action?
+QUICK N DIRTY: Whenever a user runs a query for multiple events
+ie. /browse, /, /user we check for active flags OR we check datetime.
+Also we have a background task that runs through every hour and makes sure.
+
+
+EDITING EVENTS:
+Users may want to go back and edit events
+QUICK N DIRTY: make the fields in /create populatable, w/ data
+from the HTTP GET. ie auto-fill them w/ the real data
+and then just have it update that particular event. This shouldn't be
+hard.
+
+
+SORTING EVENTS:
+Users want to sort events by date, # of users, other things.
+QUICK N DIRTY: Research GQL 'sort by' commands
+
+
+EVENT NOTIFICATIONS:
+Users want to be notified of their event via email
+QUICK N DIRTY: 
+
+
+EVENT SHARING:
+Events should opt-out share w/ friends (like on fb, twitter, etc.)
+QUICK N DIRTY: 
+
+
 
 
 ###############################################
@@ -30,6 +61,8 @@ THINGS TO-DO:
 
 URGENT
 -------------
+* / should sort by newest events? # of people going? What?
+* Add 'start' button to /
 * implement email and/or fb message reminders
 * Seperate Day and / TIME in /events
 * add content to FAQ
@@ -196,6 +229,7 @@ class EventPage(BaseHandler):
         # Make sure user is logged in
         if current_user: 
             key = self.request.get('event_key')
+
             current_event = db.get(key)
             comment_content = self.request.get('comment_content') 
             comment = Post(author = current_user,
