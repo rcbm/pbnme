@@ -17,6 +17,7 @@ from django.utils import simplejson as json
 from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
+from google.appengine.api import taskqueue
 from google.appengine.ext.webapp import template
 from datetime import datetime
 from models import *
@@ -34,10 +35,21 @@ class BaseHandler(webapp.RequestHandler):
 
     @property
     def linktext(self):
-        self._linktext = 'My Hangouts' if self.current_user else 'Sign-in'
+        self._linktext = 'My Hangouts' if self.request.cookies.get("fb_user") else 'Sign-in'
         return self._linktext
 
         
+class LogoutHandler(BaseHandler):
+    def get(self):
+        user = self.current_user
+        try:
+            logging.info('INFO: %s - %s Logging Out' % (user.id, user.name))
+            set_cookie(self.response, "fb_user", "", expires=time.time() - 86400)
+        except:
+            logging.error('ERROR: Logging error w/ logging out')
+        self.redirect("/")
+
+
 class LoginHandler(BaseHandler):
     def get(self):
         verification_code = self.request.get("code")
@@ -58,6 +70,8 @@ class LoginHandler(BaseHandler):
             if user:
                 id = user.id
                 logging.info('INFO: %s - %s  User Found' % (id, user.name))
+                if user.likes is None:
+                    taskqueue.add(url="/refresh", params={'key': str(user.key())})
             else:
                 # Create a user, download the user profile and store basic profile info
                 profile = json.load(urllib2.urlopen(
@@ -83,14 +97,6 @@ class LoginHandler(BaseHandler):
                 "https://graph.facebook.com/oauth/authorize?" +
                 urllib.urlencode(args))
         
-class LogoutHandler(BaseHandler):
-    def get(self):
-        user = self.current_user
-        logging.info('INFO: %s - %s Logging Out' % (user.id, user.name))
-        set_cookie(self.response, "fb_user", "", expires=time.time() - 86400)
-        self.redirect("/")
-
-
 def set_cookie(response, name, value, domain=None, path="/", expires=None):
     """Generates and signs a cookie for the give name/value"""
     timestamp = str(int(time.time()))
