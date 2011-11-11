@@ -17,19 +17,6 @@ Do we need a list of friends... for the matching algorithm?
 QUICK N DIRTY: We don't.
 
 
-EXPIRING EVENTS:
-An event has a Datetime when it is to occur, and a
-active flag. When machinetime > an events Datetime,
-this Event should flip the active flag. This means that machinetime
-must be monitoring machinetime. Is there a continuous process for
-this? Or can we have a task execute this whenever a user performs
-some action?
-
-QUICK N DIRTY: Whenever a user runs a query for multiple events
-ie. /browse, /, /user we check for active flags OR we check datetime.
-Also we have a background task that runs through every hour and makes sure.
-
-
 EDITING EVENTS:
 Users may want to go back and edit events
 QUICK N DIRTY: make the fields in /create populatable, w/ data
@@ -70,7 +57,6 @@ URGENT
 * add content to FAQ
 * add content to About
 * make more robust /browse (sort by date, sort by score, etc.)
-* implement expiring events
 * implement scrolling /browse events
 * add un-join button to /user (use UnjoinTask())
 * add sorting of events by # of people attending
@@ -83,7 +69,6 @@ URGENT
 
 BUGS:
 ------------
-- Full profile info doesn't seem to be downloading... (check last-update seems broken)
 - When a user isn't logged in but then goes to join an event, logs in,
   and then he's already going to that event, it just lands at an empty
   screen (is it a python if statement?)
@@ -113,6 +98,9 @@ Harder:
 
 DONE
 -------------
+* Changed FBUpdateHandler into RefreshTask
+- Full profile info doesn't seem to be downloading... (check last-update seems broken)
+* implement expiring events
 Added robots.txt
 Add date conflict checking for create()
 Add flipping words for group on homepage (circle, group, crew, posse, gang, etc...)
@@ -157,6 +145,32 @@ from google.appengine.api import taskqueue
 from models import *
 from fb.oauth import *
 
+class RefreshTask(BaseHandler):
+    # Takes a key and loads FB Profile Info
+    # Should only be run if now() - last > 72hrs
+    def post(self):
+        key = self.request.get('key')
+        user = db.get(key)
+        logging.info('INFO: %s - %s  Attempting to update profile' % (user.id, user.name))
+        graph = facebook.GraphAPI(user.access_token)
+
+        # Download Email
+        profile = graph.get_object("/me")
+        user.email = str(profile['email'])
+        
+        # Download Likes
+        likes = graph.get_object("/me/likes")
+        likes = likes['data']
+        user.likes = [like['id'] for like in likes]
+        
+        # Download Picture
+        picture = urllib2.urlopen('http://graph.facebook.com/%s/picture' % user.id).read()
+        user.picture = db.Blob(picture)
+        user.updated = datetime.now()
+        user.put()
+        logging.info('INFO: %s - %s  Update Complete' % (user.id, user.name))
+
+        
 class ExpireTask(BaseHandler):
     # Takes a key and flips the active bit of the corresponding entity
     def post(self):
@@ -310,11 +324,11 @@ class UserPage(BaseHandler):
     def get(self):
         user = self.current_user
         if user:
-            # If stored profile is > 3 days old, update it
+            # If stored profile is > 3 days old, update it in the background
             if (datetime.now() - user.updated).days > 3:
                 logging.info('INFO: %s - %s  FB data is not fresh; requesting new' % (user.id, user.name))
-                FBUpdateHandler(user).load()
-
+                taskqueue.add(url="/refresh", params={'key': str(user.key())})
+            
             # Render /user Page
             events = [db.get(event) for event in user.events]
             self.response.out.write(template.render('static/user.html', { 'linktext': self.linktext,

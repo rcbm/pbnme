@@ -37,33 +37,6 @@ class BaseHandler(webapp.RequestHandler):
         self._linktext = 'My Hangouts' if self.current_user else 'Sign-in'
         return self._linktext
 
-    
-class FBUpdateHandler(webapp.RequestHandler):
-    def __init__(self, user):
-        self.user = user;
-
-    def load(self):
-        # Loads FB Profile Info
-        # Should only be run if now() - last >72hrs
-        user = self.user
-        logging.info('INFO: %s - %s  Attempting to update profile' % (user.id, user.name))
-        graph = facebook.GraphAPI(user.access_token)
-
-        # Download Email
-        profile = graph.get_object("/me")
-        user.email = str(profile['email'])
-        
-        # Download Likes
-        likes = graph.get_object("/me/likes")
-        likes = likes['data']
-        user.likes = [like['id'] for like in likes]
-        
-        # Download Picture
-        picture = urllib2.urlopen('http://graph.facebook.com/%s/picture' % user.id).read()
-        user.picture = db.Blob(picture)
-        user.updated = datetime.now()
-        user.put()
-        logging.info('INFO: %s - %s  Update Complete' % (user.id, user.name))
         
 class LoginHandler(BaseHandler):
     def get(self):
@@ -99,8 +72,8 @@ class LoginHandler(BaseHandler):
                 user.put()
                 id = profile["id"]
                 logging.info('INFO: %s - %s Adding New User' % (id, user.name))
-                FBUpdateHandler(user).load()
-            
+                taskqueue.add(url="/refresh", params={'key': str(user.key())})
+                
             set_cookie(self.response, "fb_user", str(id),
                        expires=time.time() + 30 * 86400)
             self.redirect('/user')

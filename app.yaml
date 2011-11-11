@@ -31,6 +31,10 @@ handlers:
   script: urls.py
   login: admin
 
+- url: /refresh
+  script: urls.py
+  login: admin
+
 - url: /.*
   script: urls.py
 
