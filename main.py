@@ -249,8 +249,12 @@ class EventPage(BaseHandler):
         user = existing_user = self.current_user
         key = self.request.get('key')
         event = db.get(key)
+        editable = False if user.key() != event.creator.key() else True
         join_button = False if existing_user and existing_user.key() in event.members else True
-        self.response.out.write(template.render('static/event.html', { 'linktext': self.linktext,
+        self.response.out.write(template.render('static/event.html', { 'creator': event.creator,
+                                                                       'user': user,
+                                                                       'editable': editable,
+                                                                       'linktext': self.linktext,
                                                                        'key': event.key(),
                                                                        'title': event.title,
                                                                        'location': event.location,
@@ -341,9 +345,6 @@ class EditPage(BaseHandler):
             self.redirect("/event?key=%s" % event.key())
         else:
             self.redirect('/auth/login')
-
-        
-
 
         
 class UserPage(BaseHandler):

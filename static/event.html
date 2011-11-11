@@ -6,11 +6,20 @@
   <body>  
     {% include "logo.html" %}
     <div style="text-align: left;margin-left: auto;margin-right: auto;width: 700;">
-      <a href="/edit?event={{ key }}">EDIT</a>
+
+      
       <!-- Event Info -->
       <div class="eventHeader">
 	{{ title }}
       </div>
+      
+      <!-- Edit Button -->
+      {% if editable %}
+      <div style="text-align:right;margin-top: -36px;">
+	<input class="editButton" style="margin: 0px;" type="submit" value="Edit" onclick="window.location='/edit?event={{ key }}'">
+      </div>
+      {% endif %}
+	      
       <div style="background: #FFFF66;padding:20">
 	<div class="subHeaderText" style="color: #777">
 	  <div class="memberNumberBrowse" style="font-style: normal;text-align:center;background-color: #ffffff;height:60px;width:60px;float:right;margin-right:20;">
@@ -29,15 +38,19 @@
 	      <br><br>
 	      <B>Description:</b><br>
 	      {{ description }}<br>
-	    {% endif %}
-	  </div>
-	</div>
+	      {% endif %}
+	      
+        </div>
+      </div>
 
 	
 	<!-- Join Button -->
 	{% if join_button %}
 	<div style="text-align:center;l">
-	  <input class="joinButton" style="margin-top: 20;color: ffffff;width:300" onclick="window.location='/join?key={{ key }}'" type="Button" value="I'll Come Too!">
+	  <input class="joinButton"
+		 style="margin-top: 20;color: ffffff;width:300"
+		 onclick="window.location='/join?key={{ key }}'"
+		 type="Button" value="I'll Come Too!">
 	</div>
 	{% endif %}
 

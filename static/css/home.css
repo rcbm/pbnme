@@ -63,6 +63,15 @@ body { margin: 0 0 0 0;
           font-size: 20;
 	   
 }
+.editButton {
+          width: 75px;
+	  color: #ffffff;
+	  background: #E76E6E;
+          border: 5px solid #E76E6E;
+          font-family: helvetica;
+          font-size: 18;
+	   
+}
 .cancelButton {
           color: #ffffff;
           background: #5CADFF;
@@ -77,8 +86,8 @@ body { margin: 0 0 0 0;
 }
 .resetButton {
           color: #ffffff;
-          background: #E76E6E;
-          border: 15px solid #E76E6E;
+          background: #5CADFF;
+          border: 15px solid #5CADFF;
           font-family: helvetica;
           font-size: 20;
 	  font-style: bold;
