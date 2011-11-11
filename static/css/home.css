@@ -316,3 +316,17 @@ A:link {text-decoration: none;color: #999;}
 A:visited {text-decoration: none;color: #999;}
 A:active {text-decoration: none;color: #999;}
 A:hover {text-decoration: none;color: #3399ff;}
+
+.bioImage {
+	    float: left;
+        text-align: left;
+        border: 2px solid #DDDDDD;
+}
+
+.bioCopy {
+        color: #353535;
+        font-family: georgia;
+        font-size: 20;
+        padding: 10px;
+        text-align: left;     
+}

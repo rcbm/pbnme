@@ -74,6 +74,7 @@ BUGS:
   screen (is it a python if statement?)
 - When a user isn't logged in but wants to make a hangout, it nukes
   their hangout info before logging them back in
+- "noon" goes to midnight
 
 
 Not Urgent
@@ -86,6 +87,7 @@ Add existing group checking for create()
 Implement 'default-value' checking to create form in JS
 Make a safe-guard that if manually deleting an event (on the backend),
   the reference in the user-profiles is also deleted... maybe when a user loads their page?
+When a person puts their "house" in, we should pull their approximate address.
 
 Harder:
 -------------
