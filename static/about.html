@@ -6,9 +6,8 @@
     {% include "googanalysis.html" %}
   </head>
   <body>
-    {% include "logo.html" %}
-    <div style="text-align: left;margin-left: auto;margin-right: auto;width:700">
-      <div class="subHeaderText" style="text-align:left;position:relative;width:700;">
+    <div style="text-align: left;margin-left: auto;margin-right: auto; margin-top: 50px; width:975">
+      <div class="subHeaderText" style="text-align:left;position:relative;width:975;">
       About Us
       </div>
       <div class="p" style="font-style: normal;";>
@@ -31,12 +30,46 @@
 		</div>
 	</br>
 	  </div>
-	</br>
-	</br>
-    <div class="footer">
+    <div class="footer" style="height: 80px; margin-top: 0px">
 		<span> We'd love meeting new people so <a href="mailto:info@pband.me"> drop us a line!</a> </span>
 	</div>
 	</div>
-    {% include "footer.html" %}
+	<!-- Footer Container -->
+      <div style="
+		  margin-left: auto;
+		  margin-right: auto;
+		  width: 975;
+		  bottom: 0;
+		  background-color: #353535;
+		  color: #fff;
+		  height:125;
+		  ">
+
+	
+	<!-- Logo -->
+	<div style="float:right;
+		    height:125;">
+	  {% include "logo.html" %}
+	  <div style="line-height: 130%;
+		      margin-right: 5px;
+		      color: #999;
+		      ">
+	  By Roger Cosseboom & Matt Barackman
+	  <br>
+	  <i>November 2011</i>
+	  </div>
+
+	</div>
+	
+	<!-- Footer Menu -->
+	<div style="padding: 10;
+		    float:left;
+		    ">
+	  {% include "front-footer.html" %}
+	</div>
+      </div>
+      
+      <!-- End Main Content Box -->
+    </div>
   </body> 
 </html>
