@@ -24,6 +24,7 @@ this Event should flip the active flag. This means that machinetime
 must be monitoring machinetime. Is there a continuous process for
 this? Or can we have a task execute this whenever a user performs
 some action?
+
 QUICK N DIRTY: Whenever a user runs a query for multiple events
 ie. /browse, /, /user we check for active flags OR we check datetime.
 Also we have a background task that runs through every hour and makes sure.
@@ -61,6 +62,7 @@ THINGS TO-DO:
 
 URGENT
 -------------
+* Add 'Blog' to footers
 * / should sort by newest events? # of people going? What?
 * Add 'start' button to /
 * implement email and/or fb message reminders
@@ -70,7 +72,7 @@ URGENT
 * make more robust /browse (sort by date, sort by score, etc.)
 * implement expiring events
 * implement scrolling /browse events
-* add un-join button to /user
+* add un-join button to /user (use UnjoinTask())
 * add sorting of events by # of people attending
 * add editing events
   -- extrapolate existing /create UI to have hooks for populating w/ data
@@ -155,6 +157,24 @@ from google.appengine.api import taskqueue
 from models import *
 from fb.oauth import *
 
+class ExpireTask(BaseHandler):
+    # Takes a key and flips the active bit of the corresponding entity
+    def post(self):
+        event = db.get(self.request.get('eventKey'))
+        event.active = False
+        event.put()
+
+
+class ExpireDaemon(BaseHandler):
+    # Looks for 100 events that are in the past and are still flagged as active
+    def get(self):
+        now = str(datetime.now()).split('.')[0]
+        events = db.GqlQuery("SELECT * FROM Event WHERE datetime < DATETIME('%s') AND active=True LIMIT 100" % now)
+        for e in events:
+            logging.info('INFO: Deactivating event: %s' % e.key())
+            taskqueue.add(url="/expiretask", params={'eventKey': e.key()})
+            
+        
 class FAQPage(BaseHandler):
     def get(self):
         user = self.current_user
@@ -175,8 +195,8 @@ class EventPurge(BaseHandler):
                                                      'eventKey': eventKey})
             # step 2. delete the group itself
             taskqueue.add(url="/deletetask", params={'key': eventKey})
-
             
+        
 class DeleteTask(BaseHandler):
     # Takes a key and deletes its corresponding entity
     def post(self):
@@ -246,14 +266,16 @@ class EventPage(BaseHandler):
 
 class MainPage(BaseHandler):
     def get(self):
-        events = db.GqlQuery("SELECT * FROM Event LIMIT 100")
+        now = str(datetime.now()).split('.')[0]
+        events = db.GqlQuery("SELECT * FROM Event WHERE datetime > DATETIME('%s') AND active=True LIMIT 100" % now)
         self.response.out.write(template.render('static/index2.html', { 'linktext': self.linktext,
                                                                        'events': events }))
-
+        
 
 class Browse(BaseHandler):
     def get(self):
-        events = db.GqlQuery("SELECT * FROM Event LIMIT 100")
+        now = str(datetime.now()).split('.')[0]
+        events = db.GqlQuery("SELECT * FROM Event WHERE datetime > DATETIME('%s') AND active=True LIMIT 100" % now)
         self.response.out.write(template.render('static/browse.html', { 'linktext': self.linktext,
                                                                         'events': events }))
 

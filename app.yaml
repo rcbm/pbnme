@@ -27,6 +27,10 @@ handlers:
 - url: /fb/.*
   script: fb/oauth.py
 
+- url: /expire
+  script: urls.py
+  login: admin
+
 - url: /.*
   script: urls.py
 

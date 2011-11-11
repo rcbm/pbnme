@@ -1,0 +1,4 @@
+cron:
+- description: Expire Daemon
+  url: /expire
+  schedule: every 30 minutes
