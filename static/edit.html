@@ -1,0 +1,34 @@
+<html>
+  <head><title>pbandme</title>
+    <script type="text/javascript" src="/javascript/jquery-1.3.2.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/home.css"> 
+    {% include "googanalysis.html" %}
+  </head>
+  <body>  
+    {% include "logo.html" %}
+      <div style="text-align: left;margin-left: auto;margin-right: auto;width:700">
+	<div class="subHeaderText" style="text-align:left;position:relative;width:700;">
+	  Start a hangout:
+	</div>
+	<form action="/edit" method="post" name="edit">
+	  <input style="visibility:hidden;" type="hidden" name="key" value="{{ event.key }}"> 
+	  <input type="text" class="createFormElement" value="{{ event.title }}"
+		 maxlength="25" name="title" style="width: 700px;">
+	  <input type="text" class="createFormElement" value="{{ event.location }}"
+		 name="location" style="width: 700px;margin-top: 15"> 
+	  <input type="text" class="createFormElement" value="{{ event.datetime.date }}"
+		 name="date" style="width: 290px;margin-top: 12;margin-right:11px;">
+	  <input type="text" class="createFormElement" value="{{ event.datetime.time }}"
+		 name="time" style="width: 295px;margin-top: 15;"> 
+	  <div class="smallNotes" style="margin-top: 5;width: 700">
+	    "Today", "Saturday", "10/20/12" <span style="margin-left: 99">"Noon", "9pm", "8:00"</span>
+	  </div>
+	  <input class="createButton" style="margin-top: 20;margin-left: 0;margin-right:2px;color: ffffff;font-weight:bold;" onclick="window.location='document.form[0].submit()'" type="Submit" value="Save">
+	  <input class="cancelButton" style="margin-top: 20;margin-left: 0;margin-left:2px;color: ffffff;font-weight:bold;" onclick="window.location='/'" type="Button" value="Cancel">
+	</form>
+      </div>
+      {% include "footer.html" %}
+    </body> 
+</html>
+
+

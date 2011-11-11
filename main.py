@@ -98,6 +98,7 @@ Harder:
 
 DONE
 -------------
+- Fixed weird 'my hangouts / sign-in' text bug
 * Changed FBUpdateHandler into RefreshTask
 - Full profile info doesn't seem to be downloading... (check last-update seems broken)
 * implement expiring events
@@ -320,6 +321,31 @@ class CreatePage(BaseHandler):
             self.redirect('/auth/login')
 
             
+class EditPage(BaseHandler):
+    def get(self):
+        user = self.current_user
+        event = db.get(self.request.get('event'))
+        self.response.out.write(template.render('static/edit.html', {'event': event,
+                                                                     'linktext': self.linktext}))
+    def post(self):
+        user = self.current_user
+        if user:
+            event = db.get(self.request.get('key'))
+            from dateutil import parser
+            event.title = self.request.get('title')
+            event.location = location = self.request.get('location')
+            time = self.request.get('time')
+            date = self.request.get('date')
+            event.datetime = parser.parse('%s %s' %(date, time), fuzzy=True)
+            event.put()
+            self.redirect("/event?key=%s" % event.key())
+        else:
+            self.redirect('/auth/login')
+
+        
+
+
+        
 class UserPage(BaseHandler):
     def get(self):
         user = self.current_user
