@@ -20,7 +20,7 @@
       </div>
       {% endif %}
 	      
-      <div style="background: #FFFF66;padding: 5">
+      <div style="background: #FFFF66;padding: 15;">
 	<div class="subHeaderText" style="color: #777;">
 	  <div class="memberNumberBrowse" style="font-style: normal;text-align:center;background-color: #ffffff;height:60px;width:60px;float:right;margin-right:20;">
 	    {{ members|length }}
@@ -64,7 +64,7 @@
 	      </div>
 	      {% endfor %}
 	    </div>
-	    -->
+	-->
 
 	
 	<!-- Comments Area -->
@@ -84,7 +84,7 @@
 	<div style="margin-top:20px;">
 	  {% for p in posts %}
 	  <div class="ResultsText" style="height: 50px;margin: 0px;font-size:18;background-color: {% cycle #EEE,#DDD %};">
-	    <img style="background:#fff;padding:1px;margin-right: 10px;float:left;"
+	    <img style="background:#000;padding:1px;margin-right: 10px;float:left;"
 		 src="/profilepic?key={{ p.author.key }}"><b>{{ p.author.name }} says...</b>
 	    <br>
 	    {{ p.content }}
