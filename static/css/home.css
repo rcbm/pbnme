@@ -58,16 +58,16 @@ body { margin: 0 0 0 0;
           color: #ffffff;
           background: #5CADFF;
           font-weight: bold;
-	  border: 10px solid #5CADFF;
+	      border: 10px solid #5CADFF;
           font-family: helvetica;
           font-size: 20;
 	   
 }
 .editButton {
           width: 75px;
-	  color: #ffffff;
-	  background: #E76E6E;
-          border: 5px solid #E76E6E;
+	      color: #E76E6E;
+	      background: #ffffff;
+          border: 5px solid #ffffff;
           font-family: helvetica;
           font-size: 18;
 	   
@@ -78,11 +78,11 @@ body { margin: 0 0 0 0;
           border: 15px solid #5CADFF;
           font-family: helvetica;
           font-size: 20;
-	  font-style: bold;
-	  margin-top:20;
-	  margin-left: 0;
-	  margin-right:2px;
-	  font-weight:bold;
+	      font-style: bold;
+    	  margin-top:20;
+    	  margin-left: 0;
+    	  margin-right:2px;
+    	  font-weight:bold;
 }
 .resetButton {
           color: #ffffff;
@@ -90,11 +90,11 @@ body { margin: 0 0 0 0;
           border: 15px solid #5CADFF;
           font-family: helvetica;
           font-size: 20;
-	  font-style: bold;
-	  margin-top:20;
-	  margin-left: 0;
-	  margin-right:2px;
-	  font-weight:bold;
+    	  font-style: bold;
+    	  margin-top:20;
+    	  margin-left: 0;
+    	  margin-right:2px;
+    	  font-weight:bold;
 }
 .createButton {
           color: #ffffff;
