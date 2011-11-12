@@ -357,6 +357,7 @@ class UserPage(BaseHandler):
                 taskqueue.add(url="/refresh", params={'key': str(user.key())})
             
             # Render /user Page
+            events = [db.get(event) for event in user.events]
             self.response.out.write(template.render('static/user.html', { 'linktext': self.linktext,
                                                                           'current_user': user,
                                                                           'events': events }))
