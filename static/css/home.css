@@ -66,10 +66,10 @@ body { margin: 0 0 0 0;
 .editButton {
           width: 75px;
 	      color: #E76E6E;
-	      background: #ffffff;
-          border: 5px solid #ffffff;
+	      background: #FCF2F9;
+          border: 5px solid #FCF2F9;
           font-family: helvetica;
-          font-size: 18;
+          font-size: 18px;
 	   
 }
 .cancelButton {
@@ -227,7 +227,7 @@ P.blocktext {
         font-weight: bold;
         letter-spacing: -.05em;
         color: #E70000;
-        padding: 10px;
+        padding: 5 px;
         text-align: right;
         width: 975px;
         margin-left: auto;
@@ -235,10 +235,11 @@ P.blocktext {
     
 }
 .eventHeader {
-          text-align: center;
+      text-align: left;
 	  font-family: helvetica;
 	  font-size: 45;
 	  color: #555;
+	  padding: 10px;
 	  font-weight:bold;
 	  margin-bottom: 25px;
 }
@@ -263,6 +264,22 @@ P.blocktext {
 	  margin-bottom: 0px;
 	  margin-left: 0%;
 	  padding: 10px;
+}
+
+.divRight {
+      position:relative;
+      top: -150px;
+      margin: 10px;
+      width: 400px; 
+}
+
+.divCenter {
+    width: 2%;
+    background: white; 
+}
+
+.divLeft {
+    width: 400px; 
 }
 .memberNumber {
 	  font-family: helvetica;
@@ -295,17 +312,15 @@ P.blocktext {
 .Footer {
           font-family: times, Times New Roman, times-roman, georgia, serif;
           font-style: italic;
-	  letter-spacing: -1px;
-	  font-size: 40;
-	  color: 333333;
-	  padding: 10px;
-	  margin-right: 0;
+	      letter-spacing: -1px;
+    	  font-size: 40;
+    	  color: 333333;
+    	  padding: 10px;
+    	  margin-right: 0;
           margin-top: 75px;
           font-color: '#aaaaaa';
           text-align: center;
-          margin-left: auto;
-          margin-right: auto;
-          
+          margin-left: auto;          
 }
 .frontFooter {
           font-family: georgia, times, serif;
@@ -340,7 +355,7 @@ A:hover {text-decoration: none;color: #3399ff;}
         color: #353535;
         font-family: georgia;
         font-size: 20;
-        padding: 10px;
+        margin: auto;
         text-align: left;     
 }
 

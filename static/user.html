@@ -12,9 +12,10 @@
     {% include "googanalysis.html" %}
   </head>
   <body>
-    {% include "logo.html" %}
+    {% include "page-header.html" %}
+	<hr width="975px" color="CC0099">
     <div style="text-align: left;margin-left: auto;margin-right: auto;width:700">
-      <div class="subHeaderText" style="text-align:left;position:relative;width:700;">
+      <div class="subHeaderText" style="text-align:left;position:relative;width:700;margin-top: 80px">
 	<a href="/browse">Find a Hangout</a>&nbsp;|&nbsp;<a href="/create">Start a Hangout</a>
 	<span style="float:right"><a href="/auth/logout">Logout</a></span>
       </div>
@@ -33,6 +34,6 @@
       </div>
       {% endfor %}
     </div>
-    {% include "footer.html" %}
+    {% include "page-footer.html" %}
   </body> 
 </html>

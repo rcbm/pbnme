@@ -7,70 +7,36 @@
   </head>
   <body>
     {% include "page-header.html" %}
+	<hr width="975px" color="CC0099">
     <div style="text-align: left;margin-left: auto;margin-right: auto; margin-top: 50px; width:975">
-      <div class="subHeaderText" style="text-align:left;position:relative;width:975;">
+      <div style="margin-left: 10%">
+	  <div class="subHeaderText" style="text-align:left;position:relative;width:975;">
       About Us
       </div>
       <div class="p" style="font-style: normal;";>
-	  	<div name="container" style="height: 203px">
+	  	<div name="container" style="height: 300px; margin:auto">
 			<div class="bioImage">
-				<img src="images/about/matt.jpg" width="300px">
+				<img src="images/about/matt.jpg" width="200px">
 			</div>
-			<div class="bioCopy">
+			<div class="bioCopy" style="width:400px">
 				Originally from New England, Matt was lured out to the West Coast for his undergrad at UC Berkeley. He's been working in an old SF firehouse ever since doing brand strategy for clients like the Mozilla Foundation. He's an absolute beer nerd and loves dreaming up new business ideas. 
 			</div>
 		</div>
 	</br>
-		<div name="container" style="height: 398px">
+		<div name="container" style="height: 275px">
 			<div class="bioImage">
-				<img src="images/about/roger.jpg" width="300px">
+				<img src="images/about/roger.jpg" width="200px">
 			</div>
-			<div class="bioCopy">	
+			<div class="bioCopy" style="width:400px">	
 	Roger has lived in over 25 places in his 29 short years. He's excited about this site because it makes finding friends more fun and less frustrating. He's a graduate from New Media program at the Main College of Art and is currently a computer science degree at Pitt.
 			</div>
 		</div>
-	</br>
 	  </div>
-    <div class="footer" style="height: 80px; margin-top: 0px">
+    <div class="footer" style="height: 30px; text-align:left; margin-top: 40px; padding: 0px">
 		<span> We'd love meeting new people so <a href="mailto:info@pband.me"> drop us a line!</a> </span>
 	</div>
-	</div>
-	<!-- Footer Container -->
-      <div style="
-		  margin-left: auto;
-		  margin-right: auto;
-		  width: 975;
-		  bottom: 0;
-		  background-color: #353535;
-		  color: #fff;
-		  height:125;
-		  ">
-
-	
-	<!-- Logo -->
-	<div style="float:right;
-		    height:125;">
-	  {% include "logo.html" %}
-	  <div style="line-height: 130%;
-		      margin-right: 5px;
-		      color: #999;
-		      ">
-	  By Roger Cosseboom & Matt Barackman
-	  <br>
-	  <i>November 2011</i>
-	  </div>
-
-	</div>
-	
-	<!-- Footer Menu -->
-	<div style="padding: 10;
-		    float:left;
-		    ">
-	  {% include "front-footer.html" %}
-	</div>
       </div>
-      
-      <!-- End Main Content Box -->
-    </div>
+	</div>
+ {% include "page-footer.html" %}
   </body> 
 </html>
