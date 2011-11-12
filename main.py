@@ -17,14 +17,6 @@ Do we need a list of friends... for the matching algorithm?
 QUICK N DIRTY: We don't.
 
 
-EDITING EVENTS:
-Users may want to go back and edit events
-QUICK N DIRTY: make the fields in /create populatable, w/ data
-from the HTTP GET. ie auto-fill them w/ the real data
-and then just have it update that particular event. This shouldn't be
-hard.
-
-
 SORTING EVENTS:
 Users want to sort events by date, # of users, other things.
 QUICK N DIRTY: Research GQL 'sort by' commands
@@ -289,7 +281,7 @@ class MainPage(BaseHandler):
     def get(self):
         now = str(datetime.now()).split('.')[0]
         events = db.GqlQuery("SELECT * FROM Event WHERE datetime > DATETIME('%s') AND active=True LIMIT 100" % now)
-        self.response.out.write(template.render('static/index2.html', { 'linktext': self.linktext,
+        self.response.out.write(template.render('static/index.html', { 'linktext': self.linktext,
                                                                        'events': events }))
         
 
@@ -365,7 +357,6 @@ class UserPage(BaseHandler):
                 taskqueue.add(url="/refresh", params={'key': str(user.key())})
             
             # Render /user Page
-            events = [db.get(event) for event in user.events]
             self.response.out.write(template.render('static/user.html', { 'linktext': self.linktext,
                                                                           'current_user': user,
                                                                           'events': events }))
