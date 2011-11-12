@@ -6,15 +6,69 @@
     {% include "googanalysis.html" %}
   </head>
   <body>
-    {% include "logo.html" %}
-    <div style="text-align: left;margin-left: auto;margin-right: auto;width:700">
-      <div class="subHeaderText" style="text-align:left;position:relative;width:700;">
+    {% include "page-header.html" %}
+    <div style="text-align: left;margin-left: auto;margin-right: auto;width:975">
+      <div class="FAQHeader" style="text-align:left;position:relative;width:975;color:#555555">
       Frequently Asked Questions
       </div>
-      <div class="footer" style="font-style: normal;font-size:40">
-	We're working on this list right now, but please <a href="mailto:info@pband.me">email us your questions.</b></a>
-      </div>
+	<div class="FAQBodyText">
+		<div class="FAQHeader">Who is PB for?</div>
+		PB is for anyone who’s ever wondered why it’s so difficult to meet new people in their city. 
+
+		<div class="FAQHeader">What does it do?</div>
+		PB is a place where users can find and create hangouts to make friends with people in their city.
+
+		<div class="FAQHeader">How does it work?</div>
+		People like you can create casual hangouts by giving us a simple description of what you want to do, including a time and place.
+		Other people can browse the site for fun-looking hangouts, scope out who's going, and RSVP. It’s that easy. 
+
+		<div class="FAQHeader">Who can use the site?</div>	
+		Right now the service only available in a limited Beta to residents of Pittsburgh, PA.
+
+		<div class="FAQHeader">Why do I need to connect with Facebook?</div>	
+		We're working hard to implement a feature that will filter hangouts by how similar you are with other people going. We’re going to use your Facebook “likes” to for our matching algorithm. This will make discovering which neighbors are like you even easier.
+
+		<div class="FAQHeader">Why does your site suck so much?</div>	
+		This is a very early version of the site, that we've launched to get feedback. If you’ve found a bug or have a suggestion, please <a href="mailto:info@pband.me">drop us a line</a>.  
+
+		<div class="FAQHeader">Who are you anyway?</div>
+		Visit our <a href="/about"> about page </a> or any of our hangouts to get to know us better.
+	</div>
     </div>
-    {% include "footer.html" %}
+    
+	<!-- Footer Container -->
+      <div style="position:relative;
+		  margin-left: auto;
+		  margin-right: auto;
+		  margin-top: 70px;
+		  width: 975;
+		  bottom: 0;
+		  background-color: #353535;
+		  color: #fff;
+		  height:125;
+		  ">
+
+	
+	<!-- Logo -->
+	<div style="float:right;
+		    height:125;">
+	  {% include "logo.html" %}
+	  <div style="line-height: 130%;
+		      margin-right: 5px;
+		      color: #999;
+		      ">
+	  By Roger Cosseboom & Matt Barackman
+	  <br>
+	  <i>November 2011</i>
+	  </div>
+
+	</div>
+	
+	<!-- Footer Menu -->
+	<div style="padding: 10;
+		    float:left;
+		    ">
+	  {% include "front-footer.html" %}
+	</div>
   </body> 
 </html>

@@ -199,7 +199,7 @@ P.blocktext {
           line-height: 150%;
 }
 .LogoTextMini {
-          font-family: arial;
+      font-family: arial;
 	  font-size: 30;
 	  //font-style: italic;
 	  font-weight: bold;
@@ -220,6 +220,19 @@ P.blocktext {
 	  margin-right: auto;
 	  margin-top: 100
 	  
+}
+.PageHeaderLogo {
+        font-family: arial;
+        font-size: 30;
+        font-weight: bold;
+        letter-spacing: -.05em;
+        color: #E70000;
+        padding: 10px;
+        text-align: right;
+        width: 975px;
+        margin-left: auto;
+        margin-right: auto;   
+    
 }
 .eventHeader {
           text-align: center;
@@ -329,4 +342,30 @@ A:hover {text-decoration: none;color: #3399ff;}
         font-size: 20;
         padding: 10px;
         text-align: left;     
+}
+
+.FAQHeader {
+	  position:relative;
+	  letter-spacing: -1px;
+	  font-family: times, Times New Roman, times-roman, georgia, serif;
+          font-style: italic;
+          font-weight: bold;
+          font-size: 24pt;
+          color: #CC0099;
+          text-align: left;
+          margin-top: 0px;
+	      margin-bottom: 0px;
+	      margin-left: 0%;
+	      padding-top: 30px;
+	      padding-bottom: 5px;
+}
+
+.FAQBodyText {
+          font-family: helvetica;
+          font-size: 22px;
+          color: #353535;
+          text-align: left;
+          margin-top: 15px;
+          margin-left: auto;
+          margin-right: auto;
 }
