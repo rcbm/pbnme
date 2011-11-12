@@ -251,7 +251,7 @@ class EventPage(BaseHandler):
         user = existing_user = self.current_user
         key = self.request.get('key')
         event = db.get(key)
-        editable = False if user.key() != event.creator.key() else True
+        editable = False if user and user.key() != event.creator.key() else True
         join_button = False if existing_user and existing_user.key() in event.members else True
         self.response.out.write(template.render('static/event.html', { 'creator': event.creator,
                                                                        'user': user,
@@ -348,6 +348,12 @@ class EditPage(BaseHandler):
         else:
             self.redirect('/auth/login')
 
+class ProfilePic(BaseHandler):
+    def get(self):
+        picture = db.get(self.request.get('key')).picture
+        self.response.headers['Content-Type'] = 'image/jpeg'
+        self.response.out.write(picture)
+        
         
 class UserPage(BaseHandler):
     def get(self):
@@ -368,8 +374,8 @@ class UserPage(BaseHandler):
             
         """
         ## IMAGES STUFF
-
         # Display user's profile pic w/ appropriate headers
+
         picture = user.picture
         self.response.headers['Content-Type'] = 'image/jpeg'
         self.response.out.write(picture)
