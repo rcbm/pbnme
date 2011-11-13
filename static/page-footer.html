@@ -1,31 +1,21 @@
 <!-- Footer Container -->
-  <div style="position:relative;
-	  margin-left: auto;
-	  margin-right: auto;
-	  margin-top: 70px;
-	  width: 975;
-	  bottom: 0;
-	  background-color: #353535;
-	  color: #fff;
-	  height:50;
-	  ">
+<div class="push"></div>
 
-
-<!-- Logo -->
-<div style="float:right; padding: 19px;
-	    height:125;">
-  <div style="line-height: 100%;
-	      margin-right: 5px;
-	      color: #999;
-	      ">
-  By Roger Cosseboom & Matt Barackman
+<div class="footerContainer" style="">
+  
+  <!-- Logo -->
+  <div class="footerLogo">
+    {% include "logo.html" %}
+  </div>
+  <!-- Footer Menu -->
+  <div style="font-weight:normal; padding: 10; float:left;">
+    <div class="frontFooter">
+      <a href="/about">About</a>&nbsp;|&nbsp;
+      <a href="/faq">FAQ</a>&nbsp;|&nbsp;
+      <a href="/user">{{ linktext }}</a>&nbsp;|&nbsp;
+      <a href="mailto:info@pband.me">Send Feedback</a>
+    </div>
   </div>
 
-</div>
-
-<!-- Footer Menu -->
-<div style="padding: 7;
-	    float:left;
-	    ">
-  {% include "front-footer.html" %}
+<!-- End Footer Container -->  
 </div>

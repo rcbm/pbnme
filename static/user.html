@@ -1,6 +1,7 @@
-<html>
+<html style="height: 100%">
   <head>
     <title>pbandme</title>
+    <link type="text/css" rel="stylesheet" href="/css/home.css"> 
     <script type="text/javascript" src="/javascript/jquery-1.3.2.min.js"></script>
     <script type="text/javascript">
       function purgeEvent(num, div, eventKey) {
@@ -8,32 +9,49 @@
           div.parent().parent().fadeOut();
       }
     </script>
-    <link type="text/css" rel="stylesheet" href="/css/home.css"> 
     {% include "googanalysis.html" %}
   </head>
-  <body>
-    {% include "page-header.html" %}
-	<hr width="975px" color="CC0099">
-    <div style="text-align: left;margin-left: auto;margin-right: auto;width:700">
-      <div class="subHeaderText" style="text-align:left;position:relative;width:700;margin-top: 80px">
+  <body style="margin: 0;height: 100%;">
+    <div class="wrapper" style="border: 2px solid black;
+		//position: relative;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: right;
+		width:975px;
+		margin-top: 50;
+		">
+      {% include "logo.html" %}
+      <div style="font-family: helvetica;margin: -55 10 10 10;height:45;text-align:left;font-size:20;">
+	Logout | Browse | Start
+      </div>
+      <div style="text-align: left;margin-left: auto;margin-right: auto;width:975">
+    <!--
+	<div class="subHeaderText" style="text-align:left;position:relative;width:975;margin-top: 80px">
 	<a href="/browse">Find a Hangout</a>&nbsp;|&nbsp;<a href="/create">Start a Hangout</a>
 	<span style="float:right"><a href="/auth/logout">Logout</a></span>
       </div>
-      {% for event in events %}
+      -->
+
+
+
+
+    {% for event in events %}
       <div class="ResultsText" style="font-size: 18;background-color: {% cycle #EEE,#DDD %};">
 	<a href="/event?key={{ event.key }}">
 	  <b>{{ event.title }}</b> at {{ event.location }}
 	</a>
-	{% if event.creator.id == current_user.id and event.members|length < 3 %}
-		<span style="float: right">
-		  <a href="#" onclick="purgeEvent({{ forloop.counter }}, $(this), '{{ event.key }}');">
-		    delete
+	    {% if event.creator.id == current_user.id and event.members|length < 3 %}
+               <span style="float: right">
+	          <a href="#" onclick="purgeEvent({{ forloop.counter }}, $(this), '{{ event.key }}');">
+		     delete
 		  </a>
-		</span>
-		{% endif %}
+	       </span>
+            {% endif %}
       </div>
       {% endfor %}
-    </div>
-    {% include "page-footer.html" %}
+      <div class="push"></div>
+      </div>
+      {% include "page-footer.html" %}
+      
   </body> 
 </html>

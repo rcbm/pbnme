@@ -1,7 +1,39 @@
-<div class="frontFooter">
-  <a href="/about">About</a>&nbsp;|&nbsp;
-  <a href="/faq">FAQ</a>&nbsp;|&nbsp;
-  <a href="/user">{{ linktext }}</a>&nbsp;|&nbsp;
-  <a href="mailto:info@pband.me">Send Feedback</a>
+<!-- Footer Container -->
+<div style="position:absolute;
+		  margin-left: auto;
+		  margin-right: auto;
+		  width: 975;
+		  bottom: 0;
+		  background-color: #353535;
+		  color: #fff;
+		  height:125;
+		  ">
+  
+  
+  <!-- Logo -->
+  <div style="float:right;
+	      height:125;">
+    {% include "logo.html" %}
+    <div style="line-height: 130%;
+		margin-right: 5px;
+		color: #999;
+		">
+      By Roger Cosseboom & Matt Barackman
+      <br>
+      <i>November 2011</i>
+    </div>
+	  
+  </div>
+  
+  <!-- Footer Menu -->
+  <div style="padding: 10;
+	      float:left;
+	      ">
+    <div class="frontFooter">
+      <a href="/about">About</a>&nbsp;|&nbsp;
+      <a href="/faq">FAQ</a>&nbsp;|&nbsp;
+      <a href="/user">{{ linktext }}</a>&nbsp;|&nbsp;
+      <a href="mailto:info@pband.me">Send Feedback</a>
+    </div>
+  </div>
 </div>
-	

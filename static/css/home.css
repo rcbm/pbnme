@@ -1,5 +1,7 @@
-body { margin: 0 0 0 0;
+* { margin:0
 }
+//body { margin: 0 0 0 0;
+//}
 .eventsSlideshow {
 	 text-align: center;
 	 height:100;
@@ -20,6 +22,33 @@ body { margin: 0 0 0 0;
         bottom: 1;
         left: auto;
         right: 1px;
+}
+.footerLogo {
+	float:right;
+	margin-right: 5px;
+	color: #999;
+	height: 75px;
+}
+.wrapper {
+	 min-height: 100%;
+	 height: auto !important;
+	 height: 100%;
+	 margin: 0 auto -75px; /* the bottom margin is the negative value of the footer's height */
+}
+.push {
+	 height: 75px; /* .push must be the same height as .footer */
+}
+.footerContainer {
+	height: 75px; 
+	border: 2px solid blue;
+	position:absolute;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:0px;
+	width:975;
+	background-color: #353535;
+	color: #FFF;
+	height: 75px;
 }
 .floatingDiv {
         background: #000000;
@@ -64,13 +93,14 @@ body { margin: 0 0 0 0;
 	   
 }
 .editButton {
-          width: 75px;
-	      color: #E76E6E;
-	      background: #FCF2F9;
-          border: 5px solid #FCF2F9;
+          //margin: -30 0 0 0;
+	  width: 75px;
+	  height: 40px;
+	  color: #FFF;
+	  font-weight:bold;background: #5CADFF;
+          border: 5px solid #5CADFF;
           font-family: helvetica;
-          font-size: 18px;
-	   
+          font-size: 18;
 }
 .cancelButton {
           color: #ffffff;
@@ -78,7 +108,7 @@ body { margin: 0 0 0 0;
           border: 15px solid #5CADFF;
           font-family: helvetica;
           font-size: 20;
-	      font-style: bold;
+	  font-style: bold;
     	  margin-top:20;
     	  margin-left: 0;
     	  margin-right:2px;
@@ -86,9 +116,11 @@ body { margin: 0 0 0 0;
 }
 .resetButton {
           color: #ffffff;
-          background: #5CADFF;
-          border: 15px solid #5CADFF;
-          font-family: helvetica;
+          //background: #5CADFF;
+          //border: 15px solid #5CADFF;
+          background: #EE4D4D;
+	  border: 15px solid #EE4D4D;
+	  font-family: helvetica;
           font-size: 20;
     	  font-style: bold;
     	  margin-top:20;
@@ -230,8 +262,8 @@ P.blocktext {
         padding: 5 px;
         text-align: right;
         width: 975px;
-        margin-left: auto;
-        margin-right: auto;   
+        //margin-left: auto;
+        //margin-right: auto;   
     
 }
 .eventHeader {
@@ -265,7 +297,9 @@ P.blocktext {
 	  margin-left: 0%;
 	  padding: 10px;
 }
-
+.graph {
+         background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAIElEQVQIHWNMrLzlw4ADsIDE57WpbsEmz4RNECY2EJIA5doEDY8lKVEAAAAASUVORK5CYII=);
+}
 .divRight {
       position:relative;
       top: -150px;
@@ -298,7 +332,7 @@ P.blocktext {
           #color: #777777;
 	  vertical-align: middle;
 	  text-align: center;
-	  background-color: #fff;
+	  background-color: #FFF;
 	  height:60px;
 	  width:60px;
 	  float:left;

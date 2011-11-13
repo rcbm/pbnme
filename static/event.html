@@ -3,49 +3,80 @@
     <link type="text/css" rel="stylesheet" href="/css/home.css"> 
     {% include "googanalysis.html" %}
   </head>
-  <body>  
-    {% include "page-header.html" %}
-    <div style="text-align: left;margin-left: auto;margin-right: auto;width: 975;">
+  <body>
+    <div style="margin-left: auto;margin-right: auto;width: 975;">
+    <div style="text-align:right;margin-top: 50px;">
+      {% include "logo.html" %}
+    </div>
+      
+      
+      <!-- Event Title -->
+      <!--
+	  <div class="eventHeader" style="margin-top:20px;margin-bottom:-10px;">
+	<div class="tagLine" style="font-weight:normal;text-align:left;font-size:40;">
+	  {{ title }} 
+	</div>
+      </div>
+	  -->
+
+      <!-- Edit Button -->
+      <!--
+	  {% if editable %}
+	  <div style="">
+	    <input class="editButton" style="" type="submit" value="Edit" onclick="window.location='/edit?event={{ key }}'">
+	  </div>
+	  {% endif %}
+	  -->
 
       
-      <!-- Event Info -->
-       
-      	<div style="background: #FCF2F9; padding: 15; border: #CC0099; border-width: 3px; border-style: solid">  
-			<div class="eventHeader">
-			{{ title }} 
-		    <!-- Edit Button -->
-		        {% if editable %}
-			      <input class="editButton" style="padding-bottom:10px; float: right" type="submit" value="Edit" onclick="window.location='/edit?event={{ key }}'">
-		        {% endif %}
-			  </div> 
-			  <div class="subHeaderText" style="color: #555555;">
-		      <div class="memberNumberBrowse" style="font-style: normal;text-align:center;background-color: #ffffff;height:85px;width:60px;float:right;margin-right:20;">
-		        {{ members|length }}
-		        <div style="font-size:12;letter-spacing:0px;">
-		          {% if members|length < 2 %}
-			        person
-		          {% else %}
-			      people
-		          {% endif %}
-		        </div>
-		      </div>
-		      <B>When:</b>&nbsp;{{ datetime }}<br><br>
-		      <B>Where:</b>&nbsp;{{ location }}
-		      {% if description %}
-		      <br><br>
-		      <B>Description:</b><br>
-		      {{ description }}<br>
-		      {% endif %}
-	      
-	          </div>
-	      </div>
+      <!-- Event Info Box -->
+      <div style="background: #EEE;
+		  padding: 15px;
+		  height: 105px;
+		  color: #FFF">
 
+	<!-- Inner Container-->
+	<div class="subHeaderText" style="color: #777;">
+
+	  <!-- Generate # of people attending -->
+	  <div class="memberNumberBrowse" style="font-style: normal;
+						 text-align:center;
+						 height:85px;
+						 width:60px;
+						 float:right;
+						 margin-right:20;">
+	    {{ members|length }}
+	    <div style="font-size:12;letter-spacing:0px;">
+	      {% if members|length < 2 %}
+		person
+	      {% else %}
+		people
+	      {% endif %}
+	    </div>
+	  </div>
+	  <!-- End # -->
+	  
+	  <span style="font-family: helvetica;font-style:normal;font-size:30pt;color: #5CADFF">
+	    <b>{{ title }}</b><br>
+	    {{ datetime }} at <b>{{ location }}<b>
+	  {% if description %}
+	  <br>
+	  <B>Description:</b><br>
+	  {{ description }}<br>
+	  {% endif %}
+	  </span>
+	<!-- End Inner Container -->
+	</div>
+	
+      <!-- End Info Box -->
+      </div>
+      
 	
 	<!-- Join Button -->
 	{% if join_button %}
 	<div style="text-align:center;l">
 	  <input class="joinButton"
-		 style="margin-top: 20;color: ffffff;width:300"
+		 style="margin-top: 20;color: #FFF;width:300"
 		 onclick="window.location='/join?key={{ key }}'"
 		 type="Button" value="I'll Come Too!">
 	</div>
@@ -72,7 +103,7 @@
 		      name="comment_content"
 		      style="margin-top:20;width:100%;height:150px;">Got a question about this hangout? Ask it here...</textarea>
 	  <input type="hidden" name="event_key" value="{{ key }}">
-	  <input class="createButton" type="submit" value="Comment" onclick='document.form[0].submit()'>
+	  <input class="createButton" type="submit" style="background-color:#F90;border-color:#F90;" value="Comment" onclick='document.form[0].submit()'>
 	  <input class="resetButton" type="reset" value="Reset" >
 	</form>
 
@@ -80,8 +111,8 @@
 	<!-- List of Posts -->
 	<div style="margin-top:20px;">
 	  {% for p in posts %}
-	  <div class="ResultsText" style="height: 50px;margin: 0px;font-size:18;background-color: {% cycle #EEE,#DDD %};">
-	    <img style="background:#000;padding:1px;margin-right: 10px;float:left;"
+	  <div class="ResultsText" style="height: 50px;margin: 0px;font-size: 18;background-color: {% cycle #EEE,#DDD %};">
+	    <img style="background:#FFF;padding: 1px;margin-right: 10px;float:left;"
 		 src="/profilepic?key={{ p.author.key }}"><b>{{ p.author.name }} says...</b>
 	    <br>
 	    {{ p.content }}
@@ -91,7 +122,8 @@
 
 	
 	<!-- Footer -->
-      </div>
-      {% include "page-footer.html" %}
-    </body> 
+	<div style="position: relative;" style="font-weight: bold;">
+	  {% include "page-footer.html" %}</div>
+    </div>
+  </body> 
 </html>
