@@ -1,7 +1,7 @@
 * { margin:0
 }
-//body { margin: 0 0 0 0;
-//}
+html, body { height: 100%;
+}
 .eventsSlideshow {
 	 text-align: center;
 	 height:100;
@@ -39,13 +39,8 @@
 	 height: 75px; /* .push must be the same height as .footer */
 }
 .footerContainer {
-	height: 75px; 
-	border: 2px solid blue;
-	position:absolute;
-	margin-left:auto;
-	margin-right:auto;
-	margin-bottom:0px;
-	width:975;
+	margin: 0 auto;
+	width: 975;
 	background-color: #353535;
 	color: #FFF;
 	height: 75px;
@@ -78,8 +73,8 @@
 }
 .createFormElement {
           color: #777777;
-          background: #DDDDDD;
-          border: 10px solid #DDDDDD;
+          background: #EEE;
+          border: 10px solid #EEE;
           font-family: helvetica;
           font-size: 40;
 }
@@ -196,20 +191,34 @@
           font-size: 24pt;
           color: #777777;
           text-align: left;
-          //margin-top: 0px;
-	  margin-left: auto;
+          margin-left: auto;
 	  margin-right: auto;
 	  border-bottom-color: #FFFFFF;
 	  border-bottom-style: solid;
 	  border-bottom-width: 1px;
-	  //border-width: 1px;
-	  //margin-bottom: -1px;
 	  padding: 20px;
 }
 .ResultsText A:link {text-decoration: none;color: #666666;}
 .ResultsText A:visited {text-decoration: none;color: #888888;}
 .ResultsText A:active {text-decoration: none;color: #666666;}
 .ResultsText A:hover {text-decoration: none;color: #3399ff;}
+.topMenu {
+	  margin-top: 20px;
+	  padding: 10px;
+	  float: left;
+	  letter-spacing: -.05em;
+	  font-family: georgia;
+          font-size: 16pt;
+          color: #777;
+	  text-align: left;
+          margin-left: auto;
+	  margin-right: auto;
+}
+.topMenu A:link {text-decoration: none;color: #666666;}
+.topMenu A:visited {text-decoration: none;color: #888888;}
+.topMenu A:active {text-decoration: none;color: #666666;}
+.topMenu A:hover {text-decoration: none;color: #3399ff;}
+
 .headline {
           font-family: times, Times New Roman, times-roman, georgia, serif;
 	  color: #5cadff;
@@ -233,7 +242,6 @@ P.blocktext {
 .LogoTextMini {
       font-family: arial;
 	  font-size: 30;
-	  //font-style: italic;
 	  font-weight: bold;
 	  letter-spacing: -.05em;
 	  color: #E70000;
@@ -333,7 +341,7 @@ P.blocktext {
 	  vertical-align: middle;
 	  text-align: center;
 	  background-color: #FFF;
-	  height:60px;
+	  height:80px;
 	  width:60px;
 	  float:left;
 	  margin-right:20;
@@ -346,7 +354,7 @@ P.blocktext {
 .Footer {
           font-family: times, Times New Roman, times-roman, georgia, serif;
           font-style: italic;
-	      letter-spacing: -1px;
+	  letter-spacing: -1px;
     	  font-size: 40;
     	  color: 333333;
     	  padding: 10px;

@@ -5,13 +5,37 @@
     {% include "googanalysis.html" %}
   </head>
   <body>  
-    {% include "page-header.html" %}
-	<hr width="975px" color="CC0099">
-      <div style="text-align: left;margin-left: auto;margin-right: auto;width:975">
-	<div class="subHeaderText" style="text-align:left;position:relative;width:975;">
-	  Start a hangout:
+    <!-- Wrapper: Border must be there for footer-->
+    <div class="wrapper" style="border: 1px solid #FFF;">
+
+      <!-- Content -->
+      <div style="text-align: right;
+		  width: 975px;
+		  margin: 49 auto;
+		  ">
+
+	<!-- Header Container-->
+	<div style="height:65;">
+	  <div style="float:right; text-align:right;">
+	    {% include "logo.html" %}
+	  </div>
+
+	  <!-- Menu -->
+	  <div class="topMenu">
+	    <span style="color: #000">Start</span>
+	    &nbsp;|&nbsp;
+	    <a href="/browse">Browse</a>
+	    &nbsp;|&nbsp;
+	    <a href="/user">My Hangouts</a>
+	    &nbsp;|&nbsp;
+	    <a href="/auth/logout">Logout</a>
+	  </div>
 	</div>
-	<form action="/create" method="post" name="create">
+      
+	<!-- Grey Box -->
+	<div style="text-align: left;width:975;">
+
+	  <form action="/create" method="post" name="create">
 	  <input type="text" class="createFormElement" value="What are you doing?"
 		 onclick="if (value == 'What are you doing?') {value='';} else {value=value;};"
 		 onfocus="if (value == 'What are you doing?') {value='';} else {value=value;};"
@@ -29,14 +53,26 @@
 		 onfocus="if (value == 'Time') {value='';} else {value=value;};"
 		 name="time" style="width: 295px;margin-top: 15;"> 
 	  <div class="smallNotes" style="margin-top: 5;width: 975px">
-	    "Today", "Saturday", "10/20/12" <span style="margin-left: 99">"9pm", "8:00", "Midnight"</span>
+	    "Today", "Saturday", "12/21/12" <span style="margin-left: 99">"Midnight", "9pm", "8:00PM"</span>
 	  </div>
 	  <input class="createButton" style="margin-top: 20;margin-left: 0;margin-right:2px;color: ffffff;font-weight:bold;" onclick="window.location='document.form[0].submit()'" type="Submit" value="Create">
 	  <input class="cancelButton" style="margin-top: 20;margin-left: 0;margin-left:2px;color: ffffff;font-weight:bold;" onclick="window.location='/home'" type="Button" value="Cancel">
 	</form>
+
+	<!-- End Grey Box -->
+	</div>
+
+	<!-- Page Container -->
+	<div class="push"></div>
+
+      <!-- End Content -->
       </div>
-      {% include "footer.html" %}
-    </body> 
+      
+    <!-- End Wrapper -->
+    </div>
+
+    <!-- Footer -->
+    {% include "page-footer.html" %}
+    
+  </body> 
 </html>
-
-

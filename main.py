@@ -1,6 +1,9 @@
 '''
 Features
 -------------------------
+FRIEND FOLLOWING:
+
+
 GEOLOCATION:
 Users in Berkeley CA and Pittsburgh PA can log in and create events.
 Users in other places can only see events but cannot create or join them.
