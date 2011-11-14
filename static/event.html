@@ -112,8 +112,9 @@
 
 	  <!-- Post -->
 	  <div class="ResultsText" style="height: 50px; margin: 0px; font-size: 18; background-color: {% cycle #EEE,#DDD %};">
-	    <img class="commentPicture"src="/profilepic?key={{ p.author.key }}">
-	    <b>{{ p.author.name }} says...</b>
+	    <a href="{{ p.author.profile_url }}">
+	      <img class="commentPicture"src="/profilepic?key={{ p.author.key }}">
+	    <b>{{ p.author.name }} says...</b></a>
 	    <p>{{ p.content }}
 	  </div>
 
