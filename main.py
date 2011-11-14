@@ -5,7 +5,8 @@ HTML BUGS
 - footer index.html
 - show people who are going
 - forward pbandme on to holy-mountain
-- remove jquery unless necessary
+  - forwarding naked domain
+  - need to forward www
 
 Features
 -------------------------
