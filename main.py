@@ -4,9 +4,7 @@ HTML BUGS
 - when not logged in, clicking 'ill come' just sends to /user but doesnt join
 - footer index.html
 - show people who are going
-- forward pbandme on to holy-mountain
-  - forwarding naked domain
-  - need to forward www
+
 
 Features
 -------------------------
