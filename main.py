@@ -71,6 +71,8 @@ BUGS:
 - When a user isn't logged in but wants to make a hangout, it nukes
   their hangout info before logging them back in
 - "noon" goes to midnight
+
+
 Not Urgent
 _____________
 implement /join as an ajax call (using post())
@@ -93,6 +95,7 @@ Harder:
 
 DONE
 -------------
+- Bug where events dont seem to stick around
 - When a user makes an event it sometimes doesn't display in /user
 * add un-join button to /user (use UnjoinTask())
 * implement scrolling /browse events
