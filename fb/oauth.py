@@ -39,17 +39,6 @@ class BaseHandler(webapp.RequestHandler):
         return self._linktext
 
         
-class LogoutHandler(BaseHandler):
-    def get(self):
-        user = self.current_user
-        try:
-            logging.info('INFO: %s - %s Logging Out' % (user.id, user.name))
-            set_cookie(self.response, "fb_user", "", expires=time.time() - 86400)
-        except:
-            logging.error('ERROR: Logging error w/ logging out')
-        self.redirect("/")
-
-
 class LoginHandler(BaseHandler):
     def get(self):
         verification_code = self.request.get("code")
@@ -64,9 +53,10 @@ class LoginHandler(BaseHandler):
                 urllib.urlencode(args)).read())
             access_token = response["access_token"][-1]
 
-            # Try too look up user in our DB by access_token
-            user = db.GqlQuery("SELECT * FROM fbUser WHERE access_token = '%s'" %
-                               access_token).get()
+            user = self.current_user
+            if not user:
+                user = db.GqlQuery("SELECT * FROM fbUser WHERE access_token = '%s'" %
+                                   access_token).get()
             if user:
                 id = user.id
                 logging.info('INFO: %s - %s  User Found' % (id, user.name))
@@ -74,6 +64,7 @@ class LoginHandler(BaseHandler):
                     taskqueue.add(url="/refresh", params={'key': str(user.key())})
             else:
                 # Create a user, download the user profile and store basic profile info
+                logging.info('Couldnt Find user!')
                 profile = json.load(urllib2.urlopen(
                         "https://graph.facebook.com/me?" +
                         urllib.urlencode(dict(access_token=access_token))))
@@ -96,7 +87,19 @@ class LoginHandler(BaseHandler):
             self.redirect(
                 "https://graph.facebook.com/oauth/authorize?" +
                 urllib.urlencode(args))
-        
+
+            
+class LogoutHandler(BaseHandler):
+    def get(self):
+        user = self.current_user
+        try:
+            logging.info('INFO: %s - %s Logging Out' % (user.id, user.name))
+            set_cookie(self.response, "fb_user", user.id, expires=time.time() - 86400)
+        except e:
+            logging.error('ERROR: Logging Out: %s' %e)
+        self.redirect("/")
+
+
 def set_cookie(response, name, value, domain=None, path="/", expires=None):
     """Generates and signs a cookie for the give name/value"""
     timestamp = str(int(time.time()))

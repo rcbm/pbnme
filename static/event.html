@@ -6,19 +6,19 @@
   <body>
     <!-- Wrapper: Border must be there for footer-->
     <div class="wrapper" style="border: 1px solid #FFF;">
-
+      
       <!-- Content -->
       <div style="text-align: right;
 		  width: 975px;
 		  margin: 49 auto;
 		  ">
-
+	
 	<!-- Header Container-->
-	<div style="height:65;">
-	  <div style="float:right; text-align:right;">
+	<div style="height: 65;">
+	  <div style="float: right; text-align: right;">
 	    {% include "logo.html" %}
 	  </div>
-
+	  
 	  <!-- Menu -->
 	  <div class="topMenu">
 	    <a href="/create">Start</a>
@@ -30,27 +30,26 @@
 	    <a href="/auth/logout">Logout</a>
 	  </div>
 	</div>
-      
+	
 	<!-- Grey Box -->
-	<div style="text-align: left;width:975;">
-
+	<div style="text-align: left; width: 975;">
+	  
 	  <!-- Event Info Box -->
 	  <div class="eventInfoBox">
 	    
 	    <!-- Generate Number -->
-	    <div class="memberNumberBrowse" style="float:right;
-						   font-style: normal;">
-	      {{ members|length }}
+	    <div class="memberNumberBrowse" style="float: right; font-style: normal;">
+	      {{ event.members|length }}
 	      <div style="font-size:12; margin-top:-6">
-		{% if members|length < 2 %}
+		{% if event.members|length < 2 %}
                   person
 	        {% else %}
 		  people
 	        {% endif %}
 	      </div>
-	    <!-- End of Number -->
+	      <!-- End of Number -->
 	    </div>
-
+	    
 	    <!-- Edit Button -->
 	    {% if editable %}
 	    <div style="float: right; margin: 80 -60 0 0;">
@@ -61,15 +60,14 @@
 	    
 	    <!-- Event Info -->
 	    <div class="eventInfo">
-	      <b>{{ title }}</b>
+	      <b>{{ event.title }}</b>
 	      <br>
-	      {{ datetime }} at <b>{{ location }}</b>
+	      {{ event.datetime }} at <b>{{ event.location }}</b>
 	    </div>
-
+	    
 	    <!-- Description -->
-	    {% if description %}
-	    <br>
-	      {{ description }}<br>
+	    {% if event.description %}
+	    <br>{{ event.description }}<br>
 	    {% endif %}
 	    
 	  <!-- End Info Box -->
@@ -88,9 +86,9 @@
 	<!-- List of Users -->
 	<!--
 	    <div style="margin-top:20px">
-	      {% for user in members %}
+	      {% for event.user in members %}
 	      <div class="ResultsText" style="font-size:18;background-color: {% cycle #EEE,#DDD %};">
-		{{ user.email }}
+		{{ event.user.email }}
 	      </div>
 	      {% endfor %}
 	    </div>

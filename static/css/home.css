@@ -9,7 +9,6 @@ html, body { height: 100%;
 	 position:relative;
 	 overflow:hidden;
 }
-
 .inputURL {
         color: #781351;
         background: #eeeeee;
@@ -159,7 +158,7 @@ html, body { height: 100%;
 }
 .commentList {
 	  margin-top:20px;
-	  height: 300;
+	  height: 350;
 	  overflow-x:hidden; 
 	  overflow-y:auto;
 }

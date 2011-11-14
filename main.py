@@ -4,8 +4,8 @@ HTML BUGS
 - text wraps on event info 
 - footer index.html
 - show people who are going
-
-
+- forward pbandme on to holy-mountain
+- remove jquery unless necessary
 
 Features
 -------------------------
@@ -93,6 +93,7 @@ Harder:
 
 DONE
 -------------
+- When a user makes an event it sometimes doesn't display in /user
 * add un-join button to /user (use UnjoinTask())
 * implement scrolling /browse events
 * add content to FAQ
@@ -197,11 +198,13 @@ class FAQPage(BaseHandler):
         user = self.current_user
         self.response.out.write(template.render('static/faq.html', {'linktext': self.linktext}))
 
+        
 class AboutPage(BaseHandler):
     def get(self):
         user = self.current_user
         self.response.out.write(template.render('static/about.html', {'linktext': self.linktext}))
 
+        
 class EventPurge(BaseHandler):
     # Takes an event by key and removes itself from all its members
     def post(self):
@@ -273,15 +276,10 @@ class EventPage(BaseHandler):
         event = db.get(key)
         editable = False if user and user.key() != event.creator.key() else True
         join_button = False if existing_user and existing_user.key() in event.members else True
-        self.response.out.write(template.render('static/event.html', { 'creator': event.creator,
-                                                                       'user': user,
+        self.response.out.write(template.render('static/event.html', { 'event': event,
                                                                        'editable': editable,
                                                                        'linktext': self.linktext,
                                                                        'key': event.key(),
-                                                                       'title': event.title,
-                                                                       'location': event.location,
-                                                                       'datetime': event.datetime,
-                                                                       'members': [db.get(m) for m in event.members],
                                                                        'posts': [db.get(p) for p in event.posts],
                                                                        'join_button': join_button}))
 
@@ -351,8 +349,8 @@ class EditPage(BaseHandler):
     def get(self):
         user = self.current_user
         event = db.get(self.request.get('event'))
-        self.response.out.write(template.render('static/edit.html', {'event': event,
-                                                                     'linktext': self.linktext}))
+        self.response.out.write(template.render('static/edit.html', { 'event': event,
+                                                                      'linktext': self.linktext }))
     def post(self):
         user = self.current_user
         if user:
@@ -382,7 +380,7 @@ class UserPage(BaseHandler):
         if user:
             # If stored profile is > 3 days old, update it in the background
             if (datetime.now() - user.updated).days > 3:
-                logging.info('INFO: %s - %s  FB data is not fresh; requesting new' % (user.id, user.name))
+                logging.info('INFO: %s - %s  FB data is not fresh; Requesting New' % (user.id, user.name))
                 taskqueue.add(url="/refresh", params={'key': str(user.key())})
             
             # Render /user Page

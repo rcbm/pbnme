@@ -12,7 +12,6 @@
     {% include "googanalysis.html" %}
   </head>
   <body>
-
     <!-- Wrapper: Border must be there for footer-->
     <div class="wrapper" style="border: 1px solid #FFF;">
 
@@ -44,7 +43,7 @@
 	<div style="text-align: left;width:975;">
 	
 	  <!-- List of Events -->
-          {% if events|length > 1 %}
+          {% if events|length > 0 %}
 	  {% for event in events %}
 	  <div class="ResultsText" style="font-size: 18;background-color: {% cycle #EEE,#DDD %};">
 	    <a href="/event?key={{ event.key }}">
@@ -68,6 +67,7 @@
 	  You haven't joined any hangouts yet. Try <A href="/browse"><b>browsing</b></a> for one or <a href="/create"><b>start your own!</b></a>
 	  </div>
 	 {% endif %}
+
 	<!-- End Grey Box -->
 	</div>
 
