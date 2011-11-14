@@ -1,6 +1,11 @@
 * { margin:0
 }
-html, body { height: 100%;
+html, body {
+        font-weight:100;
+	height: 100%;
+}
+b {
+        font-weight: bold;
 }
 .eventsSlideshow {
 	 text-align: center;
@@ -232,6 +237,7 @@ html, body { height: 100%;
 .ResultsText A:active {text-decoration: none;color: #666666;}
 .ResultsText A:hover {text-decoration: none;color: #3399ff;}
 .topMenu {
+	  font-weight:100;
 	  margin-top: 20px;
 	  padding: 10px;
 	  float: left;
@@ -243,10 +249,10 @@ html, body { height: 100%;
           margin-left: auto;
 	  margin-right: auto;
 }
-.topMenu A:link {text-decoration: none;color: #666666;}
-.topMenu A:visited {text-decoration: none;color: #888888;}
-.topMenu A:active {text-decoration: none;color: #666666;}
-.topMenu A:hover {text-decoration: none;color: #3399ff;}
+.topMenu A:link { font-weight: 100;text-decoration: none;color: #666666; }
+.topMenu A:visited { font-weight: 100;text-decoration: none;color: #888888; }
+.topMenu A:active { font-weight: 100;text-decoration: none;color: #666666; }
+.topMenu A:hover { font-weight: 100;text-decoration: none;color: #3399ff; }
 
 .headline {
           font-family: times, Times New Roman, times-roman, georgia, serif;
@@ -400,7 +406,7 @@ A:hover {text-decoration: none;color: #3399ff;}
 
 .bioHeader {
           font-size: 24pt;
-	  margin-bottom:10px;
+	  //margin-bottom:10px;
 	  font-family: georgia;
 }
 .bioCopy {
