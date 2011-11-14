@@ -103,8 +103,11 @@ html, body { height: 100%;
 	   
 }
 .eventInfo {
+	  //border: 2px solid red;
+	  height: 105;
 	  text-align: left;
           font-family: helvetica;
+	  line-height: 140%;
 	  letter-spacing: -1px;
 	  font-style:normal;
 	  font-size:30pt;
