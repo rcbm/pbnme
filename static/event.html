@@ -60,8 +60,8 @@
 	    
 	    <!-- Event Info -->
 	    <div class="eventInfo">
-	      <b>{{ event.title }}</b> at {{ event.datetime.time }} on {{ weekday }} {{ event.datetime.month }}/{{event.datetime.day}}
-	      <br><b>{{ event.location }}</b>
+	      <b>{{ event.title }}</b> <span style="color: #AAA">at <b>{{ time }}</b> on <b>{{ weekday }} {{ date }}</b>
+	      <br>at</span> <b>{{ event.location }}</b>
 	    </div>
 	    
 	    <!-- Description -->

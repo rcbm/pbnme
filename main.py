@@ -1,8 +1,7 @@
 '''
 HTML BUGS
 ------------------------
-- when not loged in, clicking 'ill come' just sends to /user but doesnt join
-- text wraps on event info 
+- when not logged in, clicking 'ill come' just sends to /user but doesnt join
 - footer index.html
 - show people who are going
 - forward pbandme on to holy-mountain
@@ -276,20 +275,18 @@ class Join(BaseHandler):
             
 class EventPage(BaseHandler):
     def get(self):
-        weekdays = ['Mon.',
-                    'Tues.',
-                    'Wed.',
-                    'Thurs.',
-                    'Fri.',
-                    'Sat.',
-                    'Sun.',]
+        weekdays = ['Mon.', 'Tues.', 'Wed.', 'Thurs.', 'Fri.', 'Sat.', 'Sun.',]
         user = existing_user = self.current_user
         key = self.request.get('key')
         event = db.get(key)
+        time = event.datetime.time()
+        date = '%s/%s' %(event.datetime.month, event.datetime.day)
         editable = False if user and user.key() != event.creator.key() else True
         join_button = False if existing_user and existing_user.key() in event.members else True
         self.response.out.write(template.render('static/event.html', { 'weekday': weekdays[event.datetime.weekday()],
                                                                        'event': event,
+                                                                       'time': time,
+                                                                       'date': date,
                                                                        'editable': editable,
                                                                        'linktext': self.linktext,
                                                                        'key': event.key(),
