@@ -134,18 +134,18 @@ html, body { height: 100%;
 .eventList {
 	  height: 600;
 	  overflow-x:hidden; 
-	  overflow-y:scroll;
+	  overflow-y:auto;
 }
 .faqList {
-	  height: 600;
+	  height: 650;
 	  overflow-x:hidden; 
-	  overflow-y:scroll;
+	  overflow-y:auto;
 }
 .commentList {
 	  margin-top:20px;
 	  height: 300;
 	  overflow-x:hidden; 
-	  overflow-y:scroll;
+	  overflow-y:auto;
 }
 .commentPicture {
 	  background: #FFF;

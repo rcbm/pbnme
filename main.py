@@ -1,4 +1,20 @@
 '''
+HTML BUGS
+------------------------
+- scrollbar appears when theres nothing to scroll on event comments
+- text wraps on event info 
+- footer index.html
+scrollbar shows up where it shouldnt have to
+
+
+
+
+
+
+
+
+
+
 Features
 -------------------------
 FRIEND FOLLOWING:
@@ -35,8 +51,6 @@ Events should opt-out share w/ friends (like on fb, twitter, etc.)
 QUICK N DIRTY: 
 
 
-
-
 ###############################################
 
 
@@ -49,19 +63,14 @@ URGENT
 * Add 'start' button to /
 * implement email and/or fb message reminders
 * Seperate Day and / TIME in /events
-* add content to FAQ
-* add content to About
 * make more robust /browse (sort by date, sort by score, etc.)
-* implement scrolling /browse events
-* add un-join button to /user (use UnjoinTask())
 * add sorting of events by # of people attending
-* add editing events
-  -- extrapolate existing /create UI to have hooks for populating w/ data
 * Overhaul day / times
   - check for string recognition
     -- should recognize string 'today' as datetime.date.today(), etc.
   - implement date and time ranges(i think they just subtract?)
 
+  
 BUGS:
 ------------
 - When a user isn't logged in but then goes to join an event, logs in,
@@ -70,14 +79,11 @@ BUGS:
 - When a user isn't logged in but wants to make a hangout, it nukes
   their hangout info before logging them back in
 - "noon" goes to midnight
-
-
 Not Urgent
 _____________
 implement /join as an ajax call (using post())
 Add optional 'Description' field
 Add datepicker
-When there are no hangouts in /browse or /user, add a 'create' message
 Add existing group checking for create()
 Implement 'default-value' checking to create form in JS
 Make a safe-guard that if manually deleting an event (on the backend),
@@ -95,6 +101,13 @@ Harder:
 
 DONE
 -------------
+* add un-join button to /user (use UnjoinTask())
+* implement scrolling /browse events
+* add content to FAQ
+* add content to About
+When there are no hangouts in /browse or /user, add a 'create' message
+* add editing events
+  -- extrapolate existing /create UI to have hooks for populating w/ data
 - Fixed weird 'my hangouts / sign-in' text bug
 * Changed FBUpdateHandler into RefreshTask
 - Full profile info doesn't seem to be downloading... (check last-update seems broken)
@@ -215,7 +228,26 @@ class DeleteTask(BaseHandler):
         db.delete(self.request.get('key'))
 
         
+class Unjoin(BaseHandler):
+    # Takes an event and removes the user from it
+    def get(self):
+        user = self.current_user
+        event = db.get(self.request.get('key'))
+        event.members = [s for s in event.members if str(s) != str(user.key())]
+        if len(event.members) < 1:
+            logging.info('Event %s - %s has no members, deleting' %(event.key(), event.title))
+            db.delete(event)
+            user.events = [s for s in user.events if str(s) != self.request.get('key')]
+            user.put()
+        else:
+            user.events = [s for s in user.events if str(s) != self.request.get('key')]
+            user.put()
+            event.put()
+            
+        self.redirect('/user')
+        
 class UnjoinTask(BaseHandler):
+    #### SHOULD THIS GO BACK TO THE EVENTS AND REMOVE THE USER FROM THE LIST?
     # Takes an event and user
     # removes the user from the given event
     def post(self):
