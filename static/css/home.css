@@ -104,6 +104,7 @@ html, body { height: 100%;
 }
 .eventInfo {
 	  //border: 2px solid red;
+	  width: 700;
 	  height: 105;
 	  text-align: left;
           font-family: helvetica;
