@@ -148,12 +148,12 @@ html, body { height: 100%;
 	  font-weight: bold;
 }
 .eventList {
-	  height: 600;
-	  overflow-x:hidden; 
-	  overflow-y:auto;
+	  height: 515;
+	  overflow-x: hidden; 
+	  overflow-y: auto;
 }
 .faqList {
-	  height: 650;
+	  height: 550;
 	  overflow-x:hidden; 
 	  overflow-y:auto;
 }

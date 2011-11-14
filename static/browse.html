@@ -4,7 +4,7 @@
     <link type="text/css" rel="stylesheet" href="/css/home.css">
     {% include "googanalysis.html" %}
   </head>
-  <body>  
+  <body>
     <!-- Wrapper: Border must be there for footer-->
     <div class="wrapper" style="border: 1px solid #FFF;">
 
@@ -29,7 +29,7 @@
 	    <a href="/user">My Hangouts</a>
 	    &nbsp;|&nbsp;
 	    <a href="/auth/logout">Logout</a>
-	  </div>
+	    </div>
 	</div>
       
 	<!-- Grey Box -->
@@ -50,20 +50,18 @@
 		  people
 	        {% endif %}
 	      </div>
-	    <!-- End of Number -->
+	      <!-- End of Number -->
 	    </div>
-	  
-	  <a href="/event?key={{ event.key }}"><b>{{ event.title }}</b><br>{{ event.datetime }} at <b>{{ event.location }}</b></a>
-	  <div style="clear:both"></div>
+	    
+	    <a href="/event?key={{ event.key }}"><b>{{ event.title }}</b><br>{{ event.datetime }} at <b>{{ event.location }}</b></a>
+	    <div style="clear:both"></div>
+	  </div>
+	  {% endfor %}
 	</div>
-	{% endfor %}
 
-	<!-- End of Events -->
-	</div>
-	  
 	<!-- End Grey Box -->
 	</div>
-
+	
 	<!-- Page Container -->
 	<div class="push"></div>
 

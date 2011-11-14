@@ -3,7 +3,7 @@ HTML BUGS
 ------------------------
 - text wraps on event info 
 - footer index.html
-
+- show people who are going
 
 
 
