@@ -1,42 +1,81 @@
 <html>
   <head>
     <title>pbandme</title>
-    <script type="text/javascript" src="/javascript/jquery-1.3.2.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="/css/home.css"> 
+    <link type="text/css" rel="stylesheet" href="/css/home.css">
     {% include "googanalysis.html" %}
   </head>
-  <body>
-    {% include "page-header.html" %}
-	<hr width="975px" color="CC0099">
-    <div style="text-align: left;margin-left: auto;margin-right: auto;width:975">
-      <div class="FAQHeader" style="text-align:left;position:relative;width:975;color:#555555">
-      Frequently Asked Questions
+  <body>  
+    <!-- Wrapper: Border must be there for footer-->
+    <div class="wrapper" style="border: 1px solid #FFF;">
+
+      <!-- Content -->
+      <div style="text-align: right;
+		  width: 975px;
+		  margin: 49 auto;
+		  ">
+
+	<!-- Header Container-->
+	<div style="height:65;">
+	  <div style="float:right; text-align:right;">
+	    {% include "logo.html" %}
+	  </div>
+
+	  <!-- Menu -->
+	  <div class="topMenu">
+	    <a href="/create">Start</a>
+	    &nbsp;|&nbsp;
+	    <a href="/browse">Browse</a>
+	    &nbsp;|&nbsp;
+	    <a href="/user">My Hangouts</a>
+	    &nbsp;|&nbsp;
+	    <a href="/auth/logout">Logout</a>
+	  </div>
+	</div>
+      
+	<!-- Grey Box -->
+	<div class="faqList" style="text-align: left;width:975; background-color: #EEE;">
+	  
+	  <div class="FAQtext">
+	    <div class="FAQHeader">What is PBandMe?</div>
+	    PBandMe is a place for users to find and create get-togethers in their city.
+	  </div>
+	  
+	  <div class="FAQtext">
+	    <div class="FAQHeader">How does it work?</div>
+	    You can start your own hangout by giving us a simple description of what you want to do, including a time and place.
+	    Other people can browse the site for fun-looking hangouts, check who's going, and RSVP. It’s that easy. 
+	  </div>
+	  
+	  <div class="FAQtext">
+	    <div class="FAQHeader">Who can use the site?</div>	
+	    Right now the service only available to people who live in Pittsburgh PA.
+	  </div>
+
+	  <div class="FAQtext">
+	    <div class="FAQHeader">Why do I need to connect with Facebook?</div>	
+	    We're working hard to implement a way of filtering hangouts by how similar you are with other people going.
+	    This will make discovering people you want to hang with even easier.
+	  </div>
+
+	  <div class="FAQtext">
+	    <div class="FAQHeader">Why does your site suck so much?</div>	
+	    This is a very early version of the site, that we've launched to get feedback. If you’ve found a bug or have a suggestion, please <a href="mailto:info@pband.me"><b>drop us a line</b></a>.  
+	  </div>
+
+	<!-- End Grey Box -->
+	</div>
+
+	<!-- Page Container -->
+	<div class="push"></div>
+
+      <!-- End Content -->
       </div>
-	<div class="FAQBodyText">
-		<div class="FAQHeader">Who is PB for?</div>
-		PB is for anyone who’s ever wondered why it’s so difficult to meet new people in their city. 
-
-		<div class="FAQHeader">What does it do?</div>
-		PB is a place where users can find and create hangouts to make friends with people in their city.
-
-		<div class="FAQHeader">How does it work?</div>
-		People like you can create casual hangouts by giving us a simple description of what you want to do, including a time and place.
-		Other people can browse the site for fun-looking hangouts, scope out who's going, and RSVP. It’s that easy. 
-
-		<div class="FAQHeader">Who can use the site?</div>	
-		Right now the service only available in a limited Beta to residents of Pittsburgh, PA.
-
-		<div class="FAQHeader">Why do I need to connect with Facebook?</div>	
-		We're working hard to implement a feature that will filter hangouts by how similar you are with other people going. We’re going to use your Facebook “likes” to for our matching algorithm. This will make discovering which neighbors are like you even easier.
-
-		<div class="FAQHeader">Why does your site suck so much?</div>	
-		This is a very early version of the site, that we've launched to get feedback. If you’ve found a bug or have a suggestion, please <a href="mailto:info@pband.me">drop us a line</a>.  
-
-		<div class="FAQHeader">Who are you anyway?</div>
-		Visit our <a href="/about"> about page </a> or any of our hangouts to get to know us better.
-	</div>
+      
+    <!-- End Wrapper -->
     </div>
-	  {% include "page-footer.html" %}
-	</div>
+
+    <!-- Footer -->
+    {% include "page-footer.html" %}
+    
   </body> 
 </html>

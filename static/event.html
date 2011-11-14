@@ -4,85 +4,87 @@
     {% include "googanalysis.html" %}
   </head>
   <body>
-    <div style="margin-left: auto;margin-right: auto;width: 975;">
-    <div style="text-align:right;margin-top: 50px;">
-      {% include "logo.html" %}
-    </div>
-      
-      
-      <!-- Event Title -->
-      <!--
-	  <div class="eventHeader" style="margin-top:20px;margin-bottom:-10px;">
-	<div class="tagLine" style="font-weight:normal;text-align:left;font-size:40;">
-	  {{ title }} 
-	</div>
-      </div>
-	  -->
+    <!-- Wrapper: Border must be there for footer-->
+    <div class="wrapper" style="border: 1px solid #FFF;">
 
-      <!-- Edit Button -->
-      <!--
-	  {% if editable %}
-	  <div style="">
-	    <input class="editButton" style="" type="submit" value="Edit" onclick="window.location='/edit?event={{ key }}'">
+      <!-- Content -->
+      <div style="text-align: right;
+		  width: 975px;
+		  margin: 49 auto;
+		  ">
+
+	<!-- Header Container-->
+	<div style="height:65;">
+	  <div style="float:right; text-align:right;">
+	    {% include "logo.html" %}
 	  </div>
-	  {% endif %}
-	  -->
 
+	  <!-- Menu -->
+	  <div class="topMenu">
+	    <a href="/create">Start</a>
+	    &nbsp;|&nbsp;
+	    <a href="/browse">Browse</a>
+	    &nbsp;|&nbsp;
+	    <a href="/user">My Hangouts</a>
+	    &nbsp;|&nbsp;
+	    <a href="/auth/logout">Logout</a>
+	  </div>
+	</div>
       
-      <!-- Event Info Box -->
-      <div style="background: #EEE;
-		  padding: 15px;
-		  height: 105px;
-		  color: #FFF">
+	<!-- Grey Box -->
+	<div style="text-align: left;width:975;">
 
-	<!-- Inner Container-->
-	<div class="subHeaderText" style="color: #777;">
-
-	  <!-- Generate # of people attending -->
-	  <div class="memberNumberBrowse" style="font-style: normal;
-						 text-align:center;
-						 height:85px;
-						 width:60px;
-						 float:right;
-						 margin-right:20;">
-	    {{ members|length }}
-	    <div style="font-size:12;letter-spacing:0px;">
-	      {% if members|length < 2 %}
-		person
-	      {% else %}
-		people
-	      {% endif %}
+	  <!-- Event Info Box -->
+	  <div class="eventInfoBox">
+	    
+	    <!-- Generate Number -->
+	    <div class="memberNumberBrowse" style="float:right;
+						   font-style: normal;">
+	      {{ members|length }}
+	      <div style="font-size:12; margin-top:-6">
+		{% if members|length < 2 %}
+                  person
+	        {% else %}
+		  people
+	        {% endif %}
+	      </div>
+	    <!-- End of Number -->
 	    </div>
+
+	    <!-- Edit Button -->
+	    {% if editable %}
+	    <div style="float: right; margin: 80 -60 0 0;">
+	      <input class="editButton" type="submit" value="Edit" onclick="window.location='/edit?event={{ key }}'">
+	    </div>
+	    {% endif %}
+	    <!-- End Edit Button -->
+	    
+	    <!-- Event Info -->
+	    <div class="eventInfo">
+	      <b>{{ title }}</b>
+	      <br>
+	      {{ datetime }} at <b>{{ location }}</b>
+	    </div>
+
+	    <!-- Description -->
+	    {% if description %}
+	    <br>
+	      {{ description }}<br>
+	    {% endif %}
+	    
+	  <!-- End Info Box -->
 	  </div>
-	  <!-- End # -->
-	  
-	  <span style="font-family: helvetica;font-style:normal;font-size:30pt;color: #5CADFF">
-	    <b>{{ title }}</b><br>
-	    {{ datetime }} at <b>{{ location }}<b>
-	  {% if description %}
-	  <br>
-	  <B>Description:</b><br>
-	  {{ description }}<br>
-	  {% endif %}
-	  </span>
-	<!-- End Inner Container -->
-	</div>
-	
-      <!-- End Info Box -->
-      </div>
-      
 	
 	<!-- Join Button -->
 	{% if join_button %}
-	<div style="text-align:center;l">
+	<div style="text-align: center;">
 	  <input class="joinButton"
-		 style="margin-top: 20;color: #FFF;width:300"
+		 style="margin-top: 20; color: #FFF; width:300"
 		 onclick="window.location='/join?key={{ key }}'"
 		 type="Button" value="I'll Come Too!">
 	</div>
 	{% endif %}
 
-	
 	<!-- List of Users -->
 	<!--
 	    <div style="margin-top:20px">
@@ -93,37 +95,47 @@
 	      {% endfor %}
 	    </div>
 	-->
-
 	
 	<!-- Comments Area -->
 	<form action="/post" method="post" name="post">
-	    <textarea class='formElement'
+	    <textarea class="formElement"
 		      onclick="if (value == 'Got a question about this hangout? Ask it here...') {value='';} else {value=value;};"
 		      onfocus="if (value == 'Got a question about this hangout? Ask it here...') {value='';} else {value=value;};"
 		      name="comment_content"
 		      style="margin-top:20;width:100%;height:150px;">Got a question about this hangout? Ask it here...</textarea>
 	  <input type="hidden" name="event_key" value="{{ key }}">
-	  <input class="createButton" type="submit" style="background-color:#F90;border-color:#F90;" value="Comment" onclick='document.form[0].submit()'>
+	  <input class="createButton" type="submit" value="Comment" onclick='document.form[0].submit()'>
 	  <input class="resetButton" type="reset" value="Reset" >
 	</form>
 
-
 	<!-- List of Posts -->
-	<div style="margin-top:20px;">
+	<div class="commentList">
 	  {% for p in posts %}
-	  <div class="ResultsText" style="height: 50px;margin: 0px;font-size: 18;background-color: {% cycle #EEE,#DDD %};">
-	    <img style="background:#FFF;padding: 1px;margin-right: 10px;float:left;"
-		 src="/profilepic?key={{ p.author.key }}"><b>{{ p.author.name }} says...</b>
-	    <br>
-	    {{ p.content }}
+
+	  <!-- Post -->
+	  <div class="ResultsText" style="height: 50px; margin: 0px; font-size: 18; background-color: {% cycle #EEE,#DDD %};">
+	    <img class="commentPicture"src="/profilepic?key={{ p.author.key }}">
+	    <b>{{ p.author.name }} says...</b>
+	    <p>{{ p.content }}
 	  </div>
+
 	  {% endfor %}
 	</div>
 
-	
-	<!-- Footer -->
-	<div style="position: relative;" style="font-weight: bold;">
-	  {% include "page-footer.html" %}</div>
+	<!-- End Grey Box -->
+	</div>
+
+	<!-- Page Container -->
+	<div class="push"></div>
+
+      <!-- End Content -->
+      </div>
+      
+    <!-- End Wrapper -->
     </div>
+
+    <!-- Footer -->
+    {% include "page-footer.html" %}
+    
   </body> 
 </html>

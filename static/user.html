@@ -44,7 +44,8 @@
 	<div style="text-align: left;width:975;">
 	
 	  <!-- List of Events -->
-          {% for event in events %}
+          {% if event|length > 1 %}
+	  {% for event in events %}
 	  <div class="ResultsText" style="font-size: 18;background-color: {% cycle #EEE,#DDD %};">
 	    <a href="/event?key={{ event.key }}">
 	      <b>{{ event.title }}</b> at <b>{{ event.location }}</b>
@@ -61,7 +62,12 @@
 	    </span>
 	  </div>
 	  {% endfor %}
-	 
+
+	  {% else %}
+	  <div class="ResultsText" style="font-size: 18;background-color: #EEE;">
+	  You haven't joined any hangouts yet. Try <A href="/browse"><b>browsing</b></a> for one or <a href="/create"><b>start your own!</b></a>
+	  </div>
+	 {% endif %}
 	<!-- End Grey Box -->
 	</div>
 

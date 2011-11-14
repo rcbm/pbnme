@@ -82,66 +82,76 @@ html, body { height: 100%;
           color: #ffffff;
           background: #5CADFF;
           font-weight: bold;
-	      border: 10px solid #5CADFF;
+	  border: 10px solid #5CADFF;
           font-family: helvetica;
           font-size: 20;
 	   
 }
+.eventInfo {
+	  text-align: left;
+          font-family: helvetica;
+	  letter-spacing: -1px;
+	  font-style:normal;
+	  font-size:30pt;
+	  color: #5CADFF;
+}
+.eventInfoBox {
+	  background: #EEE;
+	  padding: 25px;
+	  height: 110;
+	  margin: 0;
+}
 .editButton {
-          //margin: -30 0 0 0;
-	  width: 75px;
-	  height: 40px;
+          text-align: center;
+	  height: 30px;
+	  width: 60px;
 	  color: #FFF;
-	  font-weight:bold;background: #5CADFF;
+	  font-weight: bold;
+	  background: #5CADFF;
           border: 5px solid #5CADFF;
           font-family: helvetica;
-          font-size: 18;
-}
-.cancelButton {
-          color: #ffffff;
-          background: #5CADFF;
-          border: 15px solid #5CADFF;
-          font-family: helvetica;
-          font-size: 20;
-	  font-style: bold;
-    	  margin-top:20;
-    	  margin-left: 0;
-    	  margin-right:2px;
-    	  font-weight:bold;
+          font-size: 14;
 }
 .resetButton {
-          color: #ffffff;
-          //background: #5CADFF;
-          //border: 15px solid #5CADFF;
+          color: #FFF;
           background: #EE4D4D;
 	  border: 15px solid #EE4D4D;
 	  font-family: helvetica;
           font-size: 20;
     	  font-style: bold;
-    	  margin-top:20;
-    	  margin-left: 0;
-    	  margin-right:2px;
-    	  font-weight:bold;
+    	  margin: 20 2 0 0;
+	  font-weight: bold;
 }
 .createButton {
-          color: #ffffff;
-          background: #33CC33;
-          border: 15px solid #33CC33;
-          font-family: helvetica;
+          color: #FFF;
+          background-color: #F90;
+	  border: 15px solid #F90;
+	  font-family: helvetica;
           font-size: 20;
-	  margin-top:20;
-	  margin-left: 0;
-	  margin-right:2px;
-	  font-weight:bold;
+	  margin: 20 2 0 0;
+	  font-weight: bold;
 }
-.BodyText {
-          font-family: helvetica;
-          font-size: 25;
-          color: #777777;
-          text-align: left;
-          margin-top: 15px;
-          margin-left: auto;
-          margin-right: auto;
+.eventList {
+	  height: 600;
+	  overflow-x:hidden; 
+	  overflow-y:scroll;
+}
+.faqList {
+	  height: 600;
+	  overflow-x:hidden; 
+	  overflow-y:scroll;
+}
+.commentList {
+	  margin-top:20px;
+	  height: 300;
+	  overflow-x:hidden; 
+	  overflow-y:scroll;
+}
+.commentPicture {
+	  background: #FFF;
+	  padding: 1px;
+	  margin-right: 10px;
+	  float: left;
 }
 .startButton {
           color: #fffff;
@@ -292,22 +302,6 @@ P.blocktext {
 	  margin-right: 0;
 	  //font-style: italic;
 }
-.subHeaderText {
-	  position:relative;
-	  letter-spacing: -1px;
-	  font-family: times, Times New Roman, times-roman, georgia, serif;
-          font-style: italic;
-          font-size: 24pt;
-          color: #aaa;
-          text-align: left;
-          margin-top: 0px;
-	  margin-bottom: 0px;
-	  margin-left: 0%;
-	  padding: 10px;
-}
-.graph {
-         background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAIElEQVQIHWNMrLzlw4ADsIDE57WpbsEmz4RNECY2EJIA5doEDY8lKVEAAAAASUVORK5CYII=);
-}
 .divRight {
       position:relative;
       top: -150px;
@@ -335,14 +329,12 @@ P.blocktext {
 	  font-family: helvetica;
           font-size: 42pt;
           font-weight: bold;
-	  #color: #ff0066;
-          color: #5CADFF;
-          #color: #777777;
-	  vertical-align: middle;
+	  color: #5CADFF;
+          vertical-align: middle;
 	  text-align: center;
 	  background-color: #FFF;
 	  height:80px;
-	  width:60px;
+	  width: 60px;
 	  float:left;
 	  margin-right:20;
 }
@@ -387,42 +379,31 @@ A:visited {text-decoration: none;color: #999;}
 A:active {text-decoration: none;color: #999;}
 A:hover {text-decoration: none;color: #3399ff;}
 
-.bioImage {
-	    float: left;
-        text-align: left;
-        border: 2px solid #DDDDDD;
-}
-
-.bioCopy {
-        color: #353535;
-        font-family: georgia;
-        font-size: 20;
-        margin: auto;
-        text-align: left;     
-}
-
-.FAQHeader {
-	  position:relative;
-	  letter-spacing: -1px;
-	  font-family: times, Times New Roman, times-roman, georgia, serif;
-          font-style: italic;
-          font-weight: bold;
+.bioHeader {
           font-size: 24pt;
-          color: #CC0099;
-          text-align: left;
-          margin-top: 0px;
-	      margin-bottom: 0px;
-	      margin-left: 0%;
-	      padding-top: 30px;
-	      padding-bottom: 5px;
+	  margin-bottom:10px;
+	  font-family: georgia;
 }
-
-.FAQBodyText {
+.bioCopy {
+	  color: #555;
           font-family: helvetica;
-          font-size: 22px;
-          color: #353535;
+	  font-size: 18pt;
+}
+.FAQHeader {
+	  font-size: 24pt;
+	  margin-bottom:5px;
+	  font-weight:bold;
+	  color: #5CADFF;
+}
+.FAQtext {
+	  font-family: helvetica;
+          font-size: 20pt;
+          color: #777777;
           text-align: left;
-          margin-top: 15px;
           margin-left: auto;
-          margin-right: auto;
+	  margin-right: auto;
+	  border-bottom-color: #FFFFFF;
+	  border-bottom-style: solid;
+	  border-bottom-width: 1px;
+	  padding: 20px;
 }
