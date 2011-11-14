@@ -104,7 +104,7 @@ html, body { height: 100%;
 }
 .eventInfo {
 	  //border: 2px solid red;
-	  width: 700;
+	  width: 800;
 	  height: 105;
 	  text-align: left;
           font-family: helvetica;
@@ -151,12 +151,12 @@ html, body { height: 100%;
 	  font-weight: bold;
 }
 .eventList {
-	  height: 515;
+	  height: 500;
 	  overflow-x: hidden; 
 	  overflow-y: auto;
 }
 .faqList {
-	  height: 550;
+	  height: 500;
 	  overflow-x:hidden; 
 	  overflow-y:auto;
 }
