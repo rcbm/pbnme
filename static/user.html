@@ -44,7 +44,7 @@
 	<div style="text-align: left;width:975;">
 	
 	  <!-- List of Events -->
-          {% if event|length > 1 %}
+          {% if events|length > 1 %}
 	  {% for event in events %}
 	  <div class="ResultsText" style="font-size: 18;background-color: {% cycle #EEE,#DDD %};">
 	    <a href="/event?key={{ event.key }}">

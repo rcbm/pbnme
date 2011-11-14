@@ -1,16 +1,8 @@
 '''
 HTML BUGS
 ------------------------
-- scrollbar appears when theres nothing to scroll on event comments
 - text wraps on event info 
 - footer index.html
-scrollbar shows up where it shouldnt have to
-
-
-
-
-
-
 
 
 
@@ -245,6 +237,7 @@ class Unjoin(BaseHandler):
             event.put()
             
         self.redirect('/user')
+
         
 class UnjoinTask(BaseHandler):
     #### SHOULD THIS GO BACK TO THE EVENTS AND REMOVE THE USER FROM THE LIST?
@@ -327,7 +320,7 @@ class Browse(BaseHandler):
         self.response.out.write(template.render('static/browse.html', { 'linktext': self.linktext,
                                                                         'events': events }))
 
-        
+
 class CreatePage(BaseHandler):
     def get(self):
         self.response.out.write(template.render('static/create.html', {'linktext': self.linktext}))
@@ -375,6 +368,7 @@ class EditPage(BaseHandler):
         else:
             self.redirect('/auth/login')
 
+            
 class ProfilePic(BaseHandler):
     def get(self):
         picture = db.get(self.request.get('key')).picture
@@ -398,6 +392,7 @@ class UserPage(BaseHandler):
                                                                           'events': events }))
         else:
             self.redirect('/auth/login')
+
             
         """
         ## IMAGES STUFF

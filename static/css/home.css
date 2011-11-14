@@ -35,8 +35,24 @@ html, body { height: 100%;
 	 height: 100%;
 	 margin: 0 auto -75px; /* the bottom margin is the negative value of the footer's height */
 }
+.frontWrapper {
+	 min-height: 100%;
+	 height: auto !important;
+	 height: 100%;
+	 margin: 0 auto -125px; /* the bottom margin is the negative value of the footer's height */
+}
 .push {
 	 height: 75px; /* .push must be the same height as .footer */
+}
+.frontPush {
+	 height: 125px; /* .push must be the same height as .frontfooter */
+}
+.frontFooterContainer {
+          margin: 00 auto;
+	  width: 975;
+	  background-color: #353535;
+	  color: #FFF;
+	  height: 125px;
 }
 .footerContainer {
 	margin: 0 auto;
