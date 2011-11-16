@@ -280,6 +280,14 @@ class Browse(BaseHandler):
         self.response.out.write(template.render('static/browse.html', { 'linktext': self.linktext,
                                                                         'events': events }))
 
+class Future(BaseHandler):
+    def get(self):
+        weekdays = ['Mon.', 'Tues.', 'Wed.', 'Thurs.', 'Fri.', 'Sat.', 'Sun.',]
+        now = str(datetime.now()).split('.')[0]
+        events = db.GqlQuery("SELECT * FROM Event WHERE datetime > DATETIME('%s') AND active=True LIMIT 100" % now)
+        self.response.out.write(template.render('static/future.html', { 'linktext': self.linktext,
+                                                                        'events': events }))
+
 class Score(BaseHandler):
     def get(self):
         from random import randrange
