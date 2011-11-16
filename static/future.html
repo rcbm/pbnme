@@ -40,10 +40,13 @@
 	  {% for event in events %}
 	  <!-- good green: CCFFCC -->
 	  {% if event.score %}
-	  {% if event.score > 50%}
-	  <div class="ResultsText" style="background-color: CCFFCC;">
+	  {% if event.score > 60%}
+	  <div class="ResultsText" style="background-color: #CCFFCC;">
+	  {% else %}{% if event.score > 30%}
+	  <div class="ResultsText" style="background-color: #DBFFDB;">
 	  {% else %}
 	  <div class="ResultsText" style="background-color: {% cycle #EEE,#DDD %};">
+	  {% endif %}
 	  {% endif %}
 	  {% else %}
 	  <div class="ResultsText" style="background-color: {% cycle #EEE,#DDD %};">
