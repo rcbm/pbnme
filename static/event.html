@@ -57,13 +57,14 @@
 	    </div>
 	    {% endif %}
 	    <!-- End Edit Button -->
+
 	    
 	    <!-- Event Info -->
 	    <div class="eventInfo">
 	      <b>{{ event.title }}</b> <span style="color: #AAA">at <b>{{ time }}</b> on <b>{{ weekday }} {{ date }}</b>
 	      at</span> <b>{{ event.location }}</b>
 	    </div>
-	    
+
 	    <!-- Description -->
 	    {% if event.description %}
 	    <br>{{ event.description }}<br>
@@ -82,16 +83,24 @@
 	</div>
 	{% endif %}
 
-	<!-- List of Users -->
-	<!--
-	    <div style="margin-top:20px">
-	      {% for event.user in members %}
+	<!-- Attendees -->
+	<div class="ResultsText" style="margin-top:20; background-color: #EEE;">
+	    {% for user in members %}
+	    <a href="{{ user.profile_url }}">
+	    <img src="/profilepic?key={{ user.key }}" style="margin:0;border: 1px solid white;">
+	    </a>
+	    {% endfor %}
+	</div>
+	
+	    <!-- List of Users -->
+	    <!--<div style="margin-top:20px">
+	      {% for user in members %}
 	      <div class="ResultsText" style="font-size:18;background-color: {% cycle #EEE,#DDD %};">
-		{{ event.user.email }}
+		{{ user.name }}
 	      </div>
 	      {% endfor %}
 	    </div>
-	-->
+	    -->
 	
 	<!-- Comments Area -->
 	<form action="/post" method="post" name="post">

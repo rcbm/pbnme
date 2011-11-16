@@ -11,7 +11,6 @@ class fbUser(db.Model):
     access_token = db.StringProperty(required=True)
     picture = db.BlobProperty(default=None)
     likes = db.StringListProperty(default=None)
-    mattlikes = db.StringListProperty(default=None)
     events = db.ListProperty(db.Key)
 
     
@@ -25,7 +24,7 @@ class Event(db.Model):
     location = db.StringProperty(default=None)
     members = db.ListProperty(db.Key)
     posts = db.ListProperty(db.Key)
-
+    score = db.IntegerProperty()
     
 class Post(db.Model):
     created = db.DateTimeProperty(auto_now_add=True)

@@ -213,7 +213,8 @@ class EventPurge(BaseHandler):
         eventKey = self.request.get('key')
         event = db.get(eventKey)
         for event_member in event.members:
-            taskqueue.add(url="/unjointask", params={'userKey': event_member,
+            taskqueue.add(url="/unjointask", params={'scores': [29, 53, 75, 92, 31],
+                                                     'userKey': event_member,
                                                      'eventKey': eventKey})
             # step 2. delete the group itself
             taskqueue.add(url="/deletetask", params={'key': eventKey})
@@ -271,6 +272,25 @@ class Join(BaseHandler):
             self.redirect('/auth/login')
 
             
+class Browse(BaseHandler):
+    def get(self):
+        weekdays = ['Mon.', 'Tues.', 'Wed.', 'Thurs.', 'Fri.', 'Sat.', 'Sun.',]
+        now = str(datetime.now()).split('.')[0]
+        events = db.GqlQuery("SELECT * FROM Event WHERE datetime > DATETIME('%s') AND active=True LIMIT 100" % now)
+        self.response.out.write(template.render('static/browse.html', { 'linktext': self.linktext,
+                                                                        'events': events }))
+
+class Score(BaseHandler):
+    def get(self):
+        from random import randrange
+        now = str(datetime.now()).split('.')[0]
+        events = db.GqlQuery("SELECT * FROM Event WHERE datetime > DATETIME('%s') AND active=True LIMIT 100" % now)
+        for event in events:
+            event.score = randrange(0 ,100)
+            print '%s - %s' %(event.title, event.score)
+            event.put()
+
+            
 class EventPage(BaseHandler):
     def get(self):
         weekdays = ['Mon.', 'Tues.', 'Wed.', 'Thurs.', 'Fri.', 'Sat.', 'Sun.',]
@@ -279,10 +299,12 @@ class EventPage(BaseHandler):
         event = db.get(key)
         time = event.datetime.time()
         date = '%s/%s' %(event.datetime.month, event.datetime.day)
+        members = [db.get(key) for key in event.members]
         editable = False if user and user.key() != event.creator.key() else True
         join_button = False if existing_user and existing_user.key() in event.members else True
         self.response.out.write(template.render('static/event.html', { 'weekday': weekdays[event.datetime.weekday()],
                                                                        'event': event,
+                                                                       'members': members,
                                                                        'time': time,
                                                                        'date': date,
                                                                        'editable': editable,
@@ -318,14 +340,6 @@ class MainPage(BaseHandler):
         self.response.out.write(template.render('static/index.html', { 'linktext': self.linktext,
                                                                        'events': events }))
         
-
-class Browse(BaseHandler):
-    def get(self):
-        now = str(datetime.now()).split('.')[0]
-        events = db.GqlQuery("SELECT * FROM Event WHERE datetime > DATETIME('%s') AND active=True LIMIT 100" % now)
-        self.response.out.write(template.render('static/browse.html', { 'linktext': self.linktext,
-                                                                        'events': events }))
-
 
 class CreatePage(BaseHandler):
     def get(self):

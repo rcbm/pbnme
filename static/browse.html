@@ -38,9 +38,18 @@
 	<!-- List of Events -->
 	<div class="eventList">
 	  {% for event in events %}
+	  <!-- good green: CCFFCC -->
+	  {% if event.score %}
+	  {% if event.score > 50%}
+	  <div class="ResultsText" style="background-color: CCFFCC;">
+	  {% else %}
 	  <div class="ResultsText" style="background-color: {% cycle #EEE,#DDD %};">
-	    
-	    <!-- Generate Number -->
+	  {% endif %}
+	  {% else %}
+	  <div class="ResultsText" style="background-color: {% cycle #EEE,#DDD %};">
+	  {% endif %}
+
+	  <!-- Generate Number -->
 	    <div class="memberNumberBrowse">
 	      {{ event.members|length }}
 	      <div style="font-size:12;margin-top:-6">
@@ -53,7 +62,10 @@
 	      <!-- End of Number -->
 	    </div>
 	    
-	    <a href="/event?key={{ event.key }}"><b>{{ event.title }}</b><br>{{ event.datetime }} at <b>{{ event.location }}</b></a>
+	    <a href="/event?key={{ event.key }}"><b>{{ event.title }}</b> <br><span style="color: #AAA">at <b>{{ event.datetime.time }}</b>
+		<b>{{ event.datetime.month}}/{{ event.datetime.day }}</b>
+	      at</span> <b>{{ event.location }}</b></a>
+
 	    <div style="clear:both"></div>
 	  </div>
 	  {% endfor %}

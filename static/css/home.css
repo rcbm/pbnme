@@ -107,6 +107,21 @@ b {
           font-size: 20;
 	   
 }
+.signinButton {
+          margin:25 auto;
+	  font-size: 24pt;
+	  width: 200;
+	  height: 60;
+	  text-align: center;
+	  vertical-align:bottom;
+	  color: #FFF;
+	  background: #133783;
+          font-weight: bold;
+	  border: 10px solid #133783;
+          font-family: helvetica;
+          font-size: 24pt;
+	   
+}
 .eventInfo {
 	  //border: 2px solid red;
 	  width: 800;
@@ -249,10 +264,10 @@ b {
           margin-left: auto;
 	  margin-right: auto;
 }
-.topMenu A:link { font-weight: 100;text-decoration: none;color: #666666; }
-.topMenu A:visited { font-weight: 100;text-decoration: none;color: #888888; }
-.topMenu A:active { font-weight: 100;text-decoration: none;color: #666666; }
-.topMenu A:hover { font-weight: 100;text-decoration: none;color: #3399ff; }
+.topMenu A:link { font-weight:100;text-decoration: none;color: #666666; }
+.topMenu A:visited { font-weight:100;text-decoration: none;color: #888888; }
+.topMenu A:active { font-weight:100;text-decoration: none;color: #666666; }
+.topMenu A:hover { font-weight:100;text-decoration: none;color: #3399ff; }
 
 .headline {
           font-family: times, Times New Roman, times-roman, georgia, serif;
