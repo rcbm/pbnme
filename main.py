@@ -1,4 +1,27 @@
 '''
+- Implement matching
+  - Store a copy of a person's likes
+  - Iterate through a person's friendslist and store their likes as well
+    ie. {'1223459': [like1, like2, like3], ...}
+
+    GOAL: predict if two people would be friends.
+    METHOD: for each person, compare their friends to them and use that as a thing
+    
+- Implement geocoding
+  - Should use matt's geocoding code as first pass
+  - Should geocode w/ google as second pass, store it in users's account
+
+- Overhaul times
+  - 'Noon','Midnight','Today','Tomorrow' should be parsed correctly
+  - JS should send the users' time via the POST method ; date()
+    * Local machine time is compared to JS time. The difference is used
+      to compute the 'computed time' (in UTC or wherever) and stored, for 
+      notifications and whatnot.
+    - default should not go to midnight but rather not have a time
+
+Google Prediction API
+- http://code.google.com/apis/predict/
+
 HTML BUGS
 ------------------------
 - when not logged in, clicking 'ill come' just sends to /user but doesnt join
@@ -18,14 +41,6 @@ If they try they'll get a polite message and a promise we'll contact them
 when its available in their city.
 QUICK N DIRTY: We have HTML5 code that works, need to test YQL backup code.
 Maybe Impliment this on /auth/login? 
-
-
-PEOPLE W/O FB:
-How do we deal w/ people who don't have facebook? Landing page?
-Where does this page go? How much stuff do we actually store?
-Do we need a list of friends... for the matching algorithm?
-QUICK N DIRTY: We don't.
-
 
 SORTING EVENTS:
 Users want to sort events by date, # of users, other things.
@@ -71,7 +86,6 @@ BUGS:
   their hangout info before logging them back in
 - "noon" goes to midnight
 
-
 Not Urgent
 _____________
 implement /join as an ajax call (using post())
@@ -94,55 +108,13 @@ Harder:
 
 DONE
 -------------
-- Bug where events dont seem to stick around
-- When a user makes an event it sometimes doesn't display in /user
-* add un-join button to /user (use UnjoinTask())
-* implement scrolling /browse events
-* add content to FAQ
-* add content to About
-When there are no hangouts in /browse or /user, add a 'create' message
-* add editing events
-  -- extrapolate existing /create UI to have hooks for populating w/ data
-- Fixed weird 'my hangouts / sign-in' text bug
-* Changed FBUpdateHandler into RefreshTask
-- Full profile info doesn't seem to be downloading... (check last-update seems broken)
-* implement expiring events
-Added robots.txt
-Add date conflict checking for create()
-Add flipping words for group on homepage (circle, group, crew, posse, gang, etc...)
-- Deleting one's hangouts seems broken
-* swap Google Users to FB
-- When a user who's logged in before, logs in again- their data (likes,pic) gets nuked
-[Add Facebook (http://developers.facebook.com/docs/reference/api/)]
-* pair down /create fields
-* add event comments
-* implement /delete as an ajax call (using post())
-* add # of people attending on main events list page
-* add hiding for non-owners, show a 'delete' group button on /user if zero-members in group
-* Add date/time
-* Template out /browse
-* Add location to pages and db
-* Template out /user
-* Check to see if I don't already belong to an event, if so don't show 'join' button
-* Join button should be hidden when viewing a group you already belong to
-* clicking on a comment always erases, should fix this
-* Make a FB login  w/ logo? (see: http://www.letsdrinktonight.com)
-  (check both event's members and user's events? -- these should not be out of sync)
-* add a way of showing some (or all) events on index.html
-Fix alignment issue w/ logo
-Break DeleteHandler into tasks
-Add a number system for people who are going to an event
-Fix security hole for directly accessing *.html files
-Change default-value in forms to change depending on FOCUS not on click
-Auto-Join people who create an event
-Change create() to redirect to event template
-Create event template
+- Kludge = 3 hour subtraction for time rather than actual timezone comparison
 
 '''
 
 import os
 import logging
-import datetime
+from datetime import datetime,timedelta
 from google.appengine.ext import db
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import template
@@ -188,7 +160,7 @@ class ExpireTask(BaseHandler):
 class ExpireDaemon(BaseHandler):
     # Looks for 100 events that are in the past and are still flagged as active
     def get(self):
-        now = str(datetime.now()).split('.')[0]
+        now = str(datetime.now() - timedelta(hours=5)).split('.')[0]
         events = db.GqlQuery("SELECT * FROM Event WHERE datetime < DATETIME('%s') AND active=True LIMIT 100" % now)
         for e in events:
             logging.info('INFO: Deactivating event: %s' % e.key())
@@ -198,15 +170,14 @@ class ExpireDaemon(BaseHandler):
 class FAQPage(BaseHandler):
     def get(self):
         user = self.current_user
-        self.response.out.write(template.render('static/faq.html', {'linktext': self.linktext}))
+        self.response.out.write(template.render('static/faq.html', { 'linktext': self.linktext }))
 
         
 class AboutPage(BaseHandler):
     def get(self):
         user = self.current_user
-        self.response.out.write(template.render('static/about.html', {'linktext': self.linktext}))
+        self.response.out.write(template.render('static/about.html', { 'linktext': self.linktext }))
 
-        
 class EventPurge(BaseHandler):
     # Takes an event by key and removes itself from all its members
     def post(self):
@@ -217,7 +188,7 @@ class EventPurge(BaseHandler):
                                                      'userKey': event_member,
                                                      'eventKey': eventKey})
             # step 2. delete the group itself
-            taskqueue.add(url="/deletetask", params={'key': eventKey})
+            taskqueue.add(url="/deletetask", params={ 'key': eventKey })
             
         
 class DeleteTask(BaseHandler):
@@ -275,15 +246,26 @@ class Join(BaseHandler):
 class Browse(BaseHandler):
     def get(self):
         weekdays = ['Mon.', 'Tues.', 'Wed.', 'Thurs.', 'Fri.', 'Sat.', 'Sun.',]
-        now = str(datetime.now()).split('.')[0]
+        now = str(datetime.now() - timedelta(hours=5)).split('.')[0]
         events = db.GqlQuery("SELECT * FROM Event WHERE datetime > DATETIME('%s') AND active=True LIMIT 100" % now)
         self.response.out.write(template.render('static/browse.html', { 'linktext': self.linktext,
                                                                         'events': events }))
+class Hunch(BaseHandler):
+    def get(self):
+        '''
+        url = 'http://api.hunch.com/api/v1/get-recommendations/?user_id=fb_rogercosseboom&topic_ids=list_movie&limit=10'
+        from django.utils import simplejson as json
+        thing = json.load(urllib2.urlopen(url))
+        self.response.out.write([s['title'] for s in thing['recommendations']])
+        '''
+        self.response.out.write(template.render('static/hunch.html', {}))
+        #self.redirect('http://www.hunch.com/authorize/v1?app_id=3147164&next=http://holy-mountain.appspot.com/')
 
+        
 class Future(BaseHandler):
     def get(self):
         weekdays = ['Mon.', 'Tues.', 'Wed.', 'Thurs.', 'Fri.', 'Sat.', 'Sun.',]
-        now = str(datetime.now()).split('.')[0]
+        now = str(datetime.now() - timedelta(hours=5)).split('.')[0]
         events = db.GqlQuery("SELECT * FROM Event WHERE datetime > DATETIME('%s') AND active=True LIMIT 100" % now)
         self.response.out.write(template.render('static/future.html', { 'linktext': self.linktext,
                                                                         'events': events }))
@@ -291,7 +273,7 @@ class Future(BaseHandler):
 class Score(BaseHandler):
     def get(self):
         from random import randrange
-        now = str(datetime.now()).split('.')[0]
+        now = str(datetime.now() - timedelta(hours=5)).split('.')[0]
         events = db.GqlQuery("SELECT * FROM Event WHERE datetime > DATETIME('%s') AND active=True LIMIT 100" % now)
         for event in events:
             event.score = randrange(0 ,100)
@@ -343,11 +325,10 @@ class EventPage(BaseHandler):
 
 class MainPage(BaseHandler):
     def get(self):
-        now = str(datetime.now()).split('.')[0]
+        now = str(datetime.now() - timedelta(hours=5)).split('.')[0]
         events = db.GqlQuery("SELECT * FROM Event WHERE datetime > DATETIME('%s') AND active=True LIMIT 100" % now)
         self.response.out.write(template.render('static/index.html', { 'linktext': self.linktext,
                                                                        'events': events }))
-        
 
 class CreatePage(BaseHandler):
     def get(self):
@@ -359,7 +340,6 @@ class CreatePage(BaseHandler):
             from dateutil import parser
             title = self.request.get('title')
             location = self.request.get('location')
-            now = datetime.now()
             time = self.request.get('time')
             date = self.request.get('date')
             event = Event(creator = user,

@@ -1,0 +1,17 @@
+<html>
+  <div id="hn-root"></div>
+<script>
+  window.hnAsyncInit = function() {
+      Hunch.setAuthToken('your-auth-token');
+  };
+  (function() {
+      var e = document.createElement('script'); e.async = true;
+      e.src = 'http://hunch.com/media/js/hunch-api.js';
+      document.getElementById('hn-root').appendChild(e);
+  }());
+</script>
+</head>
+<body>
+  <a style="text-decoration: none;" href="Hunch."><div style="font-family:georgia;font-size:100;text-align:center;width:100%;">blah</div></a>
+</body>
+</html>
